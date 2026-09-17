@@ -18,7 +18,7 @@ export function CartDrawer() {
         <div className="flex items-center gap-2.5 border-b border-line p-5">
           <ShoppingBag className="size-5 text-brand" />
           <DialogTitle className="font-display text-lg font-semibold text-ink">
-            Your cart
+            Votre panier
           </DialogTitle>
           <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-ink-muted">
             {cart.count}
@@ -31,13 +31,13 @@ export function CartDrawer() {
               <ShoppingBag className="size-6 text-ink-subtle" />
             </div>
             <div className="space-y-1">
-              <p className="font-medium text-ink">Your cart is empty</p>
+              <p className="font-medium text-ink">Votre panier est vide</p>
               <p className="text-sm text-ink-muted">
-                Browse the marketplace and add what your next project needs.
+                Parcourez la marketplace et ajoutez ce dont votre prochain projet a besoin.
               </p>
             </div>
             <Button asChild onClick={() => cart.closeCart()}>
-              <Link href="/marketplace">Explore marketplace</Link>
+              <Link href="/marketplace">Explorer la marketplace</Link>
             </Button>
           </div>
         ) : (
@@ -69,7 +69,7 @@ export function CartDrawer() {
                   <button
                     type="button"
                     onClick={() => cart.remove(item.productId)}
-                    aria-label={`Remove ${item.name}`}
+                    aria-label={`Retirer ${item.name}`}
                     className="h-fit cursor-pointer rounded-lg p-1.5 text-ink-subtle transition-colors hover:bg-danger/10 hover:text-danger"
                   >
                     <Trash2 className="size-4" />
@@ -80,7 +80,7 @@ export function CartDrawer() {
 
             <div className="space-y-4 border-t border-line bg-surface/80 p-5">
               <div className="flex items-baseline justify-between">
-                <span className="text-sm text-ink-muted">Subtotal</span>
+                <span className="text-sm text-ink-muted">Sous-total</span>
                 <span className="font-display text-xl font-semibold text-ink">
                   {formatPrice(cart.subtotal)}
                 </span>
@@ -88,13 +88,13 @@ export function CartDrawer() {
 
               <Button size="lg" className="w-full" asChild onClick={() => cart.closeCart()}>
                 <Link href="/checkout">
-                  <ShieldCheck /> Secure checkout
+                  <ShieldCheck /> Paiement sécurisé
                 </Link>
               </Button>
 
               <div className="flex items-center justify-center gap-1.5 text-xs text-ink-subtle">
                 <Zap className="size-3.5 text-success" />
-                Instant access after payment
+                Accès immédiat après paiement
               </div>
 
               <Link
@@ -102,7 +102,7 @@ export function CartDrawer() {
                 onClick={() => cart.closeCart()}
                 className="block text-center text-sm text-ink-muted transition-colors hover:text-ink"
               >
-                View full cart
+                Voir le panier complet
               </Link>
             </div>
           </>

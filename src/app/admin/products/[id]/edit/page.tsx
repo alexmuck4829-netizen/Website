@@ -5,7 +5,7 @@ import { ProductService } from '@/lib/services/product-service';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = { title: 'Edit product', robots: { index: false } };
+export const metadata: Metadata = { title: 'Modifier le produit', robots: { index: false } };
 
 export default async function EditProductPage({
   params,

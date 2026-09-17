@@ -31,7 +31,7 @@ export function PurchasedItems({ order }: { order: Order }) {
       const data = (await response.json()) as { url?: string; error?: string };
 
       if (!response.ok || !data.url) {
-        toast.error(data.error ?? 'Download failed.');
+        toast.error(data.error ?? 'Le téléchargement a échoué.');
         return;
       }
       window.location.href = data.url;
@@ -58,9 +58,9 @@ export function PurchasedItems({ order }: { order: Order }) {
               onClick={() => download(item.productId)}
               loading={downloading === item.productId}
             >
-              <Download /> Download Files
+              <Download /> Télécharger les fichiers
             </Button>
-            <Button variant="ghost" size="icon" asChild aria-label={`View ${item.name}`}>
+            <Button variant="ghost" size="icon" asChild aria-label={`Voir ${item.name}`}>
               <Link href={`/product/${item.slug}`}>
                 <ExternalLink />
               </Link>

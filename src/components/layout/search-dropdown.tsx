@@ -102,8 +102,8 @@ export function SearchDropdown({ className, autoFocus }: { className?: string; a
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
-          placeholder="Search maps, assets, GUI…"
-          aria-label="Search products"
+          placeholder="Rechercher maps, assets, GUI…"
+          aria-label="Rechercher un produit"
           role="combobox"
           aria-expanded={showDropdown}
           aria-controls="search-results"
@@ -116,7 +116,7 @@ export function SearchDropdown({ className, autoFocus }: { className?: string; a
               setTerm('');
               setResults([]);
             }}
-            aria-label="Clear search"
+            aria-label="Effacer la recherche"
             className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-ink-subtle transition-colors hover:text-ink"
           >
             {loading ? <Loader2 className="size-4 animate-spin" /> : <X className="size-4" />}
@@ -136,12 +136,13 @@ export function SearchDropdown({ className, autoFocus }: { className?: string; a
           >
             {loading && results.length === 0 ? (
               <div className="flex items-center gap-2.5 p-4 text-sm text-ink-muted">
-                <Loader2 className="size-4 animate-spin" /> Searching…
+                <Loader2 className="size-4 animate-spin" /> Recherche…
               </div>
             ) : results.length === 0 ? (
               <div className="p-4 text-sm text-ink-muted">
-                No results for <span className="text-ink">&ldquo;{term}&rdquo;</span>. Try
-                &ldquo;city&rdquo;, &ldquo;GUI&rdquo; or &ldquo;vehicle&rdquo;.
+                Aucun résultat pour <span className="text-ink">&laquo;&nbsp;{term}&nbsp;&raquo;</span>.
+                Essayez &laquo;&nbsp;ville&nbsp;&raquo;, &laquo;&nbsp;GUI&nbsp;&raquo; ou
+                &laquo;&nbsp;véhicule&nbsp;&raquo;.
               </div>
             ) : (
               <>
@@ -178,7 +179,7 @@ export function SearchDropdown({ className, autoFocus }: { className?: string; a
                   onClick={() => submit(term)}
                   className="w-full cursor-pointer border-t border-line px-4 py-3 text-left text-sm font-medium text-brand transition-colors hover:bg-white/[0.04]"
                 >
-                  See all results for &ldquo;{term}&rdquo;
+                  Voir tous les résultats pour &laquo;&nbsp;{term}&nbsp;&raquo;
                 </button>
               </>
             )}

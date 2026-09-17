@@ -7,7 +7,7 @@ import { ProductService } from '@/lib/services/product-service';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = { title: 'Products', robots: { index: false } };
+export const metadata: Metadata = { title: 'Produits', robots: { index: false } };
 
 export default async function AdminProductsPage() {
   const products = await ProductService.all(true);
@@ -16,14 +16,14 @@ export default async function AdminProductsPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Products</h1>
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Produits</h1>
           <p className="text-ink-muted">
-            Create, edit, price and publish everything in the store.
+            Créez, modifiez, tarifez et publiez tout ce que contient la boutique.
           </p>
         </div>
         <Button asChild>
           <Link href="/admin/products/new">
-            <Plus /> Create product
+            <Plus /> Créer un produit
           </Link>
         </Button>
       </header>

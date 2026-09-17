@@ -46,6 +46,7 @@ const config: Config = {
           yellow: 'rgb(var(--c-brick-yellow) / <alpha-value>)',
           green: 'rgb(var(--c-brick-green) / <alpha-value>)',
           orange: 'rgb(var(--c-brick-orange) / <alpha-value>)',
+          pink: 'rgb(var(--c-brick-pink) / <alpha-value>)',
         },
         gold: 'rgb(var(--c-gold) / <alpha-value>)',
         success: 'rgb(var(--c-success) / <alpha-value>)',

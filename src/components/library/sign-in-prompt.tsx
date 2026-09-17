@@ -32,7 +32,7 @@ export function SignInPrompt() {
       startTransition(() => router.refresh());
     } else {
       const data = (await response.json()) as { error?: string };
-      setError(data.error ?? 'Could not sign in.');
+      setError(data.error ?? 'Connexion impossible.');
       setLoading(false);
     }
   };
@@ -44,15 +44,15 @@ export function SignInPrompt() {
           <KeyRound className="size-5" />
         </span>
         <h1 className="font-display text-2xl font-bold tracking-tight text-ink">
-          Access your library
+          Accéder à ma bibliothèque
         </h1>
         <p className="text-sm text-ink-muted">
-          Enter the email address you used at checkout and your purchases appear here.
+          Saisissez l’adresse e-mail utilisée lors du paiement, vos achats apparaîtront ici.
         </p>
       </div>
 
       <form onSubmit={submit} className="space-y-4">
-        <Field label="Email address" error={error ?? undefined}>
+        <Field label="Adresse e-mail" error={error ?? undefined}>
           <Input
             type="email"
             required
@@ -63,13 +63,13 @@ export function SignInPrompt() {
           />
         </Field>
         <Button type="submit" size="lg" className="w-full" loading={loading}>
-          <Mail /> Continue
+          <Mail /> Continuer
         </Button>
       </form>
 
       <p className="text-center text-xs text-ink-subtle">
-        Demo authentication. Connect Supabase Auth for real accounts, magic links and password
-        recovery.
+        Authentification de démonstration. Connectez Supabase Auth pour de vrais comptes, des
+        liens magiques et la récupération de mot de passe.
       </p>
     </div>
   );

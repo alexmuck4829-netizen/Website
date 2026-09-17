@@ -6,7 +6,7 @@ import { AuthService, IS_DEV_AUTH } from '@/lib/services/auth-service';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Admin sign in',
+  title: 'Connexion administrateur',
   robots: { index: false, follow: false },
 };
 

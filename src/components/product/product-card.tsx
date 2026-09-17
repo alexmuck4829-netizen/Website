@@ -50,7 +50,7 @@ export function ProductCard({
       <Link
         href={`/product/${product.slug}`}
         className="relative block aspect-[16/10] overflow-hidden rounded-t-2xl bg-surface-overlay"
-        aria-label={`View ${product.name}`}
+        aria-label={`Voir ${product.name}`}
       >
         <Image
           src={product.thumbnail}
@@ -64,10 +64,10 @@ export function ProductCard({
 
         {/* Badges */}
         <div className="absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
-          {product.bestSeller && <Badge variant="best">Best seller</Badge>}
-          {product.newRelease && !product.bestSeller && <Badge variant="new">New</Badge>}
+          {product.bestSeller && <Badge variant="best">Meilleure vente</Badge>}
+          {product.newRelease && !product.bestSeller && <Badge variant="new">Nouveau</Badge>}
           {product.featured && !product.bestSeller && !product.newRelease && (
-            <Badge variant="popular">Popular</Badge>
+            <Badge variant="popular">Populaire</Badge>
           )}
           {discount > 0 && <Badge variant="sale">-{discount}%</Badge>}
         </div>
@@ -80,7 +80,7 @@ export function ProductCard({
               e.preventDefault();
               wishlist.toggle(product.id);
             }}
-            aria-label={wishlist.has(product.id) ? 'Remove from favourites' : 'Add to favourites'}
+            aria-label={wishlist.has(product.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}
             aria-pressed={wishlist.has(product.id)}
             className="grid size-9 cursor-pointer place-items-center rounded-lg border border-white/10 bg-black/55 text-white backdrop-blur-md transition-colors hover:border-brand/50 hover:bg-black/75"
           >
@@ -95,7 +95,7 @@ export function ProductCard({
                 e.preventDefault();
                 onQuickView(product);
               }}
-              aria-label={`Quick view ${product.name}`}
+              aria-label={`Aperçu rapide de ${product.name}`}
               className="grid size-9 cursor-pointer place-items-center rounded-lg border border-white/10 bg-black/55 text-white backdrop-blur-md transition-colors hover:border-brand/50 hover:bg-black/75"
             >
               <Eye className="size-4" />
@@ -142,7 +142,7 @@ export function ProductCard({
             size="icon"
             variant={inCart ? 'secondary' : 'primary'}
             onClick={() => (inCart ? cart.openCart() : (cart.add(product), cart.openCart()))}
-            aria-label={inCart ? `${product.name} is in your cart` : `Add ${product.name} to cart`}
+            aria-label={inCart ? `${product.name} est dans votre panier` : `Ajouter ${product.name} au panier`}
             className="shrink-0"
           >
             {inCart ? <Check className="text-success" /> : <ShoppingCart />}

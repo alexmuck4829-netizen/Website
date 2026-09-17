@@ -11,11 +11,11 @@ import { LogoMark } from '@/components/layout/logo';
 import { cn } from '@/lib/utils';
 
 const NAV = [
-  { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
-  { label: 'Products', href: '/admin/products', icon: Package },
-  { label: 'Orders', href: '/admin/orders', icon: Receipt },
-  { label: 'Media', href: '/admin/media', icon: FolderOpen },
-  { label: 'Site settings', href: '/admin/settings', icon: Settings },
+  { label: 'Tableau de bord', href: '/admin', icon: LayoutDashboard, exact: true },
+  { label: 'Produits', href: '/admin/products', icon: Package },
+  { label: 'Commandes', href: '/admin/orders', icon: Receipt },
+  { label: 'Médias', href: '/admin/media', icon: FolderOpen },
+  { label: 'Réglages du site', href: '/admin/settings', icon: Settings },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -72,18 +72,18 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         <div className="mt-auto space-y-2 border-t border-line pt-4">
           <Button variant="ghost" className="w-full justify-start" asChild>
             <Link href="/" target="_blank">
-              <ExternalLink /> View store
+              <ExternalLink /> Voir la boutique
             </Link>
           </Button>
           <Button variant="ghost" className="w-full justify-start" onClick={signOut}>
-            <LogOut /> Sign out
+            <LogOut /> Déconnexion
           </Button>
         </div>
       </aside>
 
       {/* Topbar — mobile */}
       <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-line bg-base/85 px-4 py-3 backdrop-blur-xl lg:hidden">
-        <Button variant="ghost" size="icon" onClick={() => setMobileNav(true)} aria-label="Open menu">
+        <Button variant="ghost" size="icon" onClick={() => setMobileNav(true)} aria-label="Ouvrir le menu">
           <Menu />
         </Button>
         <Link href="/admin" className="flex items-center gap-2">
@@ -92,7 +92,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </Link>
         <Button size="sm" className="ml-auto" asChild>
           <Link href="/admin/products/new">
-            <Plus /> New
+            <Plus /> Nouveau
           </Link>
         </Button>
       </header>
@@ -101,14 +101,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
-            aria-label="Close menu"
+            aria-label="Fermer le menu"
             className="absolute inset-0 cursor-default bg-black/70 backdrop-blur-sm"
             onClick={() => setMobileNav(false)}
           />
           <div className="absolute inset-y-0 left-0 flex w-64 flex-col border-r border-line bg-surface p-4">
             <div className="mb-6 flex items-center justify-between">
               <span className="font-display font-bold text-ink">Admin</span>
-              <Button variant="ghost" size="icon" onClick={() => setMobileNav(false)} aria-label="Close">
+              <Button variant="ghost" size="icon" onClick={() => setMobileNav(false)} aria-label="Fermer">
                 <X />
               </Button>
             </div>
@@ -116,11 +116,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <div className="mt-auto space-y-2 border-t border-line pt-4">
               <Button variant="ghost" className="w-full justify-start" asChild>
                 <Link href="/" target="_blank">
-                  <ExternalLink /> View store
+                  <ExternalLink /> Voir la boutique
                 </Link>
               </Button>
               <Button variant="ghost" className="w-full justify-start" onClick={signOut}>
-                <LogOut /> Sign out
+                <LogOut /> Déconnexion
               </Button>
             </div>
           </div>

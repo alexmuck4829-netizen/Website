@@ -9,7 +9,7 @@ export function ListEditor({
   items,
   onChange,
   placeholder,
-  addLabel = 'Add item',
+  addLabel = 'Ajouter une ligne',
   reorderable = true,
 }: {
   items: string[];
@@ -45,7 +45,7 @@ export function ListEditor({
                 type="button"
                 onClick={() => move(index, -1)}
                 disabled={index === 0}
-                aria-label="Move up"
+                aria-label="Monter"
                 className="cursor-pointer rounded p-0.5 text-ink-subtle transition-colors hover:text-ink disabled:cursor-not-allowed disabled:opacity-30"
               >
                 <ArrowUp className="size-3.5" />
@@ -54,7 +54,7 @@ export function ListEditor({
                 type="button"
                 onClick={() => move(index, 1)}
                 disabled={index === items.length - 1}
-                aria-label="Move down"
+                aria-label="Descendre"
                 className="cursor-pointer rounded p-0.5 text-ink-subtle transition-colors hover:text-ink disabled:cursor-not-allowed disabled:opacity-30"
               >
                 <ArrowDown className="size-3.5" />
@@ -66,7 +66,7 @@ export function ListEditor({
             variant="ghost"
             size="icon-sm"
             onClick={() => onChange(items.filter((_, i) => i !== index))}
-            aria-label="Remove"
+            aria-label="Retirer"
           >
             <X />
           </Button>
@@ -97,7 +97,7 @@ export function TagEditor({
   return (
     <div className="space-y-2.5">
       <Input
-        placeholder="Type a tag and press Enter"
+        placeholder="Saisissez un tag et appuyez sur Entrée"
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault();
@@ -117,7 +117,7 @@ export function TagEditor({
               <button
                 type="button"
                 onClick={() => onChange(tags.filter((t) => t !== tag))}
-                aria-label={`Remove ${tag}`}
+                aria-label={`Retirer ${tag}`}
                 className="cursor-pointer text-ink-subtle transition-colors hover:text-danger"
               >
                 <X className="size-3" />

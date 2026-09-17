@@ -9,37 +9,39 @@
    ========================================================= */
 @layer base {
   :root {
-    /* Surfaces: deep cool charcoal, marketplace-dense */
-    --c-base: 7 9 14;
-    --c-surface: 14 17 25;
-    --c-surface-raised: 20 24 34;
-    --c-surface-overlay: 27 32 45;
+    /* Surfaces: deep indigo-black. The purple cast gives the dark UI colour
+       life that a neutral charcoal cannot, without lifting the contrast. */
+    --c-base: 10 11 20;
+    --c-surface: 18 20 32;
+    --c-surface-raised: 26 29 45;
+    --c-surface-overlay: 36 40 60;
 
     /* Hairlines — thicker, brick-like edges */
-    --c-line: 34 40 55;
-    --c-line-strong: 52 61 82;
+    --c-line: 45 50 74;
+    --c-line-strong: 66 73 105;
 
     /* Type */
-    --c-ink: 240 243 250;
-    --c-ink-muted: 152 162 184;
-    --c-ink-subtle: 108 118 140;
+    --c-ink: 243 245 252;
+    --c-ink-muted: 165 174 202;
+    --c-ink-subtle: 118 128 160;
 
-    /* Brand: Roblox-brick blue -> electric cyan */
-    --c-brand: 0 132 255;
-    --c-brand-hover: 46 156 255;
-    --c-brand-soft: 12 42 82;
+    /* Brand: violet -> vivid blue -> cyan */
+    --c-brand: 59 130 246;
+    --c-brand-hover: 96 158 255;
+    --c-brand-soft: 24 38 84;
     --c-electric: 34 211 238;
-    --c-violet: 124 92 255;
+    --c-violet: 139 92 246;
 
-    /* Classic brick accents, used for categories and badges */
-    --c-brick-red: 244 86 86;
-    --c-brick-yellow: 255 189 46;
-    --c-brick-green: 58 214 133;
+    /* Classic brick accents, saturated for category identity */
+    --c-brick-red: 255 77 94;
+    --c-brick-yellow: 255 197 49;
+    --c-brick-green: 47 217 124;
     --c-brick-orange: 255 138 60;
+    --c-brick-pink: 236 72 153;
 
-    --c-gold: 255 189 46;
-    --c-success: 58 214 133;
-    --c-danger: 244 86 86;
+    --c-gold: 255 197 49;
+    --c-success: 47 217 124;
+    --c-danger: 255 77 94;
 
     /* Brick material: top highlight + bottom edge depth */
     --brick-top: rgb(255 255 255 / 0.1);
@@ -175,7 +177,25 @@
   }
 
   .brand-gradient-text {
-    @apply bg-brand-gradient bg-clip-text text-transparent;
+    @apply bg-brand-gradient-deep bg-clip-text text-transparent;
+  }
+
+  /* Section ambience — a coloured wash that keeps long pages from going grey */
+  .aura {
+    @apply pointer-events-none absolute inset-0 -z-10 overflow-hidden;
+  }
+  .aura::before,
+  .aura::after {
+    content: '';
+    @apply absolute rounded-full blur-[130px];
+  }
+  .aura::before {
+    @apply left-[-10%] top-[-30%] size-[32rem];
+    background: rgb(var(--c-violet) / 0.16);
+  }
+  .aura::after {
+    @apply right-[-10%] bottom-[-30%] size-[28rem];
+    background: rgb(var(--c-brand) / 0.16);
   }
 
   .glow-blob {

@@ -44,7 +44,7 @@ export function GalleryManager({
       {
         id: asset.id,
         url: asset.url,
-        alt: `${productName ?? 'Product'} screenshot ${sorted.length + 1}`,
+        alt: `${productName ?? 'Produit'} — capture ${sorted.length + 1}`,
         position: sorted.length,
       },
     ]);
@@ -59,7 +59,7 @@ export function GalleryManager({
         productName={productName}
         accept="image/png,image/jpeg,image/webp,image/avif"
         multiple
-        hint="PNG, JPG, WEBP or AVIF · up to 8 MB each · drop several at once"
+        hint="PNG, JPG, WEBP ou AVIF · 8 Mo max chacun · déposez-en plusieurs à la fois"
         onUploaded={handleUploaded}
         compact
       />
@@ -67,7 +67,7 @@ export function GalleryManager({
       {sorted.length === 0 ? (
         <p className="flex items-center gap-2 rounded-xl border border-line bg-surface/50 px-4 py-3 text-sm text-ink-subtle">
           <ImageIcon className="size-4" />
-          No screenshots yet. Buyers judge a product on these — add at least three.
+          Aucune capture pour l’instant. Les acheteurs jugent un produit là-dessus — ajoutez-en au moins trois.
         </p>
       ) : (
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -92,13 +92,13 @@ export function GalleryManager({
               <div className="flex items-center justify-between gap-1 p-2">
                 <div className="flex gap-0.5">
                   <IconAction
-                    label="Move left"
+                    label="Déplacer à gauche"
                     onClick={() => move(index, -1)}
                     disabled={index === 0}
                     icon={ChevronLeft}
                   />
                   <IconAction
-                    label="Move right"
+                    label="Déplacer à droite"
                     onClick={() => move(index, 1)}
                     disabled={index === sorted.length - 1}
                     icon={ChevronRight}
@@ -107,12 +107,12 @@ export function GalleryManager({
 
                 <div className="flex gap-0.5">
                   <IconAction
-                    label="Use as thumbnail"
+                    label="Utiliser comme miniature"
                     onClick={() => onPromoteToThumbnail(image.url)}
                     icon={Star}
                   />
                   <IconAction
-                    label="Delete"
+                    label="Supprimer"
                     onClick={() => reposition(sorted.filter((i) => i.id !== image.id))}
                     icon={Trash2}
                     danger
@@ -126,8 +126,8 @@ export function GalleryManager({
 
       {sorted.length > 0 && (
         <p className="text-xs text-ink-subtle">
-          The first image is shown first on the product page. Use the star to promote an image to
-          the product thumbnail.
+          La première image apparaît en premier sur la fiche produit. Utilisez l’étoile pour
+          promouvoir une image en miniature.
         </p>
       )}
     </div>

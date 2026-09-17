@@ -25,9 +25,9 @@ const NAV_LINKS = [
   { label: 'Assets', href: '/marketplace?category=assets' },
   { label: 'GUI', href: '/marketplace?category=gui' },
   { label: 'Scripts', href: '/marketplace?category=scripts' },
-  { label: 'Vehicles', href: '/marketplace?category=vehicles', wide: true },
+  { label: 'Véhicules', href: '/marketplace?category=vehicles', wide: true },
   { label: 'Packs', href: '/marketplace?category=packs', wide: true },
-  { label: 'New Releases', href: '/new-releases' },
+  { label: 'Nouveautés', href: '/new-releases' },
 ];
 
 /** Subscribes to scroll position without a setState-in-effect cascade. */
@@ -78,7 +78,7 @@ export function Navbar({
         <div className="container flex h-16 items-center gap-4 lg:h-[72px]">
           <Logo wordmarkTop={brand.wordmarkTop} wordmarkBottom={brand.wordmarkBottom} />
 
-          <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main">
+          <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigation principale">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href.split('?')[0] && !link.href.includes('?');
               return (
@@ -111,7 +111,7 @@ export function Navbar({
               size="icon"
               className="lg:hidden"
               onClick={() => setSearchOpen(true)}
-              aria-label="Search"
+              aria-label="Rechercher"
             >
               <Search />
             </Button>
@@ -120,7 +120,7 @@ export function Navbar({
               variant="ghost"
               size="icon"
               asChild
-              aria-label="Join our Discord"
+              aria-label="Rejoindre notre Discord"
               className="hidden sm:inline-flex"
             >
               <a href={discordUrl} target="_blank" rel="noopener noreferrer">
@@ -132,7 +132,7 @@ export function Navbar({
               variant="ghost"
               size="icon"
               asChild
-              aria-label="My library"
+              aria-label="Ma bibliothèque"
               className="hidden sm:inline-flex"
             >
               <Link href="/library">
@@ -143,7 +143,7 @@ export function Navbar({
             <button
               type="button"
               onClick={cart.openCart}
-              aria-label={`Cart, ${cart.count} item${cart.count === 1 ? '' : 's'}`}
+              aria-label={`Panier, ${cart.count} article${cart.count === 1 ? '' : 's'}`}
               className="relative grid size-10 cursor-pointer place-items-center rounded-xl text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
             >
               <ShoppingCart className="size-[18px]" />
@@ -162,7 +162,7 @@ export function Navbar({
             </button>
 
             <Button asChild className="ml-1 hidden md:inline-flex">
-              <Link href="/marketplace">Browse Marketplace</Link>
+              <Link href="/marketplace">Parcourir la marketplace</Link>
             </Button>
 
             <Button
@@ -170,7 +170,7 @@ export function Navbar({
               size="icon"
               className="xl:hidden"
               onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
+              aria-label="Ouvrir le menu"
             >
               <Menu />
             </Button>
@@ -185,7 +185,7 @@ export function Navbar({
             <DialogTitle asChild>
               <Logo wordmarkTop={brand.wordmarkTop} wordmarkBottom={brand.wordmarkBottom} />
             </DialogTitle>
-            <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
+            <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Fermer le menu">
               <X />
             </Button>
           </div>
@@ -204,7 +204,7 @@ export function Navbar({
               href="/library"
               className="rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
             >
-              My Library
+              Ma bibliothèque
             </Link>
             <a
               href={discordUrl}
@@ -217,7 +217,7 @@ export function Navbar({
           </nav>
           <div className="mt-auto border-t border-line p-4">
             <Button asChild size="lg" className="w-full">
-              <Link href="/marketplace">Browse Marketplace</Link>
+              <Link href="/marketplace">Parcourir la marketplace</Link>
             </Button>
           </div>
         </DialogContent>
@@ -226,7 +226,7 @@ export function Navbar({
       {/* Mobile search sheet */}
       <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogContent className="top-24 max-w-xl translate-y-0 p-4" showClose={false}>
-          <DialogTitle className="sr-only">Search products</DialogTitle>
+          <DialogTitle className="sr-only">Rechercher un produit</DialogTitle>
           <SearchDropdown autoFocus />
         </DialogContent>
       </Dialog>

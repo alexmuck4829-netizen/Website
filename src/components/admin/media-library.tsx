@@ -34,8 +34,8 @@ export function MediaLibrary({ assets }: { assets: MediaAsset[] }) {
     return (
       <EmptyState
         icon={<FolderOpen />}
-        title="No uploads yet"
-        description="Files you upload from a product's Media or Files tab appear here, with the product they belong to."
+        title="Aucun fichier téléversé"
+        description="Les fichiers téléversés depuis les onglets Médias ou Fichiers d’un produit apparaissent ici, avec le produit auquel ils appartiennent."
       />
     );
   }
@@ -48,7 +48,7 @@ export function MediaLibrary({ assets }: { assets: MediaAsset[] }) {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search files…"
+            placeholder="Rechercher un fichier…"
             className="pl-10"
           />
         </div>
@@ -58,9 +58,9 @@ export function MediaLibrary({ assets }: { assets: MediaAsset[] }) {
             <SelectValue placeholder="Type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All files</SelectItem>
+            <SelectItem value="all">Tous les fichiers</SelectItem>
             <SelectItem value="image">Images</SelectItem>
-            <SelectItem value="file">Product files</SelectItem>
+            <SelectItem value="file">Fichiers produits</SelectItem>
             <SelectItem value="document">Documents</SelectItem>
           </SelectContent>
         </Select>
@@ -88,7 +88,7 @@ export function MediaLibrary({ assets }: { assets: MediaAsset[] }) {
                     <FileArchive className="size-8" />
                   )}
                   <span className="flex items-center gap-1 text-xs text-success">
-                    <Lock className="size-3" /> private
+                    <Lock className="size-3" /> privé
                   </span>
                 </div>
               </div>
@@ -123,7 +123,7 @@ export function MediaLibrary({ assets }: { assets: MediaAsset[] }) {
       </ul>
 
       <p className="text-sm text-ink-subtle">
-        {filtered.length} files · {formatBytes(totalSize)} total
+        {filtered.length} fichiers · {formatBytes(totalSize)} au total
       </p>
     </div>
   );

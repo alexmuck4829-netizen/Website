@@ -41,7 +41,7 @@ export function Toolbar({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-ink-muted">
           <span className="font-semibold text-ink">{total}</span>{' '}
-          {total === 1 ? 'product' : 'products'}
+          {total === 1 ? 'produit' : 'produits'}
         </p>
 
         <div className="flex items-center gap-2">
@@ -51,7 +51,7 @@ export function Toolbar({
             className="lg:hidden"
             onClick={() => setFiltersOpen(true)}
           >
-            <SlidersHorizontal /> Filters
+            <SlidersHorizontal /> Filtres
           </Button>
 
           <Select value={sort} onValueChange={setSort}>
@@ -73,7 +73,7 @@ export function Toolbar({
                 key={value}
                 type="button"
                 onClick={() => onDensityChange(value)}
-                aria-label={value === 4 ? 'Compact grid' : 'Comfortable grid'}
+                aria-label={value === 4 ? 'Grille compacte' : 'Grille confortable'}
                 aria-pressed={density === value}
                 className={cn(
                   'grid size-8 cursor-pointer place-items-center rounded-lg transition-colors',
@@ -90,7 +90,7 @@ export function Toolbar({
       <Dialog open={filtersOpen} onOpenChange={setFiltersOpen}>
         <DialogContent side="bottom" className="p-0">
           <DialogTitle className="border-b border-line p-5 font-display text-lg font-semibold">
-            Filters
+            Filtres
           </DialogTitle>
           <FilterDrawerContent counts={counts} onClose={() => setFiltersOpen(false)} />
         </DialogContent>

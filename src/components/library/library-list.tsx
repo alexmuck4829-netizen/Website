@@ -27,10 +27,10 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
       const data = (await response.json()) as { url?: string; error?: string };
 
       if (!response.ok || !data.url) {
-        toast.error(data.error ?? 'Download failed.');
+        toast.error(data.error ?? 'Le téléchargement a échoué.');
         return;
       }
-      toast.success('Download link ready', { description: 'Valid for 5 minutes.' });
+      toast.success('Lien de téléchargement prêt', { description: 'Valable 5 minutes.' });
       window.location.href = data.url;
     } finally {
       setDownloading(null);
@@ -68,10 +68,10 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
                     <Badge variant="neutral">v{product.specs.version}</Badge>
                   </div>
                   <p className="text-sm text-ink-subtle">
-                    {CATEGORY_MAP[product.category]?.name} · Purchased {formatDate(purchasedAt)}
+                    {CATEGORY_MAP[product.category]?.name} · Acheté le {formatDate(purchasedAt)}
                   </p>
                   <p className="text-sm text-ink-muted">
-                    {product.files.length} file{product.files.length === 1 ? '' : 's'} ·{' '}
+                    {product.files.length} fichier{product.files.length === 1 ? '' : 's'} ·{' '}
                     {product.specs.fileSize}
                   </p>
                 </div>
@@ -81,15 +81,15 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
                     onClick={() => download(product.id)}
                     loading={downloading === product.id}
                   >
-                    <Download /> Download
+                    <Download /> Télécharger
                   </Button>
                   <Button variant="secondary" asChild>
                     <Link href={`/product/${product.slug}`}>
-                      <ExternalLink /> View Product
+                      <ExternalLink /> Voir le produit
                     </Link>
                   </Button>
                   <Button variant="ghost" onClick={() => setChangelogFor(product)}>
-                    <History /> Changelog
+                    <History /> Nouveautés
                   </Button>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
                       size="icon-sm"
                       variant="ghost"
                       onClick={() => download(product.id, file.id)}
-                      aria-label={`Download ${file.name}`}
+                      aria-label={`Télécharger ${file.name}`}
                     >
                       <Download />
                     </Button>
@@ -123,7 +123,7 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
       <Dialog open={!!changelogFor} onOpenChange={(open) => !open && setChangelogFor(null)}>
         <DialogContent className="max-h-[80vh] overflow-y-auto p-0">
           <DialogTitle className="border-b border-line p-5 font-display text-lg font-semibold">
-            {changelogFor?.name} — version history
+            {changelogFor?.name} — historique des versions
           </DialogTitle>
           <ol className="space-y-5 p-5">
             {changelogFor?.versions.map((version, i) => (
@@ -131,7 +131,7 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
                 <div className="flex flex-wrap items-baseline gap-2">
                   <span className="font-medium text-ink">Version {version.version}</span>
                   <span className="text-xs text-ink-subtle">{formatDate(version.releasedAt)}</span>
-                  {i === 0 && <Badge variant="success">Latest</Badge>}
+                  {i === 0 && <Badge variant="success">Actuelle</Badge>}
                 </div>
                 <ul className="space-y-1">
                   {version.changelog.map((entry) => (

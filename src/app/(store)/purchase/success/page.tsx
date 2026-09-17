@@ -12,7 +12,7 @@ import { formatPrice } from '@/lib/utils';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Purchase complete',
+  title: 'Achat terminé',
   robots: { index: false, follow: false },
 };
 
@@ -36,12 +36,12 @@ export default async function PurchaseSuccessPage({
           </span>
           <div className="space-y-2">
             <h1 className="font-display text-4xl font-bold tracking-tight text-ink">
-              Purchase Complete
+              Achat terminé
             </h1>
-            <p className="text-lg text-ink-muted">Your files are ready.</p>
+            <p className="text-lg text-ink-muted">Vos fichiers sont prêts.</p>
           </div>
           <p className="text-sm text-ink-subtle">
-            Order {order.reference} · {formatPrice(order.total)} · Confirmation sent to{' '}
+            Commande {order.reference} · {formatPrice(order.total)} · Confirmation envoyée à{' '}
             {order.customerEmail}
           </p>
         </header>
@@ -51,11 +51,11 @@ export default async function PurchaseSuccessPage({
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Button size="lg" variant="secondary" asChild>
             <Link href="/library">
-              <Library /> View My Library
+              <Library /> Voir ma bibliothèque
             </Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href="/marketplace">Keep browsing</Link>
+            <Link href="/marketplace">Continuer à explorer</Link>
           </Button>
         </div>
 
@@ -64,14 +64,14 @@ export default async function PurchaseSuccessPage({
             <LifeBuoy className="size-5" />
           </span>
           <div className="flex-1 space-y-0.5">
-            <p className="font-medium text-ink">Need help?</p>
+            <p className="font-medium text-ink">Besoin d’aide ?</p>
             <p className="text-sm text-ink-muted">
-              Setup questions, imports, customisation — ask in the Discord and someone will answer.
+              Installation, imports, personnalisation — posez la question sur le Discord, quelqu’un vous répondra.
             </p>
           </div>
           <Button variant="secondary" asChild>
             <a href={SITE.discordUrl} target="_blank" rel="noopener noreferrer">
-              <DiscordIcon /> Join our Discord
+              <DiscordIcon /> Rejoindre le Discord
             </a>
           </Button>
         </div>

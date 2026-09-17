@@ -25,7 +25,7 @@ type Params = Promise<{ slug: string }>;
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
   const product = await ProductService.bySlug(slug, true);
-  if (!product) return { title: 'Product not found' };
+  if (!product) return { title: 'Produit introuvable' };
 
   return {
     title: product.name,
@@ -70,9 +70,9 @@ export default async function ProductPage({ params }: { params: Params }) {
 
       <div className="container py-8 lg:py-12">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-1.5 text-sm">
+        <nav aria-label="Fil d’Ariane" className="mb-8 flex flex-wrap items-center gap-1.5 text-sm">
           <Link href="/" className="text-ink-subtle transition-colors hover:text-ink">
-            Home
+            Accueil
           </Link>
           <ChevronRight className="size-3.5 text-ink-subtle" />
           <Link href="/marketplace" className="text-ink-subtle transition-colors hover:text-ink">
@@ -91,8 +91,8 @@ export default async function ProductPage({ params }: { params: Params }) {
 
         {product.status !== 'published' && (
           <div className="mb-6 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-gold">
-            Admin preview — this product is <strong>{product.status}</strong> and is not visible to
-            customers.
+            Aperçu administrateur — ce produit est <strong>{product.status}</strong> et n’est pas
+            visible par les clients.
           </div>
         )}
 
@@ -116,7 +116,7 @@ export default async function ProductPage({ params }: { params: Params }) {
             <Reveal>
               <section className="space-y-4">
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
-                  About this product
+                  À propos de ce produit
                 </h2>
                 {product.description.split('\n\n').map((paragraph) => (
                   <p key={paragraph.slice(0, 32)} className="text-pretty leading-relaxed text-ink-muted">
@@ -148,8 +148,8 @@ export default async function ProductPage({ params }: { params: Params }) {
           <section className="space-y-8">
             <Reveal>
               <SectionHeading
-                title="You May Also Like"
-                description="Picked for matching style and scale, so they combine cleanly with this product."
+                title="Vous aimerez aussi"
+                description="Choisis pour leur style et leur échelle compatibles : ils se combinent proprement avec ce produit."
               />
             </Reveal>
             <ProductGrid products={related} columns={4} />

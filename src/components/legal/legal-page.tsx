@@ -8,7 +8,7 @@ import { SITE } from '@/lib/constants';
 export function LegalPage({
   title,
   intro,
-  updated = 'This template has not been dated yet',
+  updated = 'Ce modèle n’a pas encore été daté',
   children,
   showTemplateNotice = true,
 }: {
@@ -25,21 +25,21 @@ export function LegalPage({
           {title}
         </h1>
         <p className="text-pretty text-lg text-ink-muted">{intro}</p>
-        <p className="text-sm text-ink-subtle">Last updated: {updated}</p>
+        <p className="text-sm text-ink-subtle">Dernière mise à jour : {updated}</p>
       </header>
 
       {showTemplateNotice && (
         <div className="mt-8 flex items-start gap-3 rounded-2xl border border-gold/25 bg-gold/8 p-5">
           <AlertTriangle className="mt-0.5 size-5 shrink-0 text-gold" />
           <div className="space-y-1.5">
-            <p className="font-medium text-gold">Template — review before you publish</p>
+            <p className="font-medium text-gold">Modèle — à faire relire avant publication</p>
             <p className="text-sm leading-relaxed text-ink-muted">
-              This document is a starting point written for a digital goods store. It is{' '}
-              <strong className="text-ink">not legal advice</strong> and has not been reviewed by a
-              solicitor. Have it checked and adapted for your jurisdiction, your business structure
-              and your actual practices before relying on it. Consumer law — particularly around
-              refunds and digital content in the EU and UK — varies and may override terms written
-              here.
+              Ce document est un point de départ rédigé pour une boutique de biens numériques. Il ne
+              constitue <strong className="text-ink">pas un conseil juridique</strong> et n’a pas été
+              relu par un juriste. Faites-le vérifier et adapter à votre juridiction, à votre forme
+              juridique et à vos pratiques réelles avant de vous y fier. Le droit de la consommation
+              — en particulier sur les remboursements et le contenu numérique — varie et peut primer
+              sur ce qui est écrit ici.
             </p>
           </div>
         </div>
@@ -48,7 +48,7 @@ export function LegalPage({
       <div className="mt-10 space-y-8">{children}</div>
 
       <footer className="mt-12 border-t border-line pt-6 text-sm text-ink-subtle">
-        Questions about this document? Contact{' '}
+        Une question sur ce document ? Écrivez à{' '}
         <a href={`mailto:${SITE.supportEmail}`} className="text-brand hover:underline">
           {SITE.supportEmail}
         </a>

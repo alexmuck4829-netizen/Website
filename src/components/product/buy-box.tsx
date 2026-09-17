@@ -14,9 +14,9 @@ import type { Product } from '@/lib/types';
 import { cn, discountPercent, effectivePrice, formatPrice } from '@/lib/utils';
 
 const REASSURANCE = [
-  { icon: Zap, label: 'Instant digital download' },
-  { icon: ShieldCheck, label: 'Secure payment' },
-  { icon: RefreshCw, label: 'Updates included' },
+  { icon: Zap, label: 'Téléchargement numérique immédiat' },
+  { icon: ShieldCheck, label: 'Paiement sécurisé' },
+  { icon: RefreshCw, label: 'Mises à jour incluses' },
 ];
 
 export function BuyBox({ product }: { product: Product }) {
@@ -43,7 +43,7 @@ export function BuyBox({ product }: { product: Product }) {
       return;
     }
     cart.add(product);
-    toast.success('Added to cart', { description: product.name });
+    toast.success('Ajouté au panier', { description: product.name });
   };
 
   return (
@@ -54,8 +54,8 @@ export function BuyBox({ product }: { product: Product }) {
           <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
             {CATEGORY_MAP[product.category]?.name}
           </span>
-          {product.bestSeller && <Badge variant="best">Best seller</Badge>}
-          {product.newRelease && <Badge variant="new">New</Badge>}
+          {product.bestSeller && <Badge variant="best">Meilleure vente</Badge>}
+          {product.newRelease && <Badge variant="new">Nouveau</Badge>}
         </div>
 
         <h1 className="text-balance font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
@@ -65,10 +65,10 @@ export function BuyBox({ product }: { product: Product }) {
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
           <Rating value={product.rating} size="md" />
           <a href="#reviews" className="text-sm text-ink-muted underline-offset-4 hover:underline">
-            {product.reviewCount} reviews
+            {product.reviewCount} avis
           </a>
           <span className="text-sm text-ink-subtle">
-            {product.salesCount.toLocaleString('en-GB')} sales
+            {product.salesCount.toLocaleString('fr-FR')} ventes
           </span>
         </div>
       </div>
@@ -87,7 +87,7 @@ export function BuyBox({ product }: { product: Product }) {
                 {formatPrice(product.price)}
               </span>
               <Badge variant="sale" size="md" className="mb-1.5">
-                Save {discount}%
+                −{discount}%
               </Badge>
             </>
           )}
@@ -95,7 +95,7 @@ export function BuyBox({ product }: { product: Product }) {
 
         <div className="space-y-2.5">
           <Button size="lg" className="w-full" onClick={buyNow} loading={buying}>
-            Buy Now
+            Acheter maintenant
           </Button>
 
           <div className="flex gap-2.5">
@@ -104,17 +104,17 @@ export function BuyBox({ product }: { product: Product }) {
               variant="secondary"
               className="flex-1"
               onClick={addToCart}
-              aria-label={inCart ? 'Already in cart' : 'Add to cart'}
+              aria-label={inCart ? 'Déjà dans le panier' : 'Ajouter au panier'}
             >
               {inCart ? <Check className="text-success" /> : <ShoppingCart />}
-              {inCart ? 'In cart' : 'Add to Cart'}
+              {inCart ? 'Dans le panier' : 'Ajouter au panier'}
             </Button>
             <Button
               size="icon"
               variant="outline"
               className="size-12"
               onClick={() => wishlist.toggle(product.id)}
-              aria-label={saved ? 'Remove from favourites' : 'Save to favourites'}
+              aria-label={saved ? 'Retirer des favoris' : 'Ajouter aux favoris'}
               aria-pressed={saved}
             >
               <Heart className={cn('size-5 transition-all', saved && 'fill-danger text-danger')} />
@@ -137,20 +137,20 @@ export function BuyBox({ product }: { product: Product }) {
         <div className="mb-2.5 flex items-center justify-between">
           <span className="text-sm font-medium text-ink">
             {product.license.type === 'commercial'
-              ? 'Commercial License'
+              ? 'Licence commerciale'
               : product.license.type === 'custom'
-                ? 'Custom License'
-                : 'Standard License'}
+                ? 'Licence personnalisée'
+                : 'Licence standard'}
           </span>
           <a href="/license" className="text-xs text-brand underline-offset-4 hover:underline">
-            Full terms
+            Conditions complètes
           </a>
         </div>
         <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
-          <LicenceLine label="Use in your games" allowed={product.license.commercialUse} />
-          <LicenceLine label="Modify freely" allowed={product.license.modification} />
-          <LicenceLine label="Redistribute files" allowed={product.license.redistribution} />
-          <LicenceLine label="Resell as your own" allowed={product.license.resale} />
+          <LicenceLine label="Utiliser dans vos jeux" allowed={product.license.commercialUse} />
+          <LicenceLine label="Modifier librement" allowed={product.license.modification} />
+          <LicenceLine label="Redistribuer les fichiers" allowed={product.license.redistribution} />
+          <LicenceLine label="Revendre en votre nom" allowed={product.license.resale} />
         </ul>
       </div>
 

@@ -94,7 +94,7 @@ export function CategoryGrid({
 
                   <div className="relative mt-6 flex items-center justify-between border-t border-line pt-4">
                     <span className="text-xs font-semibold text-ink-subtle">
-                      {count} {count === 1 ? 'product' : 'products'}
+                      {count} {count === 1 ? 'produit' : 'produits'}
                     </span>
                     <ArrowUpRight
                       className="size-4 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"

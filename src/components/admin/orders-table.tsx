@@ -43,21 +43,21 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by reference, customer or product…"
+            placeholder="Rechercher par référence, client ou produit…"
             className="pl-10"
           />
         </div>
 
         <Select value={status} onValueChange={setStatus}>
           <SelectTrigger className="w-36">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder="Statut" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="paid">Paid</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="refunded">Refunded</SelectItem>
-            <SelectItem value="failed">Failed</SelectItem>
+            <SelectItem value="all">Tous les statuts</SelectItem>
+            <SelectItem value="paid">Payée</SelectItem>
+            <SelectItem value="pending">En attente</SelectItem>
+            <SelectItem value="refunded">Remboursée</SelectItem>
+            <SelectItem value="failed">Échouée</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -67,7 +67,7 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
           <table className="w-full min-w-[760px] text-sm">
             <thead>
               <tr className="border-b border-line text-left">
-                {['Order ID', 'Customer', 'Products', 'Amount', 'Payment', 'Date'].map((header) => (
+                {['N° commande', 'Client', 'Produits', 'Montant', 'Paiement', 'Date'].map((header) => (
                   <th
                     key={header}
                     className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-ink-subtle"
@@ -122,34 +122,34 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
         </div>
 
         {filtered.length === 0 && (
-          <p className="p-8 text-center text-sm text-ink-muted">No orders match those filters.</p>
+          <p className="p-8 text-center text-sm text-ink-muted">Aucune commande ne correspond à ces filtres.</p>
         )}
       </div>
 
       <p className="text-sm text-ink-subtle">
-        {filtered.length} orders · {formatPrice(revenue)} paid revenue
+        {filtered.length} commandes · {formatPrice(revenue)} encaissés
       </p>
 
       {/* Order detail */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
         <DialogContent className="max-h-[85vh] overflow-y-auto p-0">
           <DialogTitle className="border-b border-line p-5 font-display text-lg font-semibold">
-            Order Details
+            Détail de la commande
           </DialogTitle>
 
           {selected && (
             <div className="space-y-5 p-5">
               <dl className="grid grid-cols-2 gap-4 text-sm">
-                <Row label="Reference" value={selected.reference} mono />
+                <Row label="Référence" value={selected.reference} mono />
                 <Row label="Date" value={formatDate(selected.createdAt)} />
-                <Row label="Customer" value={selected.customerName ?? '—'} />
-                <Row label="Email" value={selected.customerEmail} />
-                <Row label="Payment" value={selected.paymentProvider} />
-                <Row label="Status" value={selected.status} />
+                <Row label="Client" value={selected.customerName ?? '—'} />
+                <Row label="E-mail" value={selected.customerEmail} />
+                <Row label="Paiement" value={selected.paymentProvider} />
+                <Row label="Statut" value={selected.status} />
               </dl>
 
               <div className="space-y-2 border-t border-line pt-4">
-                <h3 className="text-sm font-medium text-ink">Products</h3>
+                <h3 className="text-sm font-medium text-ink">Produits</h3>
                 <ul className="space-y-2">
                   {selected.items.map((item) => (
                     <li key={item.productId} className="flex items-center gap-3">
@@ -171,12 +171,12 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
 
               <div className="space-y-1.5 border-t border-line pt-4 text-sm">
                 <div className="flex justify-between text-ink-muted">
-                  <span>Subtotal</span>
+                  <span>Sous-total</span>
                   <span>{formatPrice(selected.subtotal)}</span>
                 </div>
                 {selected.discount > 0 && (
                   <div className="flex justify-between text-ink-muted">
-                    <span>Discount</span>
+                    <span>Réduction</span>
                     <span>−{formatPrice(selected.discount)}</span>
                   </div>
                 )}
@@ -191,15 +191,15 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
                 <p className="text-sm text-ink-muted">
                   {selected.status === 'paid' ? (
                     <>
-                      Download access is <strong className="text-success">active</strong>. This
-                      customer can pull signed links for{' '}
-                      {selected.items.length === 1 ? 'this product' : 'these products'} from their
-                      library.
+                      L’accès au téléchargement est <strong className="text-success">actif</strong>.
+                      Ce client peut obtenir des liens signés pour{' '}
+                      {selected.items.length === 1 ? 'ce produit' : 'ces produits'} depuis sa
+                      bibliothèque.
                     </>
                   ) : (
                     <>
-                      Download access is <strong className="text-ink">not granted</strong> — only
-                      paid orders unlock files.
+                      L’accès au téléchargement <strong className="text-ink">n’est pas accordé</strong>
+                      — seules les commandes payées débloquent les fichiers.
                     </>
                   )}
                 </p>

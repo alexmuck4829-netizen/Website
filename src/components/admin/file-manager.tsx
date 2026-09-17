@@ -49,10 +49,10 @@ export function FileManager({
       <div className="flex items-start gap-3 rounded-xl border border-success/25 bg-success/8 p-4">
         <Lock className="mt-0.5 size-4 shrink-0 text-success" />
         <p className="text-sm leading-relaxed text-ink-muted">
-          These files are stored in a <strong className="text-ink">private bucket</strong>, outside{' '}
-          <code className="rounded bg-black/40 px-1 font-mono text-xs">/public</code>. Customers only
-          ever receive a signed link that expires after 5 minutes, and only after a paid order is
-          verified.
+          Ces fichiers sont stockés dans un <strong className="text-ink">bucket privé</strong>, hors de{' '}
+          <code className="rounded bg-black/40 px-1 font-mono text-xs">/public</code>. Les clients ne
+          reçoivent qu’un lien signé expirant au bout de 5 minutes, et uniquement après
+          vérification d’une commande payée.
         </p>
       </div>
 
@@ -63,14 +63,14 @@ export function FileManager({
         productName={productName}
         accept=".zip,.rbxl,.rbxlx,.rbxm,.rbxmx,.lua,.luau,.txt,.pdf,.md,.json"
         multiple
-        hint="ZIP, RBXL, RBXLX, RBXM, RBXMX, LUA, PDF… · up to 500 MB each"
+        hint="ZIP, RBXL, RBXLX, RBXM, RBXMX, LUA, PDF… · 500 Mo max chacun"
         onUploaded={handleUploaded}
       />
 
       {files.length === 0 ? (
         <p className="rounded-xl border border-gold/25 bg-gold/8 px-4 py-3 text-sm text-ink-muted">
-          No files attached yet. A published product with no files cannot be delivered — customers
-          will see an error when they try to download.
+          Aucun fichier attaché. Un produit publié sans fichier ne peut pas être livré — les clients
+          verront une erreur au téléchargement.
         </p>
       ) : (
         <ul className="space-y-2">
@@ -90,8 +90,8 @@ export function FileManager({
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium text-ink">{file.name}</p>
                 <p className="text-xs text-ink-subtle">
-                  {formatBytes(file.size)} · {file.type || 'binary'} ·{' '}
-                  {file.uploadedAt ? formatDate(file.uploadedAt) : 'pending'}
+                  {formatBytes(file.size)} · {file.type || 'binaire'} ·{' '}
+                  {file.uploadedAt ? formatDate(file.uploadedAt) : 'en attente'}
                 </p>
               </div>
 
@@ -102,7 +102,7 @@ export function FileManager({
                     value={file.version}
                     onChange={(e) => setVersion(file.id, e.target.value)}
                     className="h-8 w-16 px-2 text-xs"
-                    aria-label={`Version for ${file.name}`}
+                    aria-label={`Version de ${file.name}`}
                   />
                 </label>
 
@@ -111,7 +111,7 @@ export function FileManager({
                 <button
                   type="button"
                   onClick={() => onChange(files.filter((f) => f.id !== file.id))}
-                  aria-label={`Remove ${file.name}`}
+                  aria-label={`Retirer ${file.name}`}
                   className="cursor-pointer rounded-lg p-2 text-ink-subtle transition-colors hover:bg-danger/10 hover:text-danger"
                 >
                   <Trash2 className="size-4" />

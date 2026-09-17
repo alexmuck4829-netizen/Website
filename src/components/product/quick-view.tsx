@@ -41,7 +41,7 @@ export function QuickView({
               className="object-cover"
             />
             <div className="absolute left-3 top-3 flex gap-1.5">
-              {product.bestSeller && <Badge variant="best">Best seller</Badge>}
+              {product.bestSeller && <Badge variant="best">Meilleure vente</Badge>}
               {onSale && (
                 <Badge variant="sale">-{discountPercent(product.price, product.salePrice!)}%</Badge>
               )}
@@ -92,11 +92,11 @@ export function QuickView({
                   }}
                 >
                   {inCart ? <Check /> : <ShoppingCart />}
-                  {inCart ? 'In cart' : 'Add to cart'}
+                  {inCart ? 'Dans le panier' : 'Ajouter au panier'}
                 </Button>
                 <Button variant="secondary" asChild>
                   <Link href={`/product/${product.slug}`} onClick={() => onOpenChange(false)}>
-                    Details <ArrowRight />
+                    Détails <ArrowRight />
                   </Link>
                 </Button>
               </div>

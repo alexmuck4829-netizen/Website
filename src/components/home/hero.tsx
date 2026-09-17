@@ -168,10 +168,10 @@ function ShowcaseCard({
   index: number;
 }) {
   const badge = product.bestSeller
-    ? { variant: 'best' as const, label: 'Best seller' }
+    ? { variant: 'best' as const, label: 'Meilleure vente' }
     : product.newRelease
-      ? { variant: 'new' as const, label: 'New' }
-      : { variant: 'popular' as const, label: 'Popular' };
+      ? { variant: 'new' as const, label: 'Nouveau' }
+      : { variant: 'popular' as const, label: 'Populaire' };
 
   return (
     <motion.div

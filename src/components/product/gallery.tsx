@@ -57,7 +57,7 @@ export function Gallery({
           >
             <Image
               src={current.url}
-              alt={`${productName} — screenshot ${index + 1}`}
+              alt={`${productName} — capture ${index + 1}`}
               fill
               sizes="(max-width: 1024px) 100vw, 60vw"
               priority={index === 0}
@@ -81,13 +81,13 @@ export function Gallery({
               onClick={() => setVideoOpen(true)}
               className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-white/10 bg-black/60 px-3 py-2 text-xs font-medium text-white backdrop-blur-md transition-colors hover:bg-black/80"
             >
-              <Play className="size-3.5 fill-white" /> Video preview
+              <Play className="size-3.5 fill-white" /> Aperçu vidéo
             </button>
           )}
           <button
             type="button"
             onClick={() => setFullscreen(true)}
-            aria-label="View fullscreen"
+            aria-label="Afficher en plein écran"
             className="grid size-9 cursor-pointer place-items-center rounded-lg border border-white/10 bg-black/60 text-white backdrop-blur-md transition-colors hover:bg-black/80"
           >
             <Expand className="size-4" />
@@ -107,7 +107,7 @@ export function Gallery({
               key={image.id}
               type="button"
               onClick={() => setIndex(i)}
-              aria-label={`Show screenshot ${i + 1}`}
+              aria-label={`Afficher la capture ${i + 1}`}
               aria-current={i === index}
               className={cn(
                 'relative aspect-[16/10] w-24 shrink-0 cursor-pointer overflow-hidden rounded-xl border transition-all duration-200 sm:w-28',
@@ -128,11 +128,11 @@ export function Gallery({
           showClose={false}
           className="max-w-[min(96vw,1400px)] border-none bg-transparent p-0 shadow-none"
         >
-          <DialogTitle className="sr-only">{productName} screenshots</DialogTitle>
+          <DialogTitle className="sr-only">Captures de {productName}</DialogTitle>
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-black">
             <Image
               src={current.url}
-              alt={`${productName} — screenshot ${index + 1}`}
+              alt={`${productName} — capture ${index + 1}`}
               fill
               sizes="96vw"
               className="object-contain"
@@ -146,7 +146,7 @@ export function Gallery({
             <button
               type="button"
               onClick={() => setFullscreen(false)}
-              aria-label="Close"
+              aria-label="Fermer"
               className="absolute right-3 top-3 grid size-10 cursor-pointer place-items-center rounded-xl border border-white/10 bg-black/60 text-white backdrop-blur-md transition-colors hover:bg-black/80"
             >
               <X className="size-5" />
@@ -159,11 +159,11 @@ export function Gallery({
       {video && (
         <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
           <DialogContent className="max-w-4xl overflow-hidden p-0">
-            <DialogTitle className="sr-only">{productName} video preview</DialogTitle>
+            <DialogTitle className="sr-only">Aperçu vidéo de {productName}</DialogTitle>
             <div className="aspect-video w-full bg-black">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${video}${videoOpen ? '?autoplay=1' : ''}`}
-                title={`${productName} video preview`}
+                title={`Aperçu vidéo de ${productName}`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="size-full border-0"
@@ -182,7 +182,7 @@ function GalleryNav({ side, onClick }: { side: 'left' | 'right'; onClick: () => 
     <button
       type="button"
       onClick={onClick}
-      aria-label={side === 'left' ? 'Previous image' : 'Next image'}
+      aria-label={side === 'left' ? 'Image précédente' : 'Image suivante'}
       className={cn(
         'absolute top-1/2 grid size-10 -translate-y-1/2 cursor-pointer place-items-center rounded-xl border border-white/10 bg-black/55 text-white backdrop-blur-md transition-all duration-200 hover:bg-black/80',
         'opacity-0 group-hover:opacity-100 max-md:opacity-100',

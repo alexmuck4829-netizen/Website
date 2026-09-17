@@ -42,31 +42,31 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (!response.ok) throw new Error((await response.json()).error ?? 'Save failed');
+      if (!response.ok) throw new Error((await response.json()).error ?? 'L’enregistrement a échoué');
 
       const { settings } = (await response.json()) as { settings: SiteSettings };
       setForm(settings);
       setDirty(false);
-      toast.success('Site updated', { description: 'Changes are live on the storefront.' });
+      toast.success('Site mis à jour', { description: 'Les changements sont en ligne sur la boutique.' });
       startTransition(() => router.refresh());
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Save failed');
+      toast.error(error instanceof Error ? error.message : 'L’enregistrement a échoué');
     } finally {
       setSaving(false);
     }
   };
 
   const reset = async () => {
-    if (!confirm('Reset every setting to the factory defaults? Products are not affected.')) return;
+    if (!confirm('Réinitialiser tous les réglages aux valeurs d’usine ? Les produits ne sont pas affectés.')) return;
     const response = await fetch('/api/settings', { method: 'DELETE' });
     if (!response.ok) {
-      toast.error('Reset failed');
+      toast.error('La réinitialisation a échoué');
       return;
     }
     const { settings } = (await response.json()) as { settings: SiteSettings };
     setForm(settings);
     setDirty(false);
-    toast.success('Settings reset to defaults');
+    toast.success('Réglages réinitialisés');
     startTransition(() => router.refresh());
   };
 
@@ -74,58 +74,58 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
     <div className="space-y-6">
       <header className="sticky top-0 z-20 -mx-5 flex flex-wrap items-center gap-3 border-b border-line bg-base/90 px-5 py-4 backdrop-blur-xl lg:-mx-8 lg:px-8">
         <div className="min-w-0 flex-1">
-          <h1 className="font-display text-xl font-bold tracking-tight text-ink">Site settings</h1>
+          <h1 className="font-display text-xl font-bold tracking-tight text-ink">Réglages du site</h1>
           <p className="text-xs text-ink-subtle">
-            {dirty ? 'Unsaved changes' : 'Everything on the site except products'}
+            {dirty ? 'Modifications non enregistrées' : 'Tout le site, hors produits'}
           </p>
         </div>
         <Button variant="ghost" size="sm" onClick={reset}>
-          <RotateCcw /> Reset to defaults
+          <RotateCcw /> Réinitialiser
         </Button>
         <Button size="sm" onClick={save} loading={saving} disabled={!dirty}>
-          <Save /> Save changes
+          <Save /> Enregistrer
         </Button>
       </header>
 
       <Tabs defaultValue="brand">
         <TabsList className="flex-wrap">
-          <TabsTrigger value="brand">Brand</TabsTrigger>
-          <TabsTrigger value="theme">Theme</TabsTrigger>
+          <TabsTrigger value="brand">Marque</TabsTrigger>
+          <TabsTrigger value="theme">Couleurs</TabsTrigger>
           <TabsTrigger value="hero">Hero</TabsTrigger>
-          <TabsTrigger value="home">Homepage</TabsTrigger>
+          <TabsTrigger value="home">Accueil</TabsTrigger>
           <TabsTrigger value="discord">Discord</TabsTrigger>
-          <TabsTrigger value="footer">Footer &amp; SEO</TabsTrigger>
+          <TabsTrigger value="footer">Pied de page et SEO</TabsTrigger>
         </TabsList>
 
         {/* ---------------- BRAND ---------------- */}
         <TabsContent value="brand" className="mt-6 space-y-6">
-          <Card title="Identity">
+          <Card title="Identité">
             <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Site name" hint="used in metadata and the footer">
+              <Field label="Nom du site" hint="utilisé dans les métadonnées et le pied de page">
                 <Input
                   value={form.brand.name}
                   onChange={(e) => set('brand', { name: e.target.value })}
                 />
               </Field>
-              <Field label="Short name">
+              <Field label="Nom court">
                 <Input
                   value={form.brand.shortName}
                   onChange={(e) => set('brand', { shortName: e.target.value })}
                 />
               </Field>
-              <Field label="Logo — top line">
+              <Field label="Logo — ligne du haut">
                 <Input
                   value={form.brand.wordmarkTop}
                   onChange={(e) => set('brand', { wordmarkTop: e.target.value })}
                 />
               </Field>
-              <Field label="Logo — bottom line">
+              <Field label="Logo — ligne du bas">
                 <Input
                   value={form.brand.wordmarkBottom}
                   onChange={(e) => set('brand', { wordmarkBottom: e.target.value })}
                 />
               </Field>
-              <Field label="Tagline" className="sm:col-span-2">
+              <Field label="Slogan" className="sm:col-span-2">
                 <Input
                   value={form.brand.tagline}
                   onChange={(e) => set('brand', { tagline: e.target.value })}
@@ -141,11 +141,11 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
             </div>
           </Card>
 
-          <Card title="Links" description="Used by every Discord button and the contact page.">
+          <Card title="Liens" description="Utilisés par tous les boutons Discord et la page contact.">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field
-                label="Discord invite URL"
-                hint="used by every Discord button on the site"
+                label="Lien d’invitation Discord"
+                hint="utilisé par tous les boutons Discord du site"
                 className="sm:col-span-2"
               >
                 <Input
@@ -154,7 +154,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                   placeholder="https://discord.gg/…"
                 />
               </Field>
-              <Field label="Support email" className="sm:col-span-2">
+              <Field label="E-mail de support" className="sm:col-span-2">
                 <Input
                   type="email"
                   value={form.links.supportEmail}
@@ -169,11 +169,11 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
         <TabsContent value="theme" className="mt-6 space-y-6">
           <Card
             title="Palette"
-            description="These drive the whole site — buttons, links, glows, badges and charts."
+            description="Elles pilotent tout le site — boutons, liens, halos, badges et graphiques."
           >
             <div className="grid gap-5 sm:grid-cols-3">
               <ColourField
-                label="Brand"
+                label="Marque"
                 value={form.theme.brand}
                 onChange={(brand) => set('theme', { brand })}
               />
@@ -183,7 +183,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                 onChange={(accent) => set('theme', { accent })}
               />
               <ColourField
-                label="Secondary"
+                label="Secondaire"
                 value={form.theme.violet}
                 onChange={(violet) => set('theme', { violet })}
               />
@@ -191,7 +191,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
             <div className="mt-6 space-y-3 rounded-xl border border-line bg-surface/60 p-5">
               <p className="flex items-center gap-2 text-sm font-medium text-ink">
-                <Palette className="size-4 text-brand" /> Preview
+                <Palette className="size-4 text-brand" /> Aperçu
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 <span
@@ -201,7 +201,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                     boxShadow: 'inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -3px 0 rgb(0 0 0 / 0.28)',
                   }}
                 >
-                  Primary button
+                  Bouton principal
                 </span>
                 {[form.theme.brand, form.theme.accent, form.theme.violet].map((colour, i) => (
                   <span
@@ -215,7 +215,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                 ))}
               </div>
               <p className="text-xs text-ink-subtle">
-                Save and reload the storefront to see it applied everywhere.
+                Enregistrez puis rechargez la boutique pour voir le résultat partout.
               </p>
             </div>
           </Card>
@@ -223,33 +223,33 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
         {/* ---------------- HERO ---------------- */}
         <TabsContent value="hero" className="mt-6 space-y-6">
-          <Card title="Headline" description="The first thing every visitor reads.">
+          <Card title="Titre principal" description="La première chose que lit chaque visiteur.">
             <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Badge" hint="small pill above the title" className="sm:col-span-2">
+              <Field label="Badge" hint="petite pastille au-dessus du titre" className="sm:col-span-2">
                 <Input
                   value={form.hero.badge}
                   onChange={(e) => set('hero', { badge: e.target.value })}
                 />
               </Field>
-              <Field label="Title line 1">
+              <Field label="Titre — ligne 1">
                 <Input
                   value={form.hero.titleLine1}
                   onChange={(e) => set('hero', { titleLine1: e.target.value })}
                 />
               </Field>
-              <Field label="Title line 2">
+              <Field label="Titre — ligne 2">
                 <Input
                   value={form.hero.titleLine2}
                   onChange={(e) => set('hero', { titleLine2: e.target.value })}
                 />
               </Field>
-              <Field label="Title accent" hint="shown in the brand gradient" className="sm:col-span-2">
+              <Field label="Titre — accent" hint="affiché dans le dégradé de marque" className="sm:col-span-2">
                 <Input
                   value={form.hero.titleAccent}
                   onChange={(e) => set('hero', { titleAccent: e.target.value })}
                 />
               </Field>
-              <Field label="Subtitle" className="sm:col-span-2">
+              <Field label="Sous-titre" className="sm:col-span-2">
                 <Textarea
                   rows={2}
                   value={form.hero.subtitle}
@@ -259,9 +259,9 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
             </div>
           </Card>
 
-          <Card title="Buttons">
+          <Card title="Boutons">
             <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Primary label">
+              <Field label="Bouton principal — texte">
                 <Input
                   value={form.hero.primaryCta.label}
                   onChange={(e) =>
@@ -269,7 +269,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                   }
                 />
               </Field>
-              <Field label="Primary link">
+              <Field label="Bouton principal — lien">
                 <Input
                   value={form.hero.primaryCta.href}
                   onChange={(e) =>
@@ -277,7 +277,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                   }
                 />
               </Field>
-              <Field label="Secondary label">
+              <Field label="Bouton secondaire — texte">
                 <Input
                   value={form.hero.secondaryCta.label}
                   onChange={(e) =>
@@ -287,7 +287,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                   }
                 />
               </Field>
-              <Field label="Secondary link">
+              <Field label="Bouton secondaire — lien">
                 <Input
                   value={form.hero.secondaryCta.href}
                   onChange={(e) =>
@@ -300,59 +300,59 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
             </div>
           </Card>
 
-          <Card title="Counters" description="Animated figures under the buttons.">
+          <Card title="Compteurs" description="Les chiffres animés sous les boutons.">
             <StatEditor
               stats={form.hero.stats}
               onChange={(stats) => set('hero', { stats })}
             />
           </Card>
 
-          <Card title="Reassurance line" description="Short points shown under the hero.">
+          <Card title="Ligne de réassurance" description="Points courts affichés sous le hero.">
             <ListEditor
               items={form.hero.reassurance}
               onChange={(reassurance) => set('hero', { reassurance })}
-              placeholder="Instant download"
-              addLabel="Add point"
+              placeholder="Téléchargement immédiat"
+              addLabel="Ajouter un point"
             />
           </Card>
         </TabsContent>
 
         {/* ---------------- HOMEPAGE ---------------- */}
         <TabsContent value="home" className="mt-6 space-y-6">
-          <Card title="Trust bar" description="The four cards under the hero.">
+          <Card title="Barre de confiance" description="Les quatre cartes sous le hero.">
             <ItemEditor
               items={form.trust}
               onChange={(trust) => setList('trust', trust)}
               withColour
-              addLabel="Add card"
+              addLabel="Ajouter une carte"
             />
           </Card>
 
-          <Card title="Category ticker" description="The scrolling strip of keywords.">
+          <Card title="Bandeau défilant" description="La bande de mots-clés qui défile.">
             <ListEditor
               items={form.ticker}
               onChange={(ticker) => setList('ticker', ticker)}
               placeholder="Maps"
-              addLabel="Add keyword"
+              addLabel="Ajouter un mot-clé"
               reorderable={false}
             />
           </Card>
 
-          <Card title="Section headings">
+          <Card title="Titres de sections">
             <div className="grid gap-5">
-              <Field label="Categories eyebrow">
+              <Field label="Catégories — surtitre">
                 <Input
                   value={form.sections.categoriesEyebrow}
                   onChange={(e) => set('sections', { categoriesEyebrow: e.target.value })}
                 />
               </Field>
-              <Field label="Categories title">
+              <Field label="Catégories — titre">
                 <Input
                   value={form.sections.categoriesTitle}
                   onChange={(e) => set('sections', { categoriesTitle: e.target.value })}
                 />
               </Field>
-              <Field label="Categories description">
+              <Field label="Catégories — description">
                 <Textarea
                   rows={2}
                   value={form.sections.categoriesDescription}
@@ -360,13 +360,13 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                 />
               </Field>
               <div className="hairline" />
-              <Field label="Best sellers title">
+              <Field label="Meilleures ventes — titre">
                 <Input
                   value={form.sections.bestSellersTitle}
                   onChange={(e) => set('sections', { bestSellersTitle: e.target.value })}
                 />
               </Field>
-              <Field label="Best sellers description">
+              <Field label="Meilleures ventes — description">
                 <Textarea
                   rows={2}
                   value={form.sections.bestSellersDescription}
@@ -374,13 +374,13 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                 />
               </Field>
               <div className="hairline" />
-              <Field label="New releases title">
+              <Field label="Nouveautés — titre">
                 <Input
                   value={form.sections.newReleasesTitle}
                   onChange={(e) => set('sections', { newReleasesTitle: e.target.value })}
                 />
               </Field>
-              <Field label="New releases description">
+              <Field label="Nouveautés — description">
                 <Textarea
                   rows={2}
                   value={form.sections.newReleasesDescription}
@@ -390,15 +390,15 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
             </div>
           </Card>
 
-          <Card title="Promotional banner">
+          <Card title="Bannière promotionnelle">
             <div className="grid gap-5">
-              <Field label="Eyebrow">
+              <Field label="Surtitre">
                 <Input
                   value={form.promo.eyebrow}
                   onChange={(e) => set('promo', { eyebrow: e.target.value })}
                 />
               </Field>
-              <Field label="Title">
+              <Field label="Titre">
                 <Input
                   value={form.promo.title}
                   onChange={(e) => set('promo', { title: e.target.value })}
@@ -412,13 +412,13 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                 />
               </Field>
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Button label">
+                <Field label="Texte du bouton">
                   <Input
                     value={form.promo.cta.label}
                     onChange={(e) => set('promo', { cta: { ...form.promo.cta, label: e.target.value } })}
                   />
                 </Field>
-                <Field label="Button link">
+                <Field label="Lien du bouton">
                   <Input
                     value={form.promo.cta.href}
                     onChange={(e) => set('promo', { cta: { ...form.promo.cta, href: e.target.value } })}
@@ -429,7 +429,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                 <ItemEditor
                   items={form.promo.points}
                   onChange={(points) => set('promo', { points })}
-                  addLabel="Add point"
+                  addLabel="Ajouter un point"
                 />
               </Field>
             </div>
@@ -438,9 +438,9 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
         {/* ---------------- DISCORD ---------------- */}
         <TabsContent value="discord" className="mt-6 space-y-6">
-          <Card title="Discord block" description="Shown on the homepage, product pages and more.">
+          <Card title="Bloc Discord" description="Affiché sur l’accueil, les fiches produit et ailleurs.">
             <div className="grid gap-5">
-              <Field label="Title">
+              <Field label="Titre">
                 <Input
                   value={form.discord.title}
                   onChange={(e) => set('discord', { title: e.target.value })}
@@ -453,17 +453,17 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                   onChange={(e) => set('discord', { description: e.target.value })}
                 />
               </Field>
-              <Field label="Button label">
+              <Field label="Texte du bouton">
                 <Input
                   value={form.discord.ctaLabel}
                   onChange={(e) => set('discord', { ctaLabel: e.target.value })}
                 />
               </Field>
-              <Field label="Perks">
+              <Field label="Avantages">
                 <ItemEditor
                   items={form.discord.perks}
                   onChange={(perks) => set('discord', { perks })}
-                  addLabel="Add perk"
+                  addLabel="Ajouter un avantage"
                 />
               </Field>
             </div>
@@ -472,24 +472,24 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
         {/* ---------------- FOOTER + SEO ---------------- */}
         <TabsContent value="footer" className="mt-6 space-y-6">
-          <Card title="Footer">
+          <Card title="Pied de page">
             <div className="grid gap-5">
-              <Field label="Blurb">
+              <Field label="Texte de présentation">
                 <Textarea
                   rows={3}
                   value={form.footer.blurb}
                   onChange={(e) => set('footer', { blurb: e.target.value })}
                 />
               </Field>
-              <Field label="Copyright line" hint="the year is added automatically">
+              <Field label="Ligne de copyright" hint="l’année est ajoutée automatiquement">
                 <Input
                   value={form.footer.copyright}
                   onChange={(e) => set('footer', { copyright: e.target.value })}
                 />
               </Field>
               <Field
-                label="Legal disclaimer"
-                hint="keep the Roblox non-affiliation notice"
+                label="Mention légale"
+                hint="conservez la mention de non-affiliation à Roblox"
               >
                 <Textarea
                   rows={4}
@@ -500,15 +500,15 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
             </div>
           </Card>
 
-          <Card title="SEO" description="How the site appears in search results and link previews.">
+          <Card title="SEO" description="L’apparence du site dans les résultats de recherche et les aperçus de liens.">
             <div className="grid gap-5">
-              <Field label="Title suffix" hint="appended after the site name">
+              <Field label="Suffixe de titre" hint="ajouté après le nom du site">
                 <Input
                   value={form.seo.titleSuffix}
                   onChange={(e) => set('seo', { titleSuffix: e.target.value })}
                 />
               </Field>
-              <Field label="Meta description" hint="around 155 characters">
+              <Field label="Méta-description" hint="environ 155 caractères">
                 <Textarea
                   rows={3}
                   value={form.seo.description}
@@ -561,7 +561,7 @@ function ColourField({
           type="color"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          aria-label={`${label} colour`}
+          aria-label={`Couleur ${label}`}
           className="size-11 shrink-0 cursor-pointer rounded-xl border border-line-strong bg-surface p-1"
         />
         <Input
@@ -596,13 +596,13 @@ function StatEditor({
             step="0.1"
             value={stat.value}
             onChange={(e) => patch(index, { value: Number(e.target.value) })}
-            aria-label="Value"
+            aria-label="Valeur"
           />
           <Input
             value={stat.suffix ?? ''}
             onChange={(e) => patch(index, { suffix: e.target.value })}
             placeholder="+"
-            aria-label="Suffix"
+            aria-label="Suffixe"
           />
           <Input
             type="number"
@@ -610,20 +610,20 @@ function StatEditor({
             max={2}
             value={stat.decimals ?? 0}
             onChange={(e) => patch(index, { decimals: Number(e.target.value) })}
-            aria-label="Decimals"
+            aria-label="Décimales"
           />
           <Input
             value={stat.label}
             onChange={(e) => patch(index, { label: e.target.value })}
-            placeholder="Assets delivered"
-            aria-label="Label"
+            placeholder="Ressources livrées"
+            aria-label="Libellé"
           />
           <Button
             type="button"
             variant="ghost"
             size="icon"
             onClick={() => onChange(stats.filter((_, i) => i !== index))}
-            aria-label="Remove stat"
+            aria-label="Retirer ce compteur"
           >
             <Trash2 />
           </Button>
@@ -635,16 +635,16 @@ function StatEditor({
         size="sm"
         onClick={() => onChange([...stats, { value: 0, label: '' }])}
       >
-        <Plus /> Add counter
+        <Plus /> Ajouter un compteur
       </Button>
       <p className="text-xs text-ink-subtle">
-        Columns: value · suffix · decimal places · label.
+        Colonnes : valeur · suffixe · décimales · libellé.
       </p>
     </div>
   );
 }
 
-/** Icon names come from lucide.dev — type the exact name, e.g. "ShieldCheck". */
+/** Les noms d’icônes viennent de lucide.dev — saisissez le nom exact, ex. « ShieldCheck ». */
 function ItemEditor({
   items,
   onChange,
@@ -669,21 +669,21 @@ function ItemEditor({
               onChange={(e) => patch(index, { icon: e.target.value })}
               placeholder="ShieldCheck"
               className="w-40 font-mono text-xs"
-              aria-label="Icon name"
+              aria-label="Nom de l’icône"
             />
             <Input
               value={item.title}
               onChange={(e) => patch(index, { title: e.target.value })}
-              placeholder="Title"
+              placeholder="Titre"
               className="flex-1"
-              aria-label="Title"
+              aria-label="Titre"
             />
             {withColour && (
               <input
                 type="color"
                 value={item.colour ?? '#0084FF'}
                 onChange={(e) => patch(index, { colour: e.target.value })}
-                aria-label="Colour"
+                aria-label="Couleur"
                 className="size-11 shrink-0 cursor-pointer rounded-xl border border-line-strong bg-surface p-1"
               />
             )}
@@ -692,7 +692,7 @@ function ItemEditor({
               variant="ghost"
               size="icon"
               onClick={() => onChange(items.filter((_, i) => i !== index))}
-              aria-label="Remove"
+              aria-label="Retirer"
             >
               <Trash2 />
             </Button>
@@ -700,7 +700,7 @@ function ItemEditor({
           <Input
             value={item.description}
             onChange={(e) => patch(index, { description: e.target.value })}
-            placeholder="One short sentence."
+            placeholder="Une phrase courte."
             aria-label="Description"
           />
         </div>
@@ -714,7 +714,7 @@ function ItemEditor({
         <Plus /> {addLabel}
       </Button>
       <p className="text-xs text-ink-subtle">
-        Icon names come from lucide.dev — type the exact name. Unknown names fall back to a star.
+        Les noms d’icônes viennent de lucide.dev — saisissez le nom exact. Un nom inconnu affiche une étoile.
       </p>
     </div>
   );

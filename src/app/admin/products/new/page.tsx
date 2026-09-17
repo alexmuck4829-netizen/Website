@@ -3,7 +3,7 @@ import { ProductForm } from '@/components/admin/product-form';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = { title: 'Create product', robots: { index: false } };
+export const metadata: Metadata = { title: 'Créer un produit', robots: { index: false } };
 
 export default function NewProductPage() {
   return <ProductForm />;

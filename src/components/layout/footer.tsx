@@ -8,31 +8,31 @@ function buildColumns(discordUrl: string) {
   {
     title: 'Marketplace',
     links: [
-      { label: 'All products', href: '/marketplace' },
+      { label: 'Tous les produits', href: '/marketplace' },
       { label: 'Maps', href: '/marketplace?category=maps' },
       { label: 'Assets', href: '/marketplace?category=assets' },
       { label: 'GUI', href: '/marketplace?category=gui' },
       { label: 'Scripts', href: '/marketplace?category=scripts' },
-      { label: 'Vehicles', href: '/marketplace?category=vehicles' },
-      { label: 'New releases', href: '/new-releases' },
+      { label: 'Véhicules', href: '/marketplace?category=vehicles' },
+      { label: 'Nouveautés', href: '/new-releases' },
     ],
   },
   {
-    title: 'Company',
+    title: 'Studio',
     links: [
-      { label: 'About', href: '/about' },
+      { label: 'À propos', href: '/about' },
       { label: 'Contact', href: '/contact' },
       { label: 'Discord', href: discordUrl, external: true },
-      { label: 'My library', href: '/library' },
+      { label: 'Ma bibliothèque', href: '/library' },
     ],
   },
   {
-    title: 'Legal',
+    title: 'Légal',
     links: [
-      { label: 'Terms', href: '/terms' },
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Refund Policy', href: '/refunds' },
-      { label: 'License', href: '/license' },
+      { label: 'Conditions', href: '/terms' },
+      { label: 'Confidentialité', href: '/privacy' },
+      { label: 'Remboursements', href: '/refunds' },
+      { label: 'Licence', href: '/license' },
     ],
   },
   ];

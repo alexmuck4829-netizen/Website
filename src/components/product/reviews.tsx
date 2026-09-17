@@ -37,7 +37,7 @@ export function Reviews({
     <section id="reviews" className="scroll-mt-24 space-y-8">
       <Reveal>
         <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-          What creators say
+          Ce que disent les créateurs
         </h2>
       </Reveal>
 
@@ -51,7 +51,7 @@ export function Reviews({
               </p>
               <Rating value={rating} showValue={false} size="md" className="justify-center" />
               <p className="text-sm text-ink-muted">
-                Based on {reviewCount.toLocaleString('en-GB')} reviews
+                Sur {reviewCount.toLocaleString('fr-FR')} avis
               </p>
             </div>
 
@@ -92,7 +92,7 @@ export function Reviews({
                       <p className="font-medium text-ink">{review.author}</p>
                       {review.verified && (
                         <span className="inline-flex items-center gap-1 text-xs text-success">
-                          <BadgeCheck className="size-3.5" /> Verified purchase
+                          <BadgeCheck className="size-3.5" /> Achat vérifié
                         </span>
                       )}
                     </div>
@@ -113,7 +113,7 @@ export function Reviews({
 
           {reviews.length === 0 && (
             <div className="surface-card p-8 text-center text-ink-muted">
-              No written reviews yet — be the first once you have built with it.
+              Aucun avis écrit pour le moment — soyez le premier après avoir créé avec.
             </div>
           )}
         </div>

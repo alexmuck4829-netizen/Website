@@ -8,103 +8,103 @@ import type { Category, CategorySlug } from './types';
 export const SITE = {
   name: 'One More Click Studio',
   shortName: 'OMC Studio',
-  tagline: 'Premium Roblox Studio resources',
+  tagline: 'Ressources premium pour Roblox Studio',
   description:
-    'Premium maps, assets, interfaces and development resources made for ambitious Roblox creators.',
+    'Maps, assets, interfaces et ressources de développement premium, conçus pour les créateurs Roblox ambitieux.',
   url: resolveSiteUrl(),
   /** ← Put your real invite here (or set NEXT_PUBLIC_DISCORD_URL) */
-  discordUrl: envOr('NEXT_PUBLIC_DISCORD_URL', 'https://discord.gg/onemoreclick'),
+  discordUrl: envOr('NEXT_PUBLIC_DISCORD_URL', 'https://discord.gg/TJ4a2JrS9S'),
   supportEmail: 'support@onemoreclick.studio',
   currency: 'EUR' as const,
-  locale: 'en-GB',
+  locale: 'fr-FR',
 } as const;
 
 export const CATEGORIES: Category[] = [
   {
     slug: 'maps',
     name: 'Maps',
-    tagline: 'Complete environments ready for your next experience.',
+    tagline: 'Des environnements complets, prêts pour votre prochaine expérience.',
     description:
-      'Full Roblox Studio places with optimised lighting, collisions and interiors. Open the file, publish, iterate.',
+      'Des places Roblox Studio complètes : éclairage optimisé, collisions propres, intérieurs finis. Ouvrez le fichier, publiez, itérez.',
     accent: ['#0084FF', '#22D3EE'],
     icon: 'Map',
   },
   {
     slug: 'assets',
     name: 'Assets',
-    tagline: 'Modular 3D pieces built to drop straight into a build.',
+    tagline: 'Des pièces 3D modulaires qui s’intègrent directement à votre build.',
     description:
-      'Clean geometry, sensible pivots and consistent scale so parts snap together instead of fighting you.',
+      'Géométrie propre, pivots bien placés et échelle cohérente : les pièces s’emboîtent au lieu de vous résister.',
     accent: ['#3AD685', '#22D3EE'],
     icon: 'Boxes',
   },
   {
     slug: 'gui',
     name: 'GUI',
-    tagline: 'Interfaces that make a game feel finished.',
+    tagline: 'Des interfaces qui donnent à un jeu l’air terminé.',
     description:
-      'Inventories, shops, HUDs and menus with proper scaling, states and mobile support already handled.',
+      'Inventaires, boutiques, HUD et menus : mise à l’échelle, états et support mobile déjà gérés.',
     accent: ['#7C5CFF', '#EC4899'],
     icon: 'LayoutDashboard',
   },
   {
     slug: 'scripts',
     name: 'Scripts',
-    tagline: 'Systems that work on the first run.',
+    tagline: 'Des systèmes qui fonctionnent dès le premier lancement.',
     description:
-      'Commented Luau modules for the mechanics you would otherwise rebuild on every project.',
+      'Des modules Luau commentés pour les mécaniques que vous refaites sinon à chaque projet.',
     accent: ['#3AD685', '#0084FF'],
     icon: 'Code2',
   },
   {
     slug: 'vehicles',
-    name: 'Vehicles',
-    tagline: 'Drivable models with tuned handling.',
+    name: 'Véhicules',
+    tagline: 'Des modèles conduisibles au comportement réglé.',
     description:
-      'Cars, emergency fleets and utility vehicles with working seats, lights and chassis setups.',
+      'Voitures, flottes d’urgence et utilitaires : sièges, feux et châssis déjà configurés.',
     accent: ['#FF8A3C', '#F45656'],
     icon: 'Car',
   },
   {
     slug: 'buildings',
-    name: 'Buildings',
-    tagline: 'Exteriors and interiors, both finished.',
+    name: 'Bâtiments',
+    tagline: 'Extérieurs et intérieurs, les deux terminés.',
     description:
-      'Houses, shops and industrial structures detailed inside and out — no hollow facades.',
+      'Maisons, commerces et structures industrielles détaillés dedans comme dehors — aucune façade creuse.',
     accent: ['#FFBD2E', '#FF8A3C'],
     icon: 'Building2',
   },
   {
     slug: 'props',
     name: 'Props',
-    tagline: 'The details that sell a scene.',
+    tagline: 'Les détails qui rendent une scène crédible.',
     description:
-      'Street furniture, clutter and set dressing that turn an empty baseplate into a believable place.',
+      'Mobilier urbain et habillage de décor qui transforment une baseplate vide en lieu vivant.',
     accent: ['#22D3EE', '#0084FF'],
     icon: 'Lamp',
   },
   {
     slug: 'studs',
     name: 'Studs',
-    tagline: 'Building kits and modular blocks.',
+    tagline: 'Kits de construction et blocs modulaires.',
     description:
-      'Grid-aligned construction packs for rapid blockouts and consistent architecture.',
+      'Packs alignés sur la grille pour des blockouts rapides et une architecture cohérente.',
     accent: ['#FFBD2E', '#3AD685'],
     icon: 'Grid3x3',
   },
   {
     slug: 'packs',
     name: 'Packs',
-    tagline: 'Everything for a genre, bundled.',
+    tagline: 'Tout ce qu’il faut pour un genre, réuni.',
     description:
-      'Multi-category collections priced well below buying each piece on its own.',
+      'Des collections multi-catégories, bien moins chères que l’achat pièce par pièce.',
     accent: ['#F45656', '#7C5CFF'],
     icon: 'Package',
   },
   {
     slug: 'other',
-    name: 'Other',
-    tagline: 'Tools, docs and extras.',
+    name: 'Autres',
+    tagline: 'Outils, documentation et extras.',
     description: 'Supporting resources that do not fit a single category.',
     accent: ['#94A3B8', '#0084FF'],
     icon: 'Sparkles',
@@ -120,21 +120,21 @@ export const CATEGORY_MAP: Record<CategorySlug, Category> = CATEGORIES.reduce(
 );
 
 export const SORT_OPTIONS: { value: string; label: string }[] = [
-  { value: 'popular', label: 'Most popular' },
-  { value: 'newest', label: 'Newest first' },
-  { value: 'best-selling', label: 'Best selling' },
-  { value: 'rating', label: 'Highest rated' },
-  { value: 'price-asc', label: 'Price: low to high' },
-  { value: 'price-desc', label: 'Price: high to low' },
+  { value: 'popular', label: 'Les plus populaires' },
+  { value: 'newest', label: 'Les plus récents' },
+  { value: 'best-selling', label: 'Les plus vendus' },
+  { value: 'rating', label: 'Les mieux notés' },
+  { value: 'price-asc', label: 'Prix croissant' },
+  { value: 'price-desc', label: 'Prix décroissant' },
 ];
 
 export const PRICE_BOUNDS = { min: 0, max: 60 } as const;
 
 export const TRUST_POINTS = [
-  { icon: 'Zap', title: 'Instant download', description: 'Files unlock the moment payment clears.' },
-  { icon: 'Gem', title: 'High quality assets', description: 'Optimised, tested, production-ready.' },
-  { icon: 'ShieldCheck', title: 'Secure checkout', description: 'Payments handled by Stripe.' },
-  { icon: 'Blocks', title: 'Ready for Roblox Studio', description: 'Drop in, publish, keep building.' },
+  { icon: 'Zap', title: 'Téléchargement immédiat', description: 'Les fichiers se débloquent dès le paiement validé.' },
+  { icon: 'Gem', title: 'Assets de qualité', description: 'Optimisés, testés, prêts pour la production.' },
+  { icon: 'ShieldCheck', title: 'Paiement sécurisé', description: 'Transactions gérées par Stripe.' },
+  { icon: 'Blocks', title: 'Prêt pour Roblox Studio', description: 'Importez, publiez, continuez à créer.' },
 ] as const;
 
 /** Accepted upload types, mirrored server-side in the upload route. */

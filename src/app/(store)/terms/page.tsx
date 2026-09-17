@@ -5,96 +5,98 @@ import { SITE } from '@/lib/constants';
 import { absoluteUrlSafe } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service',
-  description: 'The terms that apply when you buy from One More Click Studio.',
+  title: 'Conditions générales',
+  description: 'Les conditions applicables à tout achat chez One More Click Studio.',
   alternates: { canonical: absoluteUrlSafe('/terms') },
 };
 
 export default function TermsPage() {
   return (
     <LegalPage
-      title="Terms of Service"
-      intro="The agreement between you and One More Click Studio when you use this store."
+      title="Conditions générales"
+      intro="L’accord entre vous et One More Click Studio lorsque vous utilisez cette boutique."
     >
-      <LegalSection title="1. Who we are">
+      <LegalSection title="1. Qui nous sommes">
         <p>
-          {SITE.name} sells digital development resources for use in Roblox Studio. Contact:{' '}
+          {SITE.name} vend des ressources de développement numériques destinées à Roblox Studio.
+          Contact :{' '}
           <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>.
         </p>
       </LegalSection>
 
-      <LegalSection title="2. What you are buying">
+      <LegalSection title="2. Ce que vous achetez">
         <p>
-          Every product is a digital file or set of files, delivered by download. You receive a
-          licence to use them under the terms set out on our{' '}
-          <Link href="/license">License page</Link>. No physical goods are shipped and no ownership
-          of the underlying assets transfers to you.
+          Chaque produit est un fichier numérique ou un ensemble de fichiers, livré par
+          téléchargement. Vous recevez une licence d’utilisation selon les conditions de notre{' '}
+          <Link href="/license">page Licence</Link>. Aucun bien physique n’est expédié et aucune
+          propriété sur les assets sous-jacents ne vous est transférée.
         </p>
       </LegalSection>
 
-      <LegalSection title="3. Your account and purchases">
+      <LegalSection title="3. Votre compte et vos achats">
         <LegalList
           items={[
-            'You are responsible for the accuracy of the email address you provide at checkout — it is how your files reach you.',
-            'Download links are personal to you and time-limited for security.',
-            'You must not attempt to access files for products you have not purchased.',
+            'Vous êtes responsable de l’exactitude de l’adresse e-mail fournie au paiement — c’est par elle que vos fichiers vous parviennent.',
+            'Les liens de téléchargement vous sont personnels et limités dans le temps pour des raisons de sécurité.',
+            'Vous ne devez pas tenter d’accéder aux fichiers de produits que vous n’avez pas achetés.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="4. Payment">
+      <LegalSection title="4. Paiement">
         <p>
-          Prices are shown in euros and include any applicable taxes where required. Payment is
-          processed by Stripe; we never receive or store your card details.
+          Les prix sont affichés en euros et incluent les taxes applicables le cas échéant. Le
+          paiement est traité par Stripe ; nous ne recevons ni ne stockons jamais vos données de
+          carte.
         </p>
       </LegalSection>
 
-      <LegalSection title="5. Delivery">
+      <LegalSection title="5. Livraison">
         <p>
-          Access is granted immediately after payment is confirmed. If a download fails, contact
-          support and we will re-issue your link.
+          L’accès est accordé immédiatement après confirmation du paiement. Si un téléchargement
+          échoue, contactez le support et nous réémettrons votre lien.
         </p>
       </LegalSection>
 
-      <LegalSection title="6. Updates">
+      <LegalSection title="6. Mises à jour">
         <p>
-          Where a product receives updates, buyers can download the latest version from their
-          library at no extra cost, unless the product page states otherwise. We do not guarantee
-          that any given product will be updated indefinitely.
+          Lorsqu’un produit reçoit des mises à jour, les acheteurs peuvent télécharger la dernière
+          version depuis leur bibliothèque sans surcoût, sauf mention contraire sur la fiche produit.
+          Nous ne garantissons pas qu’un produit donné sera mis à jour indéfiniment.
         </p>
       </LegalSection>
 
-      <LegalSection title="7. Acceptable use">
+      <LegalSection title="7. Usage acceptable">
         <LegalList
           items={[
-            'Do not attempt to circumvent download protection, rate limits or access controls.',
-            'Do not use the store to distribute malware or infringing content.',
-            'Do not scrape, resell or mirror the catalogue.',
+            'Ne tentez pas de contourner les protections de téléchargement, les limitations de débit ou les contrôles d’accès.',
+            'N’utilisez pas la boutique pour diffuser des logiciels malveillants ou du contenu contrefaisant.',
+            'Ne collectez, ne revendez et ne dupliquez pas le catalogue.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="8. Liability">
+      <LegalSection title="8. Responsabilité">
         <p>
-          Products are provided as described on their product pages. To the extent permitted by law,
-          we are not liable for indirect or consequential losses arising from the use of a product,
-          including lost revenue from a game. Nothing here limits liability that cannot be limited
-          by law, including your statutory consumer rights.
+          Les produits sont fournis tels que décrits sur leur fiche. Dans la limite permise par la
+          loi, nous ne sommes pas responsables des pertes indirectes ou consécutives résultant de
+          l’utilisation d’un produit, y compris une perte de revenus liée à un jeu. Rien ici ne
+          limite une responsabilité qui ne peut l’être légalement, ni vos droits de consommateur.
         </p>
       </LegalSection>
 
-      <LegalSection title="9. Changes">
+      <LegalSection title="9. Modifications">
         <p>
-          We may update these terms. Material changes will be announced in our Discord and reflected
-          in the &ldquo;last updated&rdquo; date above. Purchases are governed by the terms in force
-          at the time of purchase.
+          Nous pouvons modifier ces conditions. Les changements importants seront annoncés sur notre
+          Discord et reflétés dans la date de mise à jour ci-dessus. Chaque achat est régi par les
+          conditions en vigueur au moment de l’achat.
         </p>
       </LegalSection>
 
       <LegalSection title="10. Roblox">
         <p>
-          {SITE.name} is not affiliated with, endorsed by or sponsored by Roblox Corporation. Your
-          use of Roblox and Roblox Studio is governed by their own terms.
+          {SITE.name} n’est ni affilié à Roblox Corporation, ni approuvé ou sponsorisé par elle.
+          Votre utilisation de Roblox et de Roblox Studio est régie par leurs propres conditions.
         </p>
       </LegalSection>
     </LegalPage>

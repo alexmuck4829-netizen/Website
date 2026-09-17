@@ -7,28 +7,28 @@ import { absoluteUrlSafe } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with One More Click Studio — support, licensing and commissions.',
+  description: 'Contacter One More Click Studio — support, licences et commandes sur mesure.',
   alternates: { canonical: absoluteUrlSafe('/contact') },
 };
 
 const CHANNELS = [
   {
     icon: MessageSquare,
-    title: 'Discord — fastest',
-    text: 'Setup help, import questions and general chat. Usually answered the same day.',
-    action: { label: 'Join our Discord', href: SITE.discordUrl, external: true },
+    title: 'Discord — le plus rapide',
+    text: 'Aide à l’installation, questions d’import et discussion générale. Réponse en général le jour même.',
+    action: { label: 'Rejoindre le Discord', href: SITE.discordUrl, external: true },
   },
   {
     icon: Mail,
-    title: 'Email',
-    text: 'Licensing questions, refunds, commissions and anything that needs a paper trail.',
+    title: 'E-mail',
+    text: 'Questions de licence, remboursements, commandes sur mesure et tout ce qui demande une trace écrite.',
     action: { label: SITE.supportEmail, href: `mailto:${SITE.supportEmail}`, external: false },
   },
   {
     icon: ShoppingBag,
-    title: 'Order problems',
-    text: 'Download not working or files missing? Include your order reference and we will re-issue access.',
-    action: { label: 'Check your library', href: '/library', external: false },
+    title: 'Problème de commande',
+    text: 'Téléchargement qui ne marche pas ou fichiers manquants ? Indiquez votre référence de commande et nous réémettrons l’accès.',
+    action: { label: 'Voir ma bibliothèque', href: '/library', external: false },
   },
 ];
 
@@ -40,7 +40,8 @@ export default function ContactPage() {
           Contact
         </h1>
         <p className="text-pretty text-lg text-ink-muted">
-          Pick whichever is easiest. We would rather hear about a problem than have you sit with it.
+          Choisissez le canal le plus simple pour vous. Nous préférons entendre parler d’un problème
+          plutôt que vous laisser avec.
         </p>
       </header>
 

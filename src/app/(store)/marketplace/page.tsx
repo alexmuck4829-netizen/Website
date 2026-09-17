@@ -21,9 +21,9 @@ export async function generateMetadata({
   const query = typeof params.q === 'string' ? params.q : null;
 
   const title = category
-    ? `${category.name} for Roblox Studio`
+    ? `${category.name} pour Roblox Studio`
     : query
-      ? `Search: ${query}`
+      ? `Recherche : ${query}`
       : 'Marketplace';
 
   return {
@@ -66,15 +66,15 @@ export default async function MarketplacePage({ searchParams }: { searchParams: 
         </p>
         <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
           {query
-            ? `Results for "${query}"`
+            ? `Résultats pour « ${query} »`
             : activeCategory
               ? activeCategory.name
-              : 'Everything you need to build faster.'}
+              : 'Tout ce qu’il faut pour créer plus vite.'}
         </h1>
         <p className="text-pretty text-lg text-ink-muted">
           {activeCategory
             ? activeCategory.description
-            : 'Maps, assets, interfaces, scripts and complete packs — production-ready and made for Roblox Studio.'}
+            : 'Maps, assets, interfaces, scripts et packs complets — prêts pour la production et pensés pour Roblox Studio.'}
         </p>
       </header>
 

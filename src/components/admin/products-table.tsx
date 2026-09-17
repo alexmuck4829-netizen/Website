@@ -53,15 +53,15 @@ export function ProductsTable({ products }: { products: Product[] }) {
       if (action === 'duplicate') {
         const response = await fetch(`/api/products/${id}/duplicate`, { method: 'POST' });
         if (!response.ok) throw new Error();
-        toast.success('Product duplicated', { description: 'Saved as a draft.' });
+        toast.success('Produit dupliqué', { description: 'Enregistré comme brouillon.' });
       } else if (action === 'delete') {
-        if (!confirm(`Delete "${product.name}"? This cannot be undone.`)) {
+        if (!confirm(`Supprimer « ${product.name} » ? Cette action est irréversible.`)) {
           setBusy(null);
           return;
         }
         const response = await fetch(`/api/products/${id}`, { method: 'DELETE' });
         if (!response.ok) throw new Error();
-        toast.success('Product deleted');
+        toast.success('Produit supprimé');
       } else {
         const next: ProductStatus = product.status === 'published' ? 'hidden' : 'published';
         const response = await fetch(`/api/products/${id}`, {
@@ -70,11 +70,11 @@ export function ProductsTable({ products }: { products: Product[] }) {
           body: JSON.stringify({ status: next }),
         });
         if (!response.ok) throw new Error();
-        toast.success(next === 'published' ? 'Product published' : 'Product hidden');
+        toast.success(next === 'published' ? 'Produit publié' : 'Produit masqué');
       }
       startTransition(() => router.refresh());
     } catch {
-      toast.error('Action failed');
+      toast.error('L’action a échoué');
     } finally {
       setBusy(null);
     }
@@ -89,17 +89,17 @@ export function ProductsTable({ products }: { products: Product[] }) {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search products…"
+            placeholder="Rechercher un produit…"
             className="pl-10"
           />
         </div>
 
         <Select value={category} onValueChange={setCategory}>
           <SelectTrigger className="w-40">
-            <SelectValue placeholder="Category" />
+            <SelectValue placeholder="Catégorie" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All categories</SelectItem>
+            <SelectItem value="all">Toutes les catégories</SelectItem>
             {CATEGORIES.map((c) => (
               <SelectItem key={c.slug} value={c.slug}>
                 {c.name}
@@ -110,13 +110,13 @@ export function ProductsTable({ products }: { products: Product[] }) {
 
         <Select value={status} onValueChange={setStatus}>
           <SelectTrigger className="w-36">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder="Statut" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="published">Published</SelectItem>
-            <SelectItem value="draft">Draft</SelectItem>
-            <SelectItem value="hidden">Hidden</SelectItem>
+            <SelectItem value="all">Tous les statuts</SelectItem>
+            <SelectItem value="published">Publié</SelectItem>
+            <SelectItem value="draft">Brouillon</SelectItem>
+            <SelectItem value="hidden">Masqué</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -127,7 +127,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
           <table className="w-full min-w-[820px] text-sm">
             <thead>
               <tr className="border-b border-line text-left">
-                {['Product', 'Category', 'Price', 'Sales', 'Status', 'Version', 'Updated', ''].map(
+                {['Produit', 'Catégorie', 'Prix', 'Ventes', 'Statut', 'Version', 'Mis à jour', ''].map(
                   (header) => (
                     <th
                       key={header}
@@ -213,7 +213,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
                         variant="ghost"
                         size="icon-sm"
                         onClick={() => setMenuFor(menuFor === product.id ? null : product.id)}
-                        aria-label={`Actions for ${product.name}`}
+                        aria-label={`Actions pour ${product.name}`}
                       >
                         <MoreHorizontal />
                       </Button>
@@ -222,35 +222,35 @@ export function ProductsTable({ products }: { products: Product[] }) {
                         <>
                           <button
                             type="button"
-                            aria-label="Close menu"
+                            aria-label="Fermer le menu"
                             className="fixed inset-0 z-10 cursor-default"
                             onClick={() => setMenuFor(null)}
                           />
                           <div className="absolute right-0 top-9 z-20 w-44 overflow-hidden rounded-xl border border-line-strong bg-surface-overlay p-1 shadow-lift">
                             <MenuItem
                               icon={Pencil}
-                              label="Edit"
+                              label="Modifier"
                               href={`/admin/products/${product.id}/edit`}
                             />
                             <MenuItem
                               icon={Eye}
-                              label="Preview"
+                              label="Aperçu"
                               href={`/product/${product.slug}`}
                               external
                             />
                             <MenuItem
                               icon={Copy}
-                              label="Duplicate"
+                              label="Dupliquer"
                               onClick={() => act(product.id, 'duplicate', product)}
                             />
                             <MenuItem
                               icon={product.status === 'published' ? EyeOff : Eye}
-                              label={product.status === 'published' ? 'Hide' : 'Publish'}
+                              label={product.status === 'published' ? 'Masquer' : 'Publier'}
                               onClick={() => act(product.id, 'toggle', product)}
                             />
                             <MenuItem
                               icon={Trash2}
-                              label="Delete"
+                              label="Supprimer"
                               danger
                               onClick={() => act(product.id, 'delete', product)}
                             />
@@ -267,13 +267,13 @@ export function ProductsTable({ products }: { products: Product[] }) {
 
         {filtered.length === 0 && (
           <p className="p-8 text-center text-sm text-ink-muted">
-            No products match those filters.
+            Aucun produit ne correspond à ces filtres.
           </p>
         )}
       </div>
 
       <p className="text-sm text-ink-subtle">
-        {filtered.length} of {products.length} products
+        {filtered.length} produits sur {products.length}
       </p>
     </div>
   );

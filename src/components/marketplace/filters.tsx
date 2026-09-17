@@ -88,19 +88,19 @@ export function Filters({
       {activeCount > 0 && (
         <div className="flex items-center justify-between">
           <span className="text-sm text-ink-muted">
-            {activeCount} filter{activeCount === 1 ? '' : 's'} active
+            {activeCount} filtre{activeCount === 1 ? '' : 's'} actif{activeCount === 1 ? '' : 's'}
           </span>
           <button
             type="button"
             onClick={clearAll}
             className="flex cursor-pointer items-center gap-1 text-sm text-brand transition-colors hover:text-brand-hover"
           >
-            <X className="size-3.5" /> Clear
+            <X className="size-3.5" /> Effacer
           </button>
         </div>
       )}
 
-      <FilterGroup title="Categories">
+      <FilterGroup title="Catégories">
         <ul className="space-y-1">
           {PUBLIC_CATEGORIES.map((category) => {
             const checked = selectedCategories.includes(category.slug);
@@ -125,7 +125,7 @@ export function Filters({
         </ul>
       </FilterGroup>
 
-      <FilterGroup title="Price">
+      <FilterGroup title="Prix">
         <div className="space-y-4 px-2">
           <Slider
             value={price}
@@ -135,13 +135,13 @@ export function Filters({
             max={PRICE_BOUNDS.max}
             step={5}
             minStepsBetweenThumbs={1}
-            aria-label="Price range"
+            aria-label="Fourchette de prix"
           />
           <div className="flex items-center justify-between text-sm">
             <span className="rounded-lg border border-line bg-surface px-2.5 py-1 text-ink-muted">
               {formatPrice(price[0])}
             </span>
-            <span className="text-ink-subtle">to</span>
+            <span className="text-ink-subtle">à</span>
             <span className="rounded-lg border border-line bg-surface px-2.5 py-1 text-ink-muted">
               {formatPrice(price[1])}
               {price[1] >= PRICE_BOUNDS.max && '+'}
@@ -150,7 +150,7 @@ export function Filters({
         </div>
       </FilterGroup>
 
-      <FilterGroup title="Rating">
+      <FilterGroup title="Note">
         <div className="space-y-1">
           {[4.5, 4, 3.5].map((value) => (
             <button
@@ -173,7 +173,7 @@ export function Filters({
                   />
                 ))}
               </span>
-              {value} &amp; up
+              {value} et plus
             </button>
           ))}
         </div>
@@ -208,7 +208,7 @@ export function FilterDrawerContent({
       </div>
       <div className="border-t border-line p-4">
         <Button className="w-full" size="lg" onClick={onClose}>
-          Show results
+          Voir les résultats
         </Button>
       </div>
     </div>

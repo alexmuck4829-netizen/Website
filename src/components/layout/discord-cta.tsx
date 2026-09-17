@@ -21,7 +21,7 @@ export async function DiscordCTA() {
         <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div className="space-y-5">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#5865F2]/30 bg-[#5865F2]/10 px-3 py-1.5 text-xs font-medium text-[#A5B4FC]">
-              <DiscordIcon className="size-3.5" /> Community
+              <DiscordIcon className="size-3.5" /> Communauté
             </span>
             <h2 className="text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
               {discord.title}

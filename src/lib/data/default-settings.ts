@@ -1,11 +1,12 @@
 import type { SiteSettings } from '../types';
 
 /**
- * Factory defaults for every piece of editable site content.
+ * Valeurs d'usine de tout le contenu éditable du site.
  *
- * These seed the database on first run. After that, /admin/settings is the
- * source of truth — editing this file does nothing to a running install.
- * Use "Reset to defaults" in the admin to come back to these values.
+ * Elles amorcent la base de données au premier lancement. Ensuite,
+ * /admin/settings fait autorité — modifier ce fichier n'a aucun effet sur une
+ * installation déjà démarrée. Utilisez « Réinitialiser » dans l'admin pour y
+ * revenir.
  */
 export const DEFAULT_SETTINGS: SiteSettings = {
   brand: {
@@ -13,91 +14,135 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     shortName: 'OMC Studio',
     wordmarkTop: 'ONE MORE CLICK',
     wordmarkBottom: 'Studio',
-    tagline: 'Premium Roblox Studio resources',
+    tagline: 'Ressources premium pour Roblox Studio',
     description:
-      'Premium maps, assets, interfaces and development resources made for ambitious Roblox creators.',
+      'Maps, assets, interfaces et ressources de développement premium, conçus pour les créateurs Roblox ambitieux.',
   },
   links: {
     discordUrl: 'https://discord.gg/TJ4a2JrS9S',
     supportEmail: 'support@onemoreclick.studio',
   },
   theme: {
-    brand: '#0084FF',
+    brand: '#3B82F6',
     accent: '#22D3EE',
-    violet: '#7C5CFF',
+    violet: '#8B5CF6',
   },
   hero: {
-    badge: 'New drops every week',
-    titleLine1: 'Build Better',
-    titleLine2: 'Roblox Games.',
-    titleAccent: 'Faster.',
+    badge: 'Nouveautés chaque semaine',
+    titleLine1: 'Créez de meilleurs',
+    titleLine2: 'jeux Roblox.',
+    titleAccent: 'Plus vite.',
     subtitle:
-      'Premium maps, assets, interfaces and development resources made for ambitious Roblox creators.',
-    primaryCta: { label: 'Explore Marketplace', href: '/marketplace' },
-    secondaryCta: { label: 'View New Releases', href: '/new-releases' },
+      'Maps, assets, interfaces et ressources de développement premium, conçus pour les créateurs Roblox ambitieux.',
+    primaryCta: { label: 'Explorer la marketplace', href: '/marketplace' },
+    secondaryCta: { label: 'Voir les nouveautés', href: '/new-releases' },
     stats: [
-      { value: 1240, suffix: '+', label: 'Assets delivered' },
-      { value: 4.8, decimals: 1, label: 'Average rating' },
-      { value: 12, suffix: 'k+', label: 'Creators' },
+      { value: 1240, suffix: '+', label: 'Ressources livrées' },
+      { value: 4.8, decimals: 1, label: 'Note moyenne' },
+      { value: 12, suffix: 'k+', label: 'Créateurs' },
     ],
-    reassurance: ['Verified listings', 'Instant download', 'Ready for Roblox Studio'],
+    reassurance: ['Annonces vérifiées', 'Téléchargement immédiat', 'Prêt pour Roblox Studio'],
   },
   trust: [
-    { icon: 'Zap', title: 'Instant download', description: 'Files unlock the moment payment clears.', colour: '#FFBD2E' },
-    { icon: 'Gem', title: 'High quality assets', description: 'Optimised, tested, production-ready.', colour: '#22D3EE' },
-    { icon: 'ShieldCheck', title: 'Secure checkout', description: 'Payments handled by Stripe.', colour: '#3AD685' },
-    { icon: 'Blocks', title: 'Ready for Roblox Studio', description: 'Drop in, publish, keep building.', colour: '#0084FF' },
+    {
+      icon: 'Zap',
+      title: 'Téléchargement immédiat',
+      description: 'Les fichiers se débloquent dès le paiement validé.',
+      colour: '#FFC531',
+    },
+    {
+      icon: 'Gem',
+      title: 'Assets de qualité',
+      description: 'Optimisés, testés, prêts pour la production.',
+      colour: '#22D3EE',
+    },
+    {
+      icon: 'ShieldCheck',
+      title: 'Paiement sécurisé',
+      description: 'Transactions gérées par Stripe.',
+      colour: '#2FD97C',
+    },
+    {
+      icon: 'Blocks',
+      title: 'Prêt pour Roblox Studio',
+      description: 'Importez, publiez, continuez à créer.',
+      colour: '#8B5CF6',
+    },
   ],
   ticker: [
-    'Maps', 'Vehicles', 'GUI kits', 'Luau systems', 'Low-poly assets', 'Buildings',
-    'Street props', 'Build kits', 'Complete packs', 'Terrain', 'HUDs', 'Interiors',
+    'Maps', 'Véhicules', 'Kits GUI', 'Systèmes Luau', 'Assets low-poly', 'Bâtiments',
+    'Props urbains', 'Kits de construction', 'Packs complets', 'Terrain', 'HUD', 'Intérieurs',
   ],
   sections: {
-    categoriesEyebrow: 'Categories',
-    categoriesTitle: 'Explore by Category',
+    categoriesEyebrow: 'Catégories',
+    categoriesTitle: 'Explorer par catégorie',
     categoriesDescription:
-      'Every resource is sorted so you can find the missing piece instead of scrolling through everything.',
-    bestSellersTitle: 'Best Sellers',
+      'Tout est rangé pour que vous trouviez la pièce qui vous manque, au lieu de faire défiler le catalogue entier.',
+    bestSellersTitle: 'Meilleures ventes',
     bestSellersDescription:
-      'The resources creators come back for. Ranked by sales and rated by people who actually shipped with them.',
-    newReleasesTitle: 'Fresh Releases',
+      'Les ressources vers lesquelles les créateurs reviennent. Classées par ventes, notées par des gens qui ont réellement publié avec.',
+    newReleasesTitle: 'Nouveautés',
     newReleasesDescription:
-      'New to the store this month, built to the same standard as everything else.',
+      'Ajoutées ce mois-ci, au même niveau d’exigence que le reste du catalogue.',
   },
   promo: {
-    eyebrow: 'Premium resources',
-    title: 'Upgrade Your Next Roblox Project.',
+    eyebrow: 'Ressources premium',
+    title: 'Passez au niveau supérieur sur votre prochain projet.',
     description:
-      'Stop wasting hours building everything from scratch. Get production-ready resources and focus on creating the experience.',
-    cta: { label: 'Explore Premium Assets', href: '/marketplace' },
+      'Arrêtez de tout reconstruire de zéro. Partez de ressources prêtes pour la production et concentrez-vous sur l’expérience de jeu.',
+    cta: { label: 'Découvrir les assets premium', href: '/marketplace' },
     points: [
-      { icon: 'Clock', title: 'Weeks back', description: 'Skip the part of the project that is not the fun part.' },
-      { icon: 'Layers', title: 'Consistent quality', description: 'Assets that match in scale, style and finish.' },
-      { icon: 'Wrench', title: 'Yours to customise', description: 'Clean hierarchies built to be modified.' },
+      {
+        icon: 'Clock',
+        title: 'Des semaines gagnées',
+        description: 'Sautez la partie du projet qui n’est pas la plus intéressante.',
+      },
+      {
+        icon: 'Layers',
+        title: 'Qualité homogène',
+        description: 'Des assets cohérents en échelle, en style et en finition.',
+      },
+      {
+        icon: 'Wrench',
+        title: 'À vous de personnaliser',
+        description: 'Des hiérarchies propres, pensées pour être modifiées.',
+      },
     ],
   },
   discord: {
-    title: 'Build alongside other Roblox creators.',
+    title: 'Créez aux côtés d’autres créateurs Roblox.',
     description:
-      'Our Discord is where support happens, releases are announced first, and creators share what is working in their games. Free to join, no obligation to buy anything.',
-    ctaLabel: 'Join our Discord',
+      'Notre Discord, c’est là que le support se fait, que les sorties sont annoncées en premier et que les créateurs partagent ce qui marche dans leurs jeux. Gratuit, sans obligation d’achat.',
+    ctaLabel: 'Rejoindre le Discord',
     perks: [
-      { icon: 'LifeBuoy', title: 'Setup support', description: 'Stuck on an import? Ask and get an answer.' },
-      { icon: 'Bell', title: 'Release alerts', description: 'New drops and updates announced first.' },
-      { icon: 'Users', title: 'Creator community', description: 'Share builds, swap techniques, get feedback.' },
+      {
+        icon: 'LifeBuoy',
+        title: 'Aide à l’installation',
+        description: 'Bloqué sur un import ? Posez la question, vous aurez une réponse.',
+      },
+      {
+        icon: 'Bell',
+        title: 'Alertes de sortie',
+        description: 'Nouveautés et mises à jour annoncées en avant-première.',
+      },
+      {
+        icon: 'Users',
+        title: 'Communauté de créateurs',
+        description: 'Partagez vos builds, échangez des techniques, recevez des retours.',
+      },
     ],
   },
   footer: {
     blurb:
-      'Premium maps, assets, interfaces and development resources for ambitious Roblox creators. Built to save you weeks.',
+      'Maps, assets, interfaces et ressources de développement premium pour les créateurs Roblox ambitieux. Conçus pour vous faire gagner des semaines.',
     disclaimer:
-      'One More Click Studio is an independent creator studio. It is not affiliated with, endorsed by, or sponsored by Roblox Corporation. "Roblox" and "Roblox Studio" are trademarks of Roblox Corporation.',
-    copyright: 'One More Click Studio. All rights reserved.',
+      'One More Click Studio est un studio de création indépendant. Il n’est ni affilié à Roblox Corporation, ni approuvé ou sponsorisé par elle. « Roblox » et « Roblox Studio » sont des marques de Roblox Corporation.',
+    copyright: 'One More Click Studio. Tous droits réservés.',
   },
   seo: {
-    titleSuffix: 'Premium Roblox Studio Assets, Maps & GUI',
+    titleSuffix: 'Assets, maps et GUI premium pour Roblox Studio',
     description:
-      'Premium maps, assets, interfaces and development resources made for ambitious Roblox creators.',
+      'Maps, assets, interfaces et ressources de développement premium, conçus pour les créateurs Roblox ambitieux.',
   },
   updatedAt: new Date(0).toISOString(),
 };

@@ -4,68 +4,70 @@ import { SITE } from '@/lib/constants';
 import { absoluteUrlSafe } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'What data One More Click Studio collects and why.',
+  title: 'Politique de confidentialité',
+  description: 'Quelles données One More Click Studio collecte, et pourquoi.',
   alternates: { canonical: absoluteUrlSafe('/privacy') },
 };
 
 export default function PrivacyPage() {
   return (
     <LegalPage
-      title="Privacy Policy"
-      intro="What we collect, why we collect it, and what you can ask us to do with it."
+      title="Politique de confidentialité"
+      intro="Ce que nous collectons, pourquoi, et ce que vous pouvez nous demander d’en faire."
     >
-      <LegalSection title="What we collect">
+      <LegalSection title="Ce que nous collectons">
         <LegalList
           items={[
-            'Email address — required to deliver your purchase and give you access to your library.',
-            'Name — optional, used only to address you.',
-            'Order history — which products you bought and when, so your library works.',
-            'Download logs — product, time and IP address, kept to detect link sharing and abuse.',
-            'Payment records — handled by Stripe. We receive a confirmation and a reference, never your card number.',
+            'Adresse e-mail — nécessaire pour livrer votre achat et vous donner accès à votre bibliothèque.',
+            'Nom — facultatif, utilisé uniquement pour vous adresser la parole.',
+            'Historique de commandes — quels produits vous avez achetés et quand, pour que votre bibliothèque fonctionne.',
+            'Journaux de téléchargement — produit, horodatage et adresse IP, conservés pour détecter le partage de liens et les abus.',
+            'Données de paiement — gérées par Stripe. Nous recevons une confirmation et une référence, jamais votre numéro de carte.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="Why we collect it">
+      <LegalSection title="Pourquoi nous les collectons">
         <p>
-          To fulfil your order (contractual necessity), to protect paid files from unauthorised
-          distribution (legitimate interest), and to meet accounting obligations (legal obligation).
+          Pour exécuter votre commande (nécessité contractuelle), protéger les fichiers payants
+          d’une diffusion non autorisée (intérêt légitime) et respecter nos obligations comptables
+          (obligation légale).
         </p>
       </LegalSection>
 
-      <LegalSection title="Who we share it with">
+      <LegalSection title="Avec qui nous les partageons">
         <LegalList
           items={[
-            'Stripe — payment processing.',
-            'Our hosting and storage providers — to run the site and deliver files.',
-            'Nobody else. We do not sell personal data or share it for advertising.',
+            'Stripe — traitement des paiements.',
+            'Nos hébergeurs et prestataires de stockage — pour faire tourner le site et livrer les fichiers.',
+            'Personne d’autre. Nous ne vendons pas de données personnelles et ne les partageons pas à des fins publicitaires.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="How long we keep it">
+      <LegalSection title="Durée de conservation">
         <p>
-          Order records are kept as long as required for accounting purposes. Download logs are
-          retained for a limited period and then discarded. You can ask us to delete your account
-          data, subject to those obligations.
+          Les enregistrements de commandes sont conservés aussi longtemps que l’exige la
+          comptabilité. Les journaux de téléchargement sont conservés une durée limitée puis
+          supprimés. Vous pouvez demander la suppression de vos données, sous réserve de ces
+          obligations.
         </p>
       </LegalSection>
 
-      <LegalSection title="Your rights">
+      <LegalSection title="Vos droits">
         <p>
-          Depending on where you live you may have the right to access, correct, export or erase
-          your data, and to object to certain processing. Email{' '}
-          <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a> and we will respond within
-          a reasonable period.
+          Selon votre pays de résidence, vous pouvez avoir le droit d’accéder à vos données, de les
+          corriger, de les exporter ou de les effacer, et de vous opposer à certains traitements.
+          Écrivez à{' '}
+          <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a> et nous répondrons dans un délai raisonnable.
         </p>
       </LegalSection>
 
       <LegalSection title="Cookies">
         <p>
-          We use a small number of functional cookies: a session cookie so your library recognises
-          you, and local storage for your cart and favourites. No advertising or cross-site tracking
-          cookies are set.
+          Nous utilisons un petit nombre de cookies fonctionnels : un cookie de session pour que
+          votre bibliothèque vous reconnaisse, et le stockage local pour votre panier et vos favoris.
+          Aucun cookie publicitaire ni de suivi inter-sites n’est déposé.
         </p>
       </LegalSection>
     </LegalPage>

@@ -29,11 +29,11 @@ export function CartView() {
     return (
       <EmptyState
         icon={<ShoppingBag />}
-        title="Your cart is empty"
-        description="Browse the marketplace and add the pieces your next project is missing."
+        title="Votre panier est vide"
+        description="Parcourez la marketplace et ajoutez les pièces qui manquent à votre prochain projet."
         action={
           <Button asChild size="lg">
-            <Link href="/marketplace">Explore marketplace</Link>
+            <Link href="/marketplace">Explorer la marketplace</Link>
           </Button>
         }
       />
@@ -62,7 +62,7 @@ export function CartView() {
                 </Link>
                 <p className="text-sm text-ink-subtle">{CATEGORY_MAP[item.category]?.name}</p>
                 <p className="text-xs text-ink-subtle">
-                  Digital product — quantity is fixed at 1 licence
+                  Produit numérique — quantité fixée à 1 licence
                 </p>
               </div>
 
@@ -75,7 +75,7 @@ export function CartView() {
                   onClick={() => cart.remove(item.productId)}
                   className="flex cursor-pointer items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-ink-subtle transition-colors hover:bg-danger/10 hover:text-danger"
                 >
-                  <Trash2 className="size-4" /> Remove
+                  <Trash2 className="size-4" /> Retirer
                 </button>
               </div>
             </div>
@@ -84,16 +84,16 @@ export function CartView() {
       </ul>
 
       <aside className="surface-card space-y-5 p-6 lg:sticky lg:top-24">
-        <h2 className="font-display text-lg font-semibold text-ink">Order summary</h2>
+        <h2 className="font-display text-lg font-semibold text-ink">Récapitulatif</h2>
 
         <dl className="space-y-2.5 text-sm">
           <div className="flex justify-between">
-            <dt className="text-ink-muted">Subtotal ({cart.count})</dt>
+            <dt className="text-ink-muted">Sous-total ({cart.count})</dt>
             <dd className="text-ink">{formatPrice(cart.subtotal)}</dd>
           </div>
           <div className="flex justify-between">
             <dt className="flex items-center gap-1.5 text-ink-muted">
-              <Tag className="size-3.5" /> Discount
+              <Tag className="size-3.5" /> Réduction
             </dt>
             <dd className="text-ink-subtle">—</dd>
           </div>
@@ -107,19 +107,19 @@ export function CartView() {
 
         <Button size="lg" className="w-full" asChild>
           <Link href="/checkout">
-            <ShieldCheck /> Secure Checkout
+            <ShieldCheck /> Paiement sécurisé
           </Link>
         </Button>
 
         <p className="flex items-center justify-center gap-1.5 text-sm text-ink-muted">
-          <Zap className="size-4 text-success" /> Instant access after payment.
+          <Zap className="size-4 text-success" /> Accès immédiat après paiement.
         </p>
 
         <Link
           href="/marketplace"
           className="block text-center text-sm text-ink-muted transition-colors hover:text-ink"
         >
-          Continue shopping
+          Continuer mes achats
         </Link>
       </aside>
     </div>

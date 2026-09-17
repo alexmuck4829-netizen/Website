@@ -5,46 +5,46 @@ import { absoluteUrlSafe } from '@/lib/seo';
 import { SITE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'License',
+  title: 'Licence',
   description:
-    'How you may use products bought from One More Click Studio: permitted uses, commercial rights and redistribution restrictions.',
+    'Comment utiliser les produits achetés chez One More Click Studio : usages autorisés, droits commerciaux et restrictions de redistribution.',
   alternates: { canonical: absoluteUrlSafe('/license') },
 };
 
 const MATRIX = [
-  { right: 'Use in your own Roblox experiences', standard: true, commercial: true },
-  { right: 'Modify, recolour and extend the files', standard: true, commercial: true },
-  { right: 'Use in a monetised / commercial game', standard: true, commercial: true },
-  { right: 'Use across unlimited projects you own', standard: false, commercial: true },
-  { right: 'Use in client work you are paid for', standard: false, commercial: true },
-  { right: 'Redistribute the source files', standard: false, commercial: false },
-  { right: 'Resell the product, modified or not', standard: false, commercial: false },
-  { right: 'Share files publicly or in a group', standard: false, commercial: false },
-  { right: 'Include files in another asset pack', standard: false, commercial: false },
+  { right: 'Utiliser dans vos propres expériences Roblox', standard: true, commercial: true },
+  { right: 'Modifier, recolorer et étendre les fichiers', standard: true, commercial: true },
+  { right: 'Utiliser dans un jeu monétisé / commercial', standard: true, commercial: true },
+  { right: 'Utiliser sur un nombre illimité de vos projets', standard: false, commercial: true },
+  { right: 'Utiliser dans un travail client rémunéré', standard: false, commercial: true },
+  { right: 'Redistribuer les fichiers sources', standard: false, commercial: false },
+  { right: 'Revendre le produit, modifié ou non', standard: false, commercial: false },
+  { right: 'Partager les fichiers publiquement ou en groupe', standard: false, commercial: false },
+  { right: 'Inclure les fichiers dans un autre pack', standard: false, commercial: false },
 ];
 
 export default function LicensePage() {
   return (
     <LegalPage
-      title="Digital Product License"
-      intro="What you can and cannot do with the files you buy. Each product page shows which licence applies before you purchase."
+      title="Licence des produits numériques"
+      intro="Ce que vous pouvez faire — et ne pas faire — avec les fichiers achetés. Chaque fiche produit indique la licence applicable avant l’achat."
     >
-      <LegalSection title="The short version">
+      <LegalSection title="En résumé">
         <p>
-          You are buying a licence to <strong>use</strong> the files, not ownership of them. Build
-          whatever you like with them in your own games. Do not pass the files themselves on to
-          anyone else, in any form, paid or free.
+          Vous achetez une licence d’<strong>utilisation</strong> des fichiers, pas leur propriété.
+          Construisez ce que vous voulez avec, dans vos propres jeux. Ne transmettez jamais les
+          fichiers eux-mêmes à qui que ce soit, sous quelque forme que ce soit, payante ou gratuite.
         </p>
       </LegalSection>
 
-      <LegalSection title="Licence comparison">
+      <LegalSection title="Comparaison des licences">
         <div className="overflow-hidden rounded-2xl border border-line">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-line bg-surface/70">
-                <th className="px-4 py-3 text-left font-medium text-ink">Right</th>
+                <th className="px-4 py-3 text-left font-medium text-ink">Droit</th>
                 <th className="px-4 py-3 text-center font-medium text-ink">Standard</th>
-                <th className="px-4 py-3 text-center font-medium text-ink">Commercial</th>
+                <th className="px-4 py-3 text-center font-medium text-ink">Commerciale</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -63,67 +63,67 @@ export default function LicensePage() {
           </table>
         </div>
         <p className="text-sm">
-          Some products carry a <strong>Custom License</strong> with terms specific to that product.
-          Where a custom licence exists, it is shown on the product page and takes precedence over
-          this page.
+          Certains produits portent une <strong>licence personnalisée</strong> avec des conditions
+          propres. Lorsqu’elle existe, elle est affichée sur la fiche produit et prime sur cette page.
         </p>
       </LegalSection>
 
-      <LegalSection title="You may">
+      <LegalSection title="Vous pouvez">
         <LegalList
           items={[
-            'Use the product in Roblox experiences you own and operate, including monetised ones.',
-            'Modify, recolour, rescale, rebuild and combine the assets with your own work.',
-            'Publish a game containing the product, where the product is a component of the game rather than the thing being distributed.',
-            'Keep using the product indefinitely, including after your access to the store ends.',
-            'Download every version released under the licence you bought.',
+            'Utiliser le produit dans les expériences Roblox que vous possédez et exploitez, y compris monétisées.',
+            'Modifier, recolorer, redimensionner, reconstruire et combiner les assets avec votre propre travail.',
+            'Publier un jeu contenant le produit, dès lors que le produit est un composant du jeu et non l’objet distribué.',
+            'Continuer à utiliser le produit indéfiniment, y compris après la fin de votre accès à la boutique.',
+            'Télécharger toutes les versions publiées sous la licence achetée.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="You may not">
+      <LegalSection title="Vous ne pouvez pas">
         <LegalList
           items={[
-            'Redistribute, share, upload or publish the source files — including in a Discord server, a group, a public repository or a file host.',
-            'Resell the product, whether unmodified, modified, renamed or rebundled.',
-            'Include the files in another asset pack, template or product intended for distribution.',
-            'Sub-licence, rent or transfer your licence to another person or studio without written permission.',
-            'Use the product to train a generative model, or to create a competing asset library.',
-            'Claim authorship of the original assets.',
+            'Redistribuer, partager, téléverser ou publier les fichiers sources — y compris sur un serveur Discord, dans un groupe, un dépôt public ou un hébergeur de fichiers.',
+            'Revendre le produit, qu’il soit inchangé, modifié, renommé ou reconditionné.',
+            'Inclure les fichiers dans un autre pack, modèle ou produit destiné à la distribution.',
+            'Sous-licencier, louer ou céder votre licence à une autre personne ou un autre studio sans autorisation écrite.',
+            'Utiliser le produit pour entraîner un modèle génératif, ou constituer une bibliothèque d’assets concurrente.',
+            'Revendiquer la paternité des assets originaux.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="Team and studio use">
+      <LegalSection title="Usage en équipe ou en studio">
         <p>
-          A Standard licence covers one developer working on their own projects. If several people
-          need the source files, or the work is for a client, a Commercial licence is required.
-          Publishing a finished game that includes the product is not redistribution — sending a
-          teammate the .rbxm is.
+          La licence standard couvre un développeur travaillant sur ses propres projets. Si
+          plusieurs personnes ont besoin des fichiers sources, ou si le travail est destiné à un
+          client, une licence commerciale est requise. Publier un jeu fini contenant le produit
+          n’est pas de la redistribution — envoyer le .rbxm à un coéquipier, si.
         </p>
       </LegalSection>
 
-      <LegalSection title="Attribution">
+      <LegalSection title="Mention de l’auteur">
         <p>
-          Attribution is not required unless a product page says otherwise. It is always welcome —
-          a credit in your game description helps other creators find us.
+          Aucune mention n’est obligatoire, sauf indication contraire sur la fiche produit. Elle
+          reste appréciée — un crédit dans la description de votre jeu aide d’autres créateurs à
+          nous trouver.
         </p>
       </LegalSection>
 
-      <LegalSection title="Enforcement">
+      <LegalSection title="Application">
         <p>
-          Download links are personal and tied to your purchase. Sharing them, or the files behind
-          them, may result in your licence being revoked without refund and access to the store
-          being withdrawn.
+          Les liens de téléchargement sont personnels et rattachés à votre achat. Les partager, ou
+          partager les fichiers qu’ils délivrent, peut entraîner la révocation de votre licence sans
+          remboursement et le retrait de votre accès à la boutique.
         </p>
       </LegalSection>
 
-      <LegalSection title="Not affiliated with Roblox Corporation">
+      <LegalSection title="Aucune affiliation avec Roblox Corporation">
         <p>
-          {SITE.name} is an independent creator studio. It is not affiliated with, endorsed by or
-          sponsored by Roblox Corporation. Products sold here are made for use inside Roblox Studio
-          and remain subject to the Roblox Terms of Use and Community Standards, which take
-          precedence over anything on this page.
+          {SITE.name} est un studio de création indépendant. Il n’est ni affilié à Roblox
+          Corporation, ni approuvé ou sponsorisé par elle. Les produits vendus ici sont destinés à
+          Roblox Studio et restent soumis aux conditions d’utilisation et aux standards
+          communautaires de Roblox, qui priment sur tout ce qui figure sur cette page.
         </p>
       </LegalSection>
     </LegalPage>

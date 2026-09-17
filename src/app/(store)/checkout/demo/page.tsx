@@ -6,7 +6,7 @@ import { OrderService } from '@/lib/services/order-service';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Demo payment',
+  title: 'Paiement de démonstration',
   robots: { index: false, follow: false },
 };
 

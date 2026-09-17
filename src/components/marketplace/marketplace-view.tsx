@@ -53,11 +53,11 @@ export function MarketplaceView({
         {result.items.length === 0 ? (
           <EmptyState
             icon={<PackageSearch />}
-            title="No products match those filters"
-            description="Try widening the price range or clearing a category — the catalogue is growing every week."
+            title="Aucun produit ne correspond à ces filtres"
+            description="Élargissez la fourchette de prix ou retirez une catégorie — le catalogue s’étoffe chaque semaine."
             action={
               <Button asChild variant="secondary">
-                <Link href="/marketplace">Reset filters</Link>
+                <Link href="/marketplace">Réinitialiser les filtres</Link>
               </Button>
             }
           />
@@ -68,10 +68,10 @@ export function MarketplaceView({
             {hasMore && (
               <div className="flex flex-col items-center gap-3 pt-4">
                 <p className="text-sm text-ink-subtle">
-                  Showing {result.items.length} of {result.total}
+                  {result.items.length} produits sur {result.total}
                 </p>
                 <Button variant="secondary" size="lg" onClick={loadMore}>
-                  Load more products
+                  Charger plus de produits
                 </Button>
               </div>
             )}

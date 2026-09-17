@@ -35,21 +35,21 @@ export function DemoPayment({ order }: { order: Order }) {
       <div className="flex items-start gap-3 rounded-xl border border-gold/25 bg-gold/8 p-4">
         <Info className="mt-0.5 size-5 shrink-0 text-gold" />
         <div className="space-y-1">
-          <p className="text-sm font-medium text-gold">Demo payment page</p>
+          <p className="text-sm font-medium text-gold">Page de paiement de démonstration</p>
           <p className="text-sm text-ink-muted">
-            This stands in for Stripe Checkout. No card is charged and no card details are
-            collected.
+            Cette page remplace Stripe Checkout. Aucune carte n’est débitée et aucune donnée
+            bancaire n’est collectée.
           </p>
         </div>
       </div>
 
       <div className="space-y-1.5 text-center">
-        <p className="text-sm text-ink-muted">Order {order.reference}</p>
+        <p className="text-sm text-ink-muted">Commande {order.reference}</p>
         <p className="font-display text-4xl font-bold tracking-tight text-ink">
           {formatPrice(order.total)}
         </p>
         <p className="text-sm text-ink-subtle">
-          {order.items.length} item{order.items.length === 1 ? '' : 's'} · {order.customerEmail}
+          {order.items.length} article{order.items.length === 1 ? '' : 's'} · {order.customerEmail}
         </p>
       </div>
 
@@ -63,11 +63,11 @@ export function DemoPayment({ order }: { order: Order }) {
       </ul>
 
       <Button size="lg" className="w-full" onClick={pay} loading={processing}>
-        <CreditCard /> Confirm payment
+        <CreditCard /> Confirmer le paiement
       </Button>
 
       <p className="flex items-center justify-center gap-1.5 text-xs text-ink-subtle">
-        <Lock className="size-3.5" /> Real payments are handled by Stripe once configured.
+        <Lock className="size-3.5" /> Les paiements réels passent par Stripe une fois configuré.
       </p>
     </div>
   );

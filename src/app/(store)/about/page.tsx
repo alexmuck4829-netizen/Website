@@ -7,32 +7,32 @@ import { Reveal } from '@/components/ui/reveal';
 import { absoluteUrlSafe } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'À propos',
   description:
-    'One More Click Studio builds production-ready resources for Roblox creators — maps, assets, interfaces and systems that save weeks of work.',
+    'One More Click Studio conçoit des ressources prêtes pour la production destinées aux créateurs Roblox — maps, assets, interfaces et systèmes qui font gagner des semaines.',
   alternates: { canonical: absoluteUrlSafe('/about') },
 };
 
 const VALUES = [
   {
     icon: Gem,
-    title: 'Finished, not almost finished',
-    text: 'Interiors are built, pivots are correct, lighting is tuned. The last 10% is where most asset packs stop and where we start.',
+    title: 'Fini, pas presque fini',
+    text: 'Les intérieurs sont construits, les pivots sont justes, l’éclairage est réglé. Les 10 derniers pour cent sont là où la plupart des packs s’arrêtent et où nous commençons.',
   },
   {
     icon: Clock,
-    title: 'Your time is the point',
-    text: 'Every product exists to remove a week from your schedule. If it does not do that, it does not go in the store.',
+    title: 'Votre temps est l’enjeu',
+    text: 'Chaque produit existe pour retirer une semaine de votre planning. S’il ne le fait pas, il n’entre pas dans la boutique.',
   },
   {
     icon: ShieldCheck,
-    title: 'Honest product pages',
-    text: 'Real screenshots, real file sizes, real limitations. You should know exactly what you are buying before you click.',
+    title: 'Des fiches produit honnêtes',
+    text: 'De vraies captures, de vraies tailles de fichiers, de vraies limites. Vous devez savoir exactement ce que vous achetez avant de cliquer.',
   },
   {
     icon: MessageSquare,
-    title: 'Support that answers',
-    text: 'Our Discord is where questions get answered — usually by the people who built the thing you are asking about.',
+    title: 'Un support qui répond',
+    text: 'Notre Discord est l’endroit où les questions trouvent réponse — en général auprès de ceux qui ont construit ce dont vous parlez.',
   },
 ];
 
@@ -40,20 +40,21 @@ export default function AboutPage() {
   return (
     <div className="space-y-20 py-12 lg:py-20">
       <div className="container max-w-3xl space-y-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">About us</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">À propos</p>
         <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-          We build the parts of your game you would rather not build twice.
+          Nous construisons les parties de votre jeu que vous préférez ne pas refaire deux fois.
         </h1>
         <div className="space-y-4 text-pretty text-lg leading-relaxed text-ink-muted">
           <p>
-            One More Click Studio started the way most of these things do: we kept rebuilding the
-            same inventory system, the same city block, the same vehicle chassis on project after
-            project. Eventually it made more sense to build them properly once.
+            One More Click Studio a commencé comme la plupart de ces projets : nous refaisions sans
+            cesse le même système d’inventaire, le même quartier, le même châssis de véhicule, projet
+            après projet. À un moment, il devenait plus logique de les construire correctement une
+            bonne fois.
           </p>
           <p>
-            Everything in the store has been used in a real project before it was sold. That is the
-            filter — not whether it looks good in a screenshot, but whether it survived contact with
-            an actual game.
+            Tout ce qui se trouve dans la boutique a servi dans un vrai projet avant d’être vendu.
+            C’est le filtre : pas de savoir si ça rend bien en capture, mais si ça a survécu au
+            contact d’un vrai jeu.
           </p>
         </div>
       </div>
@@ -74,7 +75,7 @@ export default function AboutPage() {
 
       <div className="container flex justify-center">
         <Button size="lg" asChild>
-          <Link href="/marketplace">Explore the marketplace</Link>
+          <Link href="/marketplace">Explorer la marketplace</Link>
         </Button>
       </div>
 

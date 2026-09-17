@@ -11,27 +11,27 @@ const display = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', 
 export const metadata: Metadata = {
   metadataBase: metadataBase(),
   title: {
-    default: `${SITE.name} — Premium Roblox Studio Assets, Maps & GUI`,
+    default: `${SITE.name} — Assets, maps et GUI premium pour Roblox Studio`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   keywords: [
-    'Roblox Studio assets', 'Roblox maps', 'Roblox GUI', 'Roblox scripts',
-    'Roblox vehicles', 'Roblox development', 'game assets', 'Luau',
+    'assets Roblox Studio', 'maps Roblox', 'GUI Roblox', 'scripts Roblox',
+    'véhicules Roblox', 'développement Roblox', 'assets de jeu', 'Luau',
   ],
   authors: [{ name: SITE.name }],
   openGraph: {
     type: 'website',
-    locale: 'en_GB',
+    locale: 'fr_FR',
     url: SITE.url,
     siteName: SITE.name,
-    title: `${SITE.name} — Premium Roblox Studio Resources`,
+    title: `${SITE.name} — Ressources premium pour Roblox Studio`,
     description: SITE.description,
     images: [{ url: '/previews/modern-city-map-thumb.svg', width: 1280, height: 720, alt: SITE.name }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE.name} — Premium Roblox Studio Resources`,
+    title: `${SITE.name} — Ressources premium pour Roblox Studio`,
     description: SITE.description,
     images: ['/previews/modern-city-map-thumb.svg'],
   },
@@ -47,7 +47,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`}>
+    <html lang="fr" className={`${sans.variable} ${display.variable}`}>
       <body className="min-h-screen antialiased">
         <Providers>{children}</Providers>
       </body>

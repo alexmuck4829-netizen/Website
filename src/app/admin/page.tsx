@@ -18,7 +18,7 @@ import { formatPrice, relativeDate } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = { title: 'Dashboard', robots: { index: false } };
+export const metadata: Metadata = { title: 'Tableau de bord', robots: { index: false } };
 
 export default async function AdminDashboard() {
   const [stats, series, recentOrders, bestSelling, recentProducts] = await Promise.all([
@@ -33,42 +33,42 @@ export default async function AdminDashboard() {
     <div className="space-y-8">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Dashboard</h1>
-          <p className="text-ink-muted">Everything happening in the store.</p>
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Tableau de bord</h1>
+          <p className="text-ink-muted">Tout ce qui se passe dans la boutique.</p>
         </div>
         <Button asChild>
           <Link href="/admin/products/new">
-            <Plus /> Create product
+            <Plus /> Créer un produit
           </Link>
         </Button>
       </header>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
-          label="Total revenue"
+          label="Chiffre d’affaires"
           value={formatPrice(stats.revenue)}
-          sub={`${stats.orders} paid orders`}
+          sub={`${stats.orders} commandes payées`}
           icon={Euro}
           accent="success"
         />
         <StatCard
-          label="Total sales"
+          label="Ventes totales"
           value={String(stats.sales)}
-          sub="Licences delivered"
+          sub="Licences livrées"
           icon={ShoppingCart}
           accent="brand"
         />
         <StatCard
-          label="Products"
+          label="Produits"
           value={String(stats.products)}
-          sub={`${stats.published} published · ${stats.drafts} drafts`}
+          sub={`${stats.published} publiés · ${stats.drafts} brouillons`}
           icon={Package}
           accent="electric"
         />
         <StatCard
-          label="Customers"
+          label="Clients"
           value={String(stats.customers)}
-          sub="Unique buyers"
+          sub="Acheteurs uniques"
           icon={Users}
           accent="gold"
         />
@@ -80,17 +80,17 @@ export default async function AdminDashboard() {
         {/* Recent orders */}
         <section className="surface-card overflow-hidden">
           <header className="flex items-center justify-between border-b border-line p-5">
-            <h2 className="font-display text-lg font-semibold text-ink">Recent orders</h2>
+            <h2 className="font-display text-lg font-semibold text-ink">Commandes récentes</h2>
             <Link
               href="/admin/orders"
               className="flex items-center gap-1 text-sm text-brand hover:underline"
             >
-              View all <ArrowRight className="size-3.5" />
+              Tout voir <ArrowRight className="size-3.5" />
             </Link>
           </header>
 
           {recentOrders.length === 0 ? (
-            <p className="p-5 text-sm text-ink-muted">No orders yet.</p>
+            <p className="p-5 text-sm text-ink-muted">Aucune commande pour le moment.</p>
           ) : (
             <ul className="divide-y divide-line">
               {recentOrders.map((order) => (
@@ -100,7 +100,7 @@ export default async function AdminDashboard() {
                       {order.customerName ?? order.customerEmail}
                     </p>
                     <p className="text-xs text-ink-subtle">
-                      {order.reference} · {order.items.length} item
+                      {order.reference} · {order.items.length} article
                       {order.items.length === 1 ? '' : 's'} · {relativeDate(order.createdAt)}
                     </p>
                   </div>
@@ -119,11 +119,11 @@ export default async function AdminDashboard() {
         {/* Best selling */}
         <section className="surface-card overflow-hidden">
           <header className="border-b border-line p-5">
-            <h2 className="font-display text-lg font-semibold text-ink">Best selling products</h2>
+            <h2 className="font-display text-lg font-semibold text-ink">Produits les plus vendus</h2>
           </header>
 
           {bestSelling.length === 0 ? (
-            <p className="p-5 text-sm text-ink-muted">No sales recorded yet.</p>
+            <p className="p-5 text-sm text-ink-muted">Aucune vente enregistrée.</p>
           ) : (
             <ul className="divide-y divide-line">
               {bestSelling.map(({ product, sales, revenue }) => (
@@ -138,7 +138,7 @@ export default async function AdminDashboard() {
                     >
                       {product.name}
                     </Link>
-                    <p className="text-xs text-ink-subtle">{sales} sold</p>
+                    <p className="text-xs text-ink-subtle">{sales} vendus</p>
                   </div>
                   <span className="shrink-0 text-sm font-semibold text-ink">
                     {formatPrice(revenue)}
@@ -153,12 +153,12 @@ export default async function AdminDashboard() {
       {/* Recent products */}
       <section className="surface-card overflow-hidden">
         <header className="flex items-center justify-between border-b border-line p-5">
-          <h2 className="font-display text-lg font-semibold text-ink">Recently added</h2>
+          <h2 className="font-display text-lg font-semibold text-ink">Ajoutés récemment</h2>
           <Link
             href="/admin/products"
             className="flex items-center gap-1 text-sm text-brand hover:underline"
           >
-            All products <ArrowRight className="size-3.5" />
+            Tous les produits <ArrowRight className="size-3.5" />
           </Link>
         </header>
         <ul className="divide-y divide-line">

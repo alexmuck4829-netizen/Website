@@ -11,8 +11,8 @@ import { OrderService } from '@/lib/services/order-service';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'My Library',
-  description: 'Every product you own, ready to download.',
+  title: 'Ma bibliothèque',
+  description: 'Tous vos produits, prêts à télécharger.',
   robots: { index: false, follow: false },
 };
 
@@ -33,25 +33,25 @@ export default async function LibraryPage() {
     <div className="container max-w-5xl py-12 lg:py-16">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-2">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-ink">My Library</h1>
+          <h1 className="font-display text-4xl font-bold tracking-tight text-ink">Ma bibliothèque</h1>
           <p className="text-ink-muted">
-            Signed in as <span className="text-ink">{session.email}</span> —{' '}
-            {entries.length} product{entries.length === 1 ? '' : 's'} owned.
+            Connecté en tant que <span className="text-ink">{session.email}</span> —{' '}
+            {entries.length} produit{entries.length === 1 ? '' : 's'} acquis.
           </p>
         </div>
         <Button variant="secondary" asChild>
-          <Link href="/marketplace">Browse marketplace</Link>
+          <Link href="/marketplace">Parcourir la marketplace</Link>
         </Button>
       </header>
 
       {entries.length === 0 ? (
         <EmptyState
           icon={<LibraryBig />}
-          title="Nothing here yet"
-          description="Products you buy appear here straight away, with every version you are entitled to."
+          title="Rien ici pour l’instant"
+          description="Les produits que vous achetez apparaissent ici immédiatement, avec toutes les versions auxquelles vous avez droit."
           action={
             <Button asChild size="lg">
-              <Link href="/marketplace">Explore marketplace</Link>
+              <Link href="/marketplace">Explorer la marketplace</Link>
             </Button>
           }
         />

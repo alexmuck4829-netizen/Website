@@ -4,61 +4,63 @@ import { SITE } from '@/lib/constants';
 import { absoluteUrlSafe } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Refund Policy',
-  description: 'When a refund is possible on digital products from One More Click Studio.',
+  title: 'Politique de remboursement',
+  description: 'Dans quels cas un remboursement est possible sur les produits numériques One More Click Studio.',
   alternates: { canonical: absoluteUrlSafe('/refunds') },
 };
 
 export default function RefundsPage() {
   return (
     <LegalPage
-      title="Refund Policy"
-      intro="Digital products are delivered instantly, which limits when a refund is possible — but we would rather fix a problem than keep money from an unhappy customer."
+      title="Politique de remboursement"
+      intro="Les produits numériques sont livrés instantanément, ce qui limite les cas de remboursement — mais nous préférons résoudre un problème que garder l’argent d’un client mécontent."
     >
-      <LegalSection title="The principle">
+      <LegalSection title="Le principe">
         <p>
-          Because files are downloadable immediately, a purchase generally cannot be undone. That
-          said, if a product is broken, materially different from its description, or will not open
-          in Roblox Studio, contact us — we will fix it, replace it, or refund it.
+          Comme les fichiers sont téléchargeables immédiatement, un achat ne peut généralement pas
+          être annulé. Cela dit, si un produit est défectueux, sensiblement différent de sa
+          description, ou ne s’ouvre pas dans Roblox Studio, contactez-nous : nous le corrigeons, le
+          remplaçons ou le remboursons.
         </p>
       </LegalSection>
 
-      <LegalSection title="We will refund when">
+      <LegalSection title="Nous remboursons lorsque">
         <LegalList
           items={[
-            'The files are corrupted or will not open, and we cannot resolve it.',
-            'The product is materially different from what its page described.',
-            'You were charged more than once for the same product.',
-            'You have not downloaded the files and request a refund within 14 days.',
+            'Les fichiers sont corrompus ou ne s’ouvrent pas, et nous ne parvenons pas à résoudre le problème.',
+            'Le produit diffère sensiblement de ce que décrivait sa fiche.',
+            'Vous avez été débité plusieurs fois pour le même produit.',
+            'Vous n’avez pas téléchargé les fichiers et demandez un remboursement sous 14 jours.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="We generally cannot refund when">
+      <LegalSection title="Nous ne pouvons généralement pas rembourser lorsque">
         <LegalList
           items={[
-            'You have downloaded the files and simply changed your mind.',
-            'The product works as described but does not suit your project.',
-            'You bought the wrong product but have already downloaded it — contact us anyway, we may offer credit.',
-            'Your own modifications broke the product.',
+            'Vous avez téléchargé les fichiers et avez simplement changé d’avis.',
+            'Le produit fonctionne comme décrit mais ne convient pas à votre projet.',
+            'Vous vous êtes trompé de produit mais l’avez déjà téléchargé — contactez-nous quand même, un avoir est possible.',
+            'Vos propres modifications ont cassé le produit.',
           ]}
         />
       </LegalSection>
 
-      <LegalSection title="Statutory rights">
+      <LegalSection title="Droits légaux">
         <p>
-          Consumer law in your country may give you rights beyond this policy — in the EU and UK,
-          for example, the right to withdraw from a digital purchase can apply unless you agreed to
-          immediate delivery and acknowledged losing that right at checkout. Nothing in this policy
-          removes rights you have by law.
+          Le droit de la consommation de votre pays peut vous accorder des droits allant au-delà de
+          cette politique — dans l’Union européenne, par exemple, le droit de rétractation sur un
+          achat numérique peut s’appliquer sauf si vous avez accepté la livraison immédiate et
+          reconnu renoncer à ce droit au moment du paiement. Rien dans cette politique ne supprime
+          les droits que la loi vous accorde.
         </p>
       </LegalSection>
 
-      <LegalSection title="How to request one">
+      <LegalSection title="Comment en demander un">
         <p>
-          Email <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a> with your order
-          reference and what went wrong. Refunds are returned to the original payment method,
-          usually within 5–10 working days of approval.
+          Écrivez à <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a> en indiquant
+          votre référence de commande et ce qui s’est passé. Les remboursements sont effectués sur le
+          moyen de paiement d’origine, généralement sous 5 à 10 jours ouvrés après validation.
         </p>
       </LegalSection>
     </LegalPage>

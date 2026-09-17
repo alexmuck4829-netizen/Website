@@ -12,7 +12,7 @@ import { SITE, absoluteUrlSafe } from '@/lib/seo';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: `${SITE.name} — Premium Roblox Studio Assets, Maps & GUI`,
+  title: `${SITE.name} — Assets, maps et GUI premium pour Roblox Studio`,
   description: SITE.description,
   alternates: { canonical: absoluteUrlSafe('/') },
 };
@@ -33,23 +33,23 @@ export default async function HomePage() {
       <CategoryGrid counts={counts} sections={settings.sections} />
 
       <ProductSection
-        eyebrow="Best sellers"
+eyebrow="Meilleures ventes"
         title={settings.sections.bestSellersTitle}
         description={settings.sections.bestSellersDescription}
         products={bestSellers}
         ctaHref="/marketplace?sort=best-selling"
-        ctaLabel="View all best sellers"
+ctaLabel="Voir toutes les meilleures ventes"
       />
 
       <PromoBanner products={featured} promo={settings.promo} />
 
       <ProductSection
-        eyebrow="Just added"
+eyebrow="Tout juste ajouté"
         title={settings.sections.newReleasesTitle}
         description={settings.sections.newReleasesDescription}
         products={newReleases}
         ctaHref="/new-releases"
-        ctaLabel="View all new releases"
+ctaLabel="Voir toutes les nouveautés"
       />
 
       <DiscordCTA />

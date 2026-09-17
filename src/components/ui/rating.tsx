@@ -39,11 +39,11 @@ export function Rating({ value, count, size = 'sm', showValue = true, className 
       )}
       {count != null && (
         <span className={cn(TEXT[size], 'text-ink-subtle')}>
-          ({count.toLocaleString('en-GB')})
+          ({count.toLocaleString('fr-FR')})
         </span>
       )}
       <span className="sr-only">
-        Rated {value.toFixed(1)} out of 5{count != null ? ` from ${count} reviews` : ''}
+        Note de {value.toFixed(1)} sur 5{count != null ? `, sur ${count} avis` : ''}
       </span>
     </div>
   );

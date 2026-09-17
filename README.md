@@ -2,6 +2,12 @@
 
 A premium digital marketplace for Roblox Studio creators — maps, assets, GUI, scripts, vehicles, buildings, props and complete packs.
 
+**The storefront and admin are in French** (`lang="fr"`, `fr-FR` number, date and
+currency formatting). All copy lives in the database, so translating the site to
+another language is an editing job in `/admin/settings`, not a code change — the
+only exception is the demo catalogue, whose factory text sits in
+`src/lib/data/seed-products.ts`.
+
 Built with **Next.js 16 · React 19 · TypeScript · Tailwind CSS · Framer Motion · Lucide**.
 
 > Not affiliated with, endorsed by or sponsored by Roblox Corporation.

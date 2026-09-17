@@ -10,19 +10,19 @@ export default function NotFound() {
       </span>
       <div className="space-y-2">
         <h1 className="font-display text-4xl font-bold tracking-tight text-ink">
-          This page does not exist
+          Cette page n’existe pas
         </h1>
         <p className="text-ink-muted">
-          The link may be old, or the product may have been renamed. The marketplace has everything
-          currently available.
+          Le lien est peut-être ancien, ou le produit a été renommé. La marketplace regroupe tout
+          ce qui est disponible.
         </p>
       </div>
       <div className="flex flex-col gap-3 sm:flex-row">
         <Button size="lg" asChild>
-          <Link href="/marketplace">Browse marketplace</Link>
+          <Link href="/marketplace">Parcourir la marketplace</Link>
         </Button>
         <Button size="lg" variant="secondary" asChild>
-          <Link href="/">Back home</Link>
+          <Link href="/">Retour à l’accueil</Link>
         </Button>
       </div>
     </div>

@@ -15,7 +15,7 @@ export function WhatsIncluded({ items }: { items: string[] }) {
     <Reveal>
       <section className="surface-card space-y-4 p-6">
         <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
-          What&rsquo;s Included
+          Contenu du produit
         </h2>
         <ul className="grid gap-2.5 sm:grid-cols-2">
           {items.map((item) => (
@@ -34,19 +34,19 @@ export function WhatsIncluded({ items }: { items: string[] }) {
 
 export function ProductInformation({ product }: { product: Product }) {
   const rows = [
-    { label: 'Compatibility', value: product.specs.compatibility },
-    { label: 'File type', value: product.specs.fileType },
-    { label: 'File size', value: product.specs.fileSize },
+    { label: 'Compatibilité', value: product.specs.compatibility },
+    { label: 'Type de fichier', value: product.specs.fileType },
+    { label: 'Taille', value: product.specs.fileSize },
     { label: 'Version', value: product.specs.version },
-    { label: 'Updated', value: formatDate(product.specs.updatedAt) },
-    { label: 'Category', value: product.subcategory ?? product.category },
+    { label: 'Mise à jour', value: formatDate(product.specs.updatedAt) },
+    { label: 'Catégorie', value: product.subcategory ?? product.category },
   ];
 
   return (
     <Reveal>
       <section className="surface-card overflow-hidden">
         <h2 className="border-b border-line p-6 pb-4 font-display text-xl font-semibold tracking-tight text-ink">
-          Product Information
+          Informations produit
         </h2>
         <dl className="divide-y divide-line">
           {rows.map((row) => (
@@ -68,7 +68,7 @@ export function WhyYoullLoveIt({ benefits }: { benefits: Product['benefits'] }) 
     <section className="space-y-6">
       <Reveal>
         <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-          Why You&rsquo;ll Love It
+          Pourquoi vous allez l’adorer
         </h2>
       </Reveal>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -97,7 +97,7 @@ export function PerfectFor({ items }: { items: string[] }) {
   return (
     <Reveal>
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold tracking-tight text-ink">Perfect For</h2>
+        <h2 className="font-display text-xl font-semibold tracking-tight text-ink">Idéal pour</h2>
         <ul className="flex flex-wrap gap-2.5">
           {items.map((item) => (
             <li
@@ -123,10 +123,10 @@ export function ScreenshotShowcase({ product }: { product: Product }) {
       <Reveal>
         <div className="space-y-2">
           <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-            Take a closer look
+            Regardez de plus près
           </h2>
           <p className="text-ink-muted">
-            Full-size captures from Roblox Studio. What you see is what ships.
+            Captures pleine taille depuis Roblox Studio. Ce que vous voyez est ce que vous recevez.
           </p>
         </div>
       </Reveal>
@@ -138,7 +138,7 @@ export function ScreenshotShowcase({ product }: { product: Product }) {
               <div className="relative aspect-[16/9]">
                 <Image
                   src={image.url}
-                  alt={`${product.name} — full screenshot ${i + 1}`}
+                  alt={`${product.name} — capture complète ${i + 1}`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 1100px"
                   loading="lazy"
@@ -160,7 +160,7 @@ export function Changelog({ versions }: { versions: Product['versions'] }) {
     <Reveal>
       <section className="surface-card space-y-5 p-6">
         <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
-          Version history
+          Historique des versions
         </h2>
         <ol className="space-y-5">
           {versions.slice(0, 4).map((version, i) => (
@@ -179,7 +179,7 @@ export function Changelog({ versions }: { versions: Product['versions'] }) {
                   <span className="text-xs text-ink-subtle">{formatDate(version.releasedAt)}</span>
                   {i === 0 && (
                     <span className="rounded-full bg-brand/12 px-2 py-0.5 text-[10px] font-semibold uppercase text-brand">
-                      Latest
+                      Actuelle
                     </span>
                   )}
                 </div>

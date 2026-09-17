@@ -1,12 +1,13 @@
 'use client';
 
 import React, {
-  useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode,
+  Fragment, useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode,
 } from 'react';
 import {
   AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform,
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { SITE } from '@/lib/constants';
 
 /**
  * Motion primitives.
@@ -190,18 +191,21 @@ export function BlurReveal({
       variants={{ show: { transition: { staggerChildren: stagger, delayChildren: delay } } }}
     >
       {words.map((word, i) => (
-        <motion.span
-          key={`${word}-${i}`}
-          className={cn('inline-block', wordClassName?.(word, i))}
-          variants={{
-            hidden: { opacity: 0, y: 16, filter: 'blur(10px)' },
-            show: { opacity: 1, y: 0, filter: 'blur(0px)' },
-          }}
-          transition={{ duration: 0.75, ease: EASE }}
-        >
-          {word}
-          {i < words.length - 1 && ' '}
-        </motion.span>
+        <Fragment key={`${word}-${i}`}>
+          <motion.span
+            className={cn('inline-block', wordClassName?.(word, i))}
+            variants={{
+              hidden: { opacity: 0, y: 16, filter: 'blur(10px)' },
+              show: { opacity: 1, y: 0, filter: 'blur(0px)' },
+            }}
+            transition={{ duration: 0.75, ease: EASE }}
+          >
+            {word}
+          </motion.span>
+          {/* A breaking space BETWEEN the inline-blocks. A non-breaking space
+              inside the span stops a long headline from ever wrapping. */}
+          {i < words.length - 1 ? ' ' : null}
+        </Fragment>
       ))}
     </Component>
   );
@@ -249,7 +253,7 @@ export function Counter({
   return (
     <span ref={ref} className={cn('tabular-nums', className)}>
       {prefix}
-      {value.toLocaleString('en-GB', {
+      {value.toLocaleString(SITE.locale, {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       })}
@@ -439,7 +443,7 @@ export function BackToTop() {
       {visible && (
         <motion.button
           type="button"
-          aria-label="Back to top"
+          aria-label="Retour en haut"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           initial={{ opacity: 0, scale: 0.8, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}

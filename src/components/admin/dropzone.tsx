@@ -86,7 +86,7 @@ export function Dropzone({
           // Clear the finished row after a beat so the zone does not fill up.
           setTimeout(() => setTasks((current) => current.filter((t) => t.id !== id)), 2500);
         } else {
-          let message = 'Upload failed';
+          let message = 'Le téléversement a échoué';
           try {
             message = (JSON.parse(xhr.responseText) as { error?: string }).error ?? message;
           } catch {
@@ -101,7 +101,7 @@ export function Dropzone({
       xhr.addEventListener('error', () => {
         setTasks((current) =>
           current.map((t) =>
-            t.id === id ? { ...t, status: 'error', error: 'Network error' } : t,
+            t.id === id ? { ...t, status: 'error', error: 'Erreur réseau' } : t,
           ),
         );
       });
@@ -159,9 +159,9 @@ export function Dropzone({
 
         <div className="space-y-0.5">
           <p className={cn('font-medium text-ink', compact && 'text-sm')}>
-            {dragging ? 'Drop to upload' : 'Drag & drop your files here'}
+            {dragging ? 'Déposez pour téléverser' : 'Glissez-déposez vos fichiers ici'}
           </p>
-          <p className="text-sm text-ink-muted">or click to browse</p>
+          <p className="text-sm text-ink-muted">ou cliquez pour parcourir</p>
         </div>
 
         <p className="text-xs text-ink-subtle">{hint}</p>
@@ -203,7 +203,7 @@ export function Dropzone({
                   <button
                     type="button"
                     onClick={() => setTasks((c) => c.filter((t) => t.id !== task.id))}
-                    aria-label="Dismiss"
+                    aria-label="Ignorer"
                     className="cursor-pointer text-ink-subtle hover:text-ink"
                   >
                     <X className="size-3.5" />

@@ -31,7 +31,7 @@ export function AdminLoginForm({ next, devMode }: { next?: string; devMode: bool
       });
     } else {
       const data = (await response.json()) as { error?: string };
-      setError(data.error ?? 'Sign in failed.');
+      setError(data.error ?? 'La connexion a échoué.');
       setLoading(false);
     }
   };
@@ -42,14 +42,14 @@ export function AdminLoginForm({ next, devMode }: { next?: string; devMode: bool
         <LogoMark className="size-12" />
         <div className="space-y-1">
           <h1 className="font-display text-2xl font-bold tracking-tight text-ink">
-            Studio dashboard
+            Tableau de bord
           </h1>
-          <p className="text-sm text-ink-muted">Private area. Sign in to manage the store.</p>
+          <p className="text-sm text-ink-muted">Zone privée. Connectez-vous pour gérer la boutique.</p>
         </div>
       </div>
 
       <form onSubmit={submit} className="surface-card space-y-4 p-6">
-        <Field label="Admin password" error={error ?? undefined}>
+        <Field label="Mot de passe administrateur" error={error ?? undefined}>
           <Input
             type="password"
             required
@@ -62,7 +62,7 @@ export function AdminLoginForm({ next, devMode }: { next?: string; devMode: bool
         </Field>
 
         <Button type="submit" size="lg" className="w-full" loading={loading}>
-          <Lock /> Sign in
+          <Lock /> Se connecter
         </Button>
       </form>
 
@@ -70,11 +70,12 @@ export function AdminLoginForm({ next, devMode }: { next?: string; devMode: bool
         <div className="flex items-start gap-3 rounded-xl border border-gold/25 bg-gold/8 p-4">
           <Info className="mt-0.5 size-4 shrink-0 text-gold" />
           <p className="text-xs leading-relaxed text-ink-muted">
-            <strong className="text-gold">Development mode.</strong> No{' '}
-            <code className="rounded bg-black/40 px-1 font-mono">ADMIN_PASSWORD</code> is set, so the
-            default is <code className="rounded bg-black/40 px-1 font-mono">omc-admin</code>. Set a
-            real one in <code className="rounded bg-black/40 px-1 font-mono">.env.local</code> before
-            deploying.
+            <strong className="text-gold">Mode développement.</strong> Aucun{' '}
+            <code className="rounded bg-black/40 px-1 font-mono">ADMIN_PASSWORD</code> n’est défini, le mot
+            de passe par défaut est donc{' '}
+            <code className="rounded bg-black/40 px-1 font-mono">omc-admin</code>. Définissez-en un
+            vrai dans <code className="rounded bg-black/40 px-1 font-mono">.env.local</code> avant de
+            déployer.
           </p>
         </div>
       )}
