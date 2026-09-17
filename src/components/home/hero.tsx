@@ -3,25 +3,29 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Blocks, ShieldCheck, Sparkles, Zap } from 'lucide-react';
+import {
+  ArrowRight, Blocks, CheckCircle2, Gem, ShieldCheck, Sparkles, Zap, type LucideIcon,
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   BlurReveal, Counter, Magnetic, Parallax, Spotlight, StudRow, Tilt,
 } from '@/components/ui/motion';
 import { CATEGORY_MAP } from '@/lib/constants';
-import type { Product } from '@/lib/types';
+import type { Product, SiteSettings } from '@/lib/types';
 import { effectivePrice, formatPrice } from '@/lib/utils';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const STATS = [
-  { value: 1240, suffix: '+', label: 'Assets delivered' },
-  { value: 4.8, decimals: 1, label: 'Average rating' },
-  { value: 12, suffix: 'k+', label: 'Creators' },
-];
+const REASSURANCE_ICONS: LucideIcon[] = [ShieldCheck, Zap, Blocks, Gem, CheckCircle2];
 
-export function Hero({ products }: { products: Product[] }) {
+export function Hero({
+  products,
+  hero,
+}: {
+  products: Product[];
+  hero: SiteSettings['hero'];
+}) {
   const reduce = useReducedMotion();
   const showcase = products.slice(0, 4);
 
@@ -46,16 +50,16 @@ export function Hero({ products }: { products: Product[] }) {
           >
             <span className="brick inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-ink-muted">
               <Sparkles className="size-3.5 text-brand" />
-              New drops every week
+              {hero.badge}
             </span>
             <StudRow count={4} colors={['#F45656', '#FFBD2E', '#3AD685', '#0084FF']} />
           </motion.div>
 
           <h1 className="mt-6 text-balance font-display text-[2.6rem] font-bold leading-[1.04] tracking-tight text-ink sm:text-6xl lg:text-[4.1rem]">
-            <BlurReveal text="Build Better" as="span" className="block" />
-            <BlurReveal text="Roblox Games." as="span" className="block" delay={0.12} />
+            <BlurReveal text={hero.titleLine1} as="span" className="block" />
+            <BlurReveal text={hero.titleLine2} as="span" className="block" delay={0.12} />
             <BlurReveal
-              text="Faster."
+              text={hero.titleAccent}
               as="span"
               className="block"
               wordClassName={() => 'brand-gradient-text'}
@@ -69,8 +73,7 @@ export function Hero({ products }: { products: Product[] }) {
             transition={{ duration: 0.7, delay: 0.42, ease: EASE }}
             className="mt-6 text-pretty text-lg leading-relaxed text-ink-muted"
           >
-            Premium maps, assets, interfaces and development resources made for ambitious Roblox
-            creators.
+            {hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -81,13 +84,13 @@ export function Hero({ products }: { products: Product[] }) {
           >
             <Magnetic>
               <Button size="lg" asChild>
-                <Link href="/marketplace">
-                  Explore Marketplace <ArrowRight />
+                <Link href={hero.primaryCta.href}>
+                  {hero.primaryCta.label} <ArrowRight />
                 </Link>
               </Button>
             </Magnetic>
             <Button size="lg" variant="secondary" asChild>
-              <Link href="/new-releases">View New Releases</Link>
+              <Link href={hero.secondaryCta.href}>{hero.secondaryCta.label}</Link>
             </Button>
           </motion.div>
 
@@ -98,7 +101,7 @@ export function Hero({ products }: { products: Product[] }) {
             transition={{ duration: 0.7, delay: 0.66 }}
             className="mt-10 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line"
           >
-            {STATS.map((stat) => (
+            {hero.stats.map((stat) => (
               <div key={stat.label} className="bg-surface/90 px-4 py-3.5">
                 <dt className="sr-only">{stat.label}</dt>
                 <dd className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
@@ -138,16 +141,15 @@ export function Hero({ products }: { products: Product[] }) {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3"
         >
-          {[
-            { icon: ShieldCheck, label: 'Verified listings' },
-            { icon: Zap, label: 'Instant download' },
-            { icon: Blocks, label: 'Ready for Roblox Studio' },
-          ].map((item) => (
-            <li key={item.label} className="flex items-center gap-2 text-sm text-ink-muted">
-              <item.icon className="size-4 text-brand" />
-              {item.label}
-            </li>
-          ))}
+          {hero.reassurance.map((label, i) => {
+            const Icon = REASSURANCE_ICONS[i % REASSURANCE_ICONS.length];
+            return (
+              <li key={label} className="flex items-center gap-2 text-sm text-ink-muted">
+                <Icon className="size-4 text-brand" />
+                {label}
+              </li>
+            );
+          })}
         </motion.ul>
       </div>
     </section>

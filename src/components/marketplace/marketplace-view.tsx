@@ -52,7 +52,7 @@ export function MarketplaceView({
 
         {result.items.length === 0 ? (
           <EmptyState
-            icon={PackageSearch}
+            icon={<PackageSearch />}
             title="No products match those filters"
             description="Try widening the price range or clearing a category — the catalogue is growing every week."
             action={

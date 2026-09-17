@@ -33,7 +33,7 @@ export function MediaLibrary({ assets }: { assets: MediaAsset[] }) {
   if (assets.length === 0) {
     return (
       <EmptyState
-        icon={FolderOpen}
+        icon={<FolderOpen />}
         title="No uploads yet"
         description="Files you upload from a product's Media or Files tab appear here, with the product they belong to."
       />

@@ -2,8 +2,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import dynamicImport from 'next/dynamic';
 import { ProductCard } from './product-card';
-import { QuickView } from './quick-view';
+
+// The quick-view modal pulls in a dialog tree that most visitors never open.
+const QuickView = dynamicImport(() => import('./quick-view').then((m) => m.QuickView), {
+  ssr: false,
+});
 import { staggerContainer, staggerItem } from '@/components/ui/reveal';
 import type { Product } from '@/lib/types';
 import { cn } from '@/lib/utils';
@@ -48,11 +53,13 @@ export function ProductGrid({
         ))}
       </motion.div>
 
-      <QuickView
-        product={quickView}
-        open={!!quickView}
-        onOpenChange={(open) => !open && setQuickView(null)}
-      />
+      {quickView && (
+        <QuickView
+          product={quickView}
+          open={!!quickView}
+          onOpenChange={(open) => !open && setQuickView(null)}
+        />
+      )}
     </>
   );
 }

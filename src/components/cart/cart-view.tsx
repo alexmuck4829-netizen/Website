@@ -28,7 +28,7 @@ export function CartView() {
   if (cart.count === 0) {
     return (
       <EmptyState
-        icon={ShoppingBag}
+        icon={<ShoppingBag />}
         title="Your cart is empty"
         description="Browse the marketplace and add the pieces your next project is missing."
         action={

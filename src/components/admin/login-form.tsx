@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, startTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { AlertCircle, Info, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,8 +25,10 @@ export function AdminLoginForm({ next, devMode }: { next?: string; devMode: bool
     });
 
     if (response.ok) {
-      router.push(next ?? '/admin');
-      router.refresh();
+      startTransition(() => {
+        router.push(next ?? '/admin');
+        router.refresh();
+      });
     } else {
       const data = (await response.json()) as { error?: string };
       setError(data.error ?? 'Sign in failed.');

@@ -6,6 +6,7 @@ import { ProductSection } from '@/components/home/product-section';
 import { PromoBanner } from '@/components/home/promo-banner';
 import { DiscordCTA } from '@/components/layout/discord-cta';
 import { ProductService } from '@/lib/services/product-service';
+import { SettingsService } from '@/lib/services/settings-service';
 import { SITE, absoluteUrlSafe } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
@@ -17,34 +18,35 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [featured, bestSellers, newReleases, counts] = await Promise.all([
+  const [featured, bestSellers, newReleases, counts, settings] = await Promise.all([
     ProductService.featured(4),
     ProductService.bestSellers(8),
     ProductService.newReleases(4),
     ProductService.countByCategory(),
+    SettingsService.get(),
   ]);
 
   return (
     <div className="space-y-24 pb-8 lg:space-y-32">
-      <Hero products={featured} />
-      <TrustBar />
-      <CategoryGrid counts={counts} />
+      <Hero products={featured} hero={settings.hero} />
+      <TrustBar points={settings.trust} ticker={settings.ticker} />
+      <CategoryGrid counts={counts} sections={settings.sections} />
 
       <ProductSection
         eyebrow="Best sellers"
-        title="Best Sellers"
-        description="The resources creators come back for. Ranked by sales and rated by people who actually shipped with them."
+        title={settings.sections.bestSellersTitle}
+        description={settings.sections.bestSellersDescription}
         products={bestSellers}
         ctaHref="/marketplace?sort=best-selling"
         ctaLabel="View all best sellers"
       />
 
-      <PromoBanner products={featured} />
+      <PromoBanner products={featured} promo={settings.promo} />
 
       <ProductSection
         eyebrow="Just added"
-        title="Fresh Releases"
-        description="New to the store this month, built to the same standard as everything else."
+        title={settings.sections.newReleasesTitle}
+        description={settings.sections.newReleasesDescription}
         products={newReleases}
         ctaHref="/new-releases"
         ctaLabel="View all new releases"

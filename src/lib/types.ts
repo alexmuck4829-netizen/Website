@@ -221,3 +221,93 @@ export interface DownloadLogEntry {
   ip: string;
   at: string;
 }
+
+/* ---------------------------------------------------------------
+   SITE SETTINGS — everything editable from /admin/settings.
+   Stored in the database, never hard-coded in a component.
+   --------------------------------------------------------------- */
+
+export interface HeroStat {
+  value: number;
+  suffix?: string;
+  decimals?: number;
+  label: string;
+}
+
+export interface CtaLink {
+  label: string;
+  href: string;
+}
+
+export interface IconTextItem {
+  icon: string;
+  title: string;
+  description: string;
+  colour?: string;
+}
+
+export interface SiteSettings {
+  brand: {
+    name: string;
+    shortName: string;
+    wordmarkTop: string;
+    wordmarkBottom: string;
+    tagline: string;
+    description: string;
+  };
+  links: {
+    discordUrl: string;
+    supportEmail: string;
+  };
+  theme: {
+    /** Hex colours; injected as CSS variables at the document root. */
+    brand: string;
+    accent: string;
+    violet: string;
+  };
+  hero: {
+    badge: string;
+    titleLine1: string;
+    titleLine2: string;
+    titleAccent: string;
+    subtitle: string;
+    primaryCta: CtaLink;
+    secondaryCta: CtaLink;
+    stats: HeroStat[];
+    reassurance: string[];
+  };
+  trust: IconTextItem[];
+  ticker: string[];
+  sections: {
+    categoriesEyebrow: string;
+    categoriesTitle: string;
+    categoriesDescription: string;
+    bestSellersTitle: string;
+    bestSellersDescription: string;
+    newReleasesTitle: string;
+    newReleasesDescription: string;
+  };
+  promo: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    cta: CtaLink;
+    points: IconTextItem[];
+  };
+  discord: {
+    title: string;
+    description: string;
+    ctaLabel: string;
+    perks: IconTextItem[];
+  };
+  footer: {
+    blurb: string;
+    disclaimer: string;
+    copyright: string;
+  };
+  seo: {
+    titleSuffix: string;
+    description: string;
+  };
+  updatedAt: string;
+}

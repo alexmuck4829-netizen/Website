@@ -114,7 +114,9 @@ Supabase Auth, replace `getAdminSession` in
 
 | I want to… | Go to |
 |---|---|
-| **Change the Discord link** | `src/lib/constants.ts` → `SITE.discordUrl` (or set `NEXT_PUBLIC_DISCORD_URL`) |
+| **Change the Discord link** | `/admin/settings` → Brand → Links |
+| **Change any text on the site** | `/admin/settings` — headline, buttons, counters, section titles, promo, footer, SEO |
+| **Change the colours** | `/admin/settings` → Theme |
 | **Add / edit / price a product** | `/admin/products` — no code, no redeploy |
 | **Replace demo images** | Drop your screenshots in `/admin` → product → **Media**, or overwrite the SVGs in `public/previews/` with the same filenames |
 | **Upload the files customers buy** | `/admin` → product → **Files & versions** |
@@ -122,13 +124,37 @@ Supabase Auth, replace `getAdminSession` in
 | **Change fonts** | `src/app/layout.tsx` (`next/font`) |
 | **Edit the seed catalogue** | `src/lib/data/seed-products.ts` (only used on first run) |
 | **Edit legal copy** | `src/app/(store)/{license,terms,privacy,refunds}/page.tsx` |
-| **Edit site name / support email** | `src/lib/constants.ts` → `SITE` |
+| **Edit site name / support email** | `/admin/settings` → Brand |
+| **Change the factory defaults** | `src/lib/data/default-settings.ts` (only used on first run) |
 
 ### Resetting the demo data
 
 The store lives in `.data/db.json` (git-ignored). Delete it and restart, or
 `POST /api/admin/reset` while signed in as admin, to restore the seed catalogue
 and clear the demo order history.
+
+---
+
+## Editing the site without code
+
+`/admin/settings` owns everything on the public site that is not a product:
+
+| Tab | Covers |
+|---|---|
+| **Brand** | Site name, logo wordmark, tagline, Discord invite, support email |
+| **Theme** | Brand, accent and secondary colours, with a live preview |
+| **Hero** | Badge, three headline lines, subtitle, both buttons, animated counters, reassurance points |
+| **Homepage** | Trust cards, category ticker, every section heading, the promo banner |
+| **Discord** | Block title, description, button label, perks |
+| **Footer & SEO** | Blurb, copyright, legal disclaimer, meta title suffix and description |
+
+Values are stored in the database, not in code. `src/lib/data/default-settings.ts`
+only seeds the first run — "Reset to defaults" in the admin brings those values
+back. Icon fields take a [lucide.dev](https://lucide.dev) name (e.g. `ShieldCheck`);
+an unknown name falls back to a star rather than breaking the page.
+
+`NEXT_PUBLIC_DISCORD_URL` seeds the initial Discord link on a fresh install.
+Once a value is stored, the dashboard is authoritative.
 
 ---
 

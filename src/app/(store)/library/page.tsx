@@ -46,7 +46,7 @@ export default async function LibraryPage() {
 
       {entries.length === 0 ? (
         <EmptyState
-          icon={LibraryBig}
+          icon={<LibraryBig />}
           title="Nothing here yet"
           description="Products you buy appear here straight away, with every version you are entitled to."
           action={

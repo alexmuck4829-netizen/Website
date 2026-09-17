@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { Logo } from './logo';
 import { DiscordIcon } from './discord-icon';
-import { SITE } from '@/lib/constants';
+import type { SiteSettings } from '@/lib/types';
 
-const COLUMNS = [
+function buildColumns(discordUrl: string) {
+  return [
   {
     title: 'Marketplace',
     links: [
@@ -21,7 +22,7 @@ const COLUMNS = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
-      { label: 'Discord', href: SITE.discordUrl, external: true },
+      { label: 'Discord', href: discordUrl, external: true },
       { label: 'My library', href: '/library' },
     ],
   },
@@ -34,26 +35,28 @@ const COLUMNS = [
       { label: 'License', href: '/license' },
     ],
   },
-];
+  ];
+}
 
-export function Footer() {
+export function Footer({ settings }: { settings: SiteSettings }) {
+  const COLUMNS = buildColumns(settings.links.discordUrl);
   return (
     <footer className="mt-24 border-t border-line bg-surface/40">
       <div className="container py-14">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="space-y-5">
-            <Logo />
-            <p className="max-w-xs text-sm leading-relaxed text-ink-muted">
-              Premium maps, assets, interfaces and development resources for ambitious Roblox
-              creators. Built to save you weeks.
-            </p>
+            <Logo
+              wordmarkTop={settings.brand.wordmarkTop}
+              wordmarkBottom={settings.brand.wordmarkBottom}
+            />
+            <p className="max-w-xs text-sm leading-relaxed text-ink-muted">{settings.footer.blurb}</p>
             <a
-              href={SITE.discordUrl}
+              href={settings.links.discordUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-line-strong bg-surface px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-[#5865F2]/50 hover:text-white"
             >
-              <DiscordIcon className="size-4 text-[#A5B4FC]" /> Join our Discord
+              <DiscordIcon className="size-4 text-[#A5B4FC]" /> {settings.discord.ctaLabel}
             </a>
           </div>
 
@@ -93,12 +96,10 @@ export function Footer() {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-ink-subtle">
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+            © {new Date().getFullYear()} {settings.footer.copyright}
           </p>
           <p className="max-w-2xl text-xs leading-relaxed text-ink-subtle">
-            One More Click Studio is an independent creator studio. It is not affiliated with,
-            endorsed by, or sponsored by Roblox Corporation. &ldquo;Roblox&rdquo; and &ldquo;Roblox
-            Studio&rdquo; are trademarks of Roblox Corporation.
+            {settings.footer.disclaimer}
           </p>
         </div>
       </div>

@@ -42,7 +42,7 @@ export function ProductCard({
       <Spotlight
         as="article"
         className={cn(
-          'brick brick-press studs-top group relative flex h-full flex-col',
+          'brick brick-press studs-top shine group relative flex h-full flex-col',
           'transition-colors duration-300 hover:border-brand/35',
         )}
       >

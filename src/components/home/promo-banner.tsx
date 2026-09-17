@@ -1,18 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Clock, Layers, Wrench } from 'lucide-react';
+import {
+  ArrowRight, Clock, Gem, Layers, Rocket, ShieldCheck, Sparkles, Wrench, Zap, type LucideIcon,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal } from '@/components/ui/reveal';
 import { StudRow } from '@/components/ui/motion';
-import type { Product } from '@/lib/types';
+import type { Product, SiteSettings } from '@/lib/types';
 
-const POINTS = [
-  { icon: Clock, title: 'Weeks back', text: 'Skip the part of the project that is not the fun part.' },
-  { icon: Layers, title: 'Consistent quality', text: 'Assets that match in scale, style and finish.' },
-  { icon: Wrench, title: 'Yours to customise', text: 'Clean hierarchies built to be modified.' },
-];
+const ICONS: Record<string, LucideIcon> = {
+  Clock, Layers, Wrench, Rocket, Gem, Zap, ShieldCheck, Sparkles,
+};
 
-export function PromoBanner({ products }: { products: Product[] }) {
+export function PromoBanner({
+  products,
+  promo,
+}: {
+  products: Product[];
+  promo: SiteSettings['promo'];
+}) {
   const art = products.slice(0, 3);
 
   return (
@@ -27,33 +33,35 @@ export function PromoBanner({ products }: { products: Product[] }) {
             <div className="space-y-6">
               <span className="inline-flex items-center gap-2.5 rounded-full border border-brand/30 bg-brand/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-brand">
                 <StudRow count={3} size={7} colors={['#0084FF', '#22D3EE', '#7C5CFF']} />
-                Premium resources
+                {promo.eyebrow}
               </span>
 
               <h2 className="text-balance font-display text-3xl font-bold leading-[1.1] tracking-tight text-ink sm:text-4xl lg:text-[2.9rem]">
-                Upgrade Your Next Roblox Project.
+                {promo.title}
               </h2>
 
               <p className="max-w-xl text-pretty text-lg leading-relaxed text-ink-muted">
-                Stop wasting hours building everything from scratch. Get production-ready resources
-                and focus on creating the experience.
+                {promo.description}
               </p>
 
               <ul className="grid gap-3 sm:grid-cols-3">
-                {POINTS.map((point) => (
-                  <li key={point.title} className="space-y-2">
-                    <span className="grid size-10 place-items-center rounded-xl bg-brand/12 text-brand [box-shadow:inset_0_1px_0_rgb(var(--c-brand)/0.35),inset_0_-3px_0_rgb(0_0_0/0.45)]">
-                      <point.icon className="size-4" />
-                    </span>
-                    <p className="text-sm font-medium text-ink">{point.title}</p>
-                    <p className="text-sm leading-relaxed text-ink-muted">{point.text}</p>
-                  </li>
-                ))}
+                {promo.points.map((point) => {
+                  const Icon = ICONS[point.icon] ?? Sparkles;
+                  return (
+                    <li key={point.title} className="space-y-2">
+                      <span className="grid size-10 place-items-center rounded-xl bg-brand/12 text-brand [box-shadow:inset_0_1px_0_rgb(var(--c-brand)/0.35),inset_0_-3px_0_rgb(0_0_0/0.45)]">
+                        <Icon className="size-4" />
+                      </span>
+                      <p className="text-sm font-medium text-ink">{point.title}</p>
+                      <p className="text-sm leading-relaxed text-ink-muted">{point.description}</p>
+                    </li>
+                  );
+                })}
               </ul>
 
               <Button size="lg" asChild>
-                <Link href="/marketplace">
-                  Explore Premium Assets <ArrowRight />
+                <Link href={promo.cta.href}>
+                  {promo.cta.label} <ArrowRight />
                 </Link>
               </Button>
             </div>

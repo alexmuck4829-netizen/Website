@@ -30,10 +30,14 @@ export function Logo({
   className,
   showText = true,
   href = '/',
+  wordmarkTop = 'ONE MORE CLICK',
+  wordmarkBottom = 'Studio',
 }: {
   className?: string;
   showText?: boolean;
   href?: string;
+  wordmarkTop?: string;
+  wordmarkBottom?: string;
 }) {
   return (
     <Link
@@ -44,10 +48,10 @@ export function Logo({
       {showText && (
         <span className="flex flex-col leading-none whitespace-nowrap">
           <span className="font-display text-[13px] font-bold tracking-tight text-ink sm:text-[15px]">
-            ONE MORE CLICK
+            {wordmarkTop}
           </span>
           <span className="text-[9px] font-medium uppercase tracking-[0.28em] text-ink-subtle sm:text-[10px]">
-            Studio
+            {wordmarkBottom}
           </span>
         </span>
       )}

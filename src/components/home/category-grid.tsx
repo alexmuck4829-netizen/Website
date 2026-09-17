@@ -9,7 +9,7 @@ import {
 import { SectionHeading } from '@/components/ui/misc';
 import { Spotlight } from '@/components/ui/motion';
 import { PUBLIC_CATEGORIES } from '@/lib/constants';
-import type { CategorySlug } from '@/lib/types';
+import type { CategorySlug, SiteSettings } from '@/lib/types';
 
 const ICONS: Record<string, LucideIcon> = {
   Map, Boxes, LayoutDashboard, Code2, Car, Building2, Lamp, Grid3x3, Package, Sparkles,
@@ -17,7 +17,13 @@ const ICONS: Record<string, LucideIcon> = {
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-export function CategoryGrid({ counts }: { counts: Record<CategorySlug, number> }) {
+export function CategoryGrid({
+  counts,
+  sections,
+}: {
+  counts: Record<CategorySlug, number>;
+  sections: SiteSettings['sections'];
+}) {
   const reduce = useReducedMotion();
 
   return (
@@ -29,9 +35,9 @@ export function CategoryGrid({ counts }: { counts: Record<CategorySlug, number> 
         transition={{ duration: 0.55, ease: EASE }}
       >
         <SectionHeading
-          eyebrow="Categories"
-          title="Explore by Category"
-          description="Every resource is sorted so you can find the missing piece instead of scrolling through everything."
+          eyebrow={sections.categoriesEyebrow}
+          title={sections.categoriesTitle}
+          description={sections.categoriesDescription}
         />
       </motion.div>
 

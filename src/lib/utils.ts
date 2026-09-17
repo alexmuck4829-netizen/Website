@@ -86,3 +86,19 @@ export function youtubeId(url?: string | null): string | null {
 export function absoluteUrl(path = ''): string {
   return `${SITE.url.replace(/\/$/, '')}${path.startsWith('/') ? path : `/${path}`}`;
 }
+
+/**
+ * "#0084FF" -> "0 132 255", the form Tailwind's `rgb(var(--x) / <alpha>)`
+ * colour tokens expect. Returns null for anything unparseable so a bad value
+ * from the settings form just falls back to the stylesheet default.
+ */
+export function hexToRgbTriplet(hex: string): string | null {
+  const match = /^#?([\da-f]{3}|[\da-f]{6})$/i.exec(hex.trim());
+  if (!match) return null;
+
+  let value = match[1];
+  if (value.length === 3) value = value.split('').map((c) => c + c).join('');
+
+  const int = parseInt(value, 16);
+  return `${(int >> 16) & 255} ${(int >> 8) & 255} ${int & 255}`;
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, startTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { KeyRound, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -29,7 +29,7 @@ export function SignInPrompt() {
     });
 
     if (response.ok) {
-      router.refresh();
+      startTransition(() => router.refresh());
     } else {
       const data = (await response.json()) as { error?: string };
       setError(data.error ?? 'Could not sign in.');

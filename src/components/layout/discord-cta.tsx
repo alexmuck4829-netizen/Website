@@ -1,15 +1,17 @@
-import { ArrowRight, Bell, LifeBuoy, Users } from 'lucide-react';
+import {
+  ArrowRight, Bell, Gift, LifeBuoy, MessageSquare, Sparkles, Users, type LucideIcon,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DiscordIcon } from './discord-icon';
-import { SITE } from '@/lib/constants';
+import { SettingsService } from '@/lib/services/settings-service';
 
-const PERKS = [
-  { icon: LifeBuoy, label: 'Setup support', text: 'Stuck on an import? Ask and get an answer.' },
-  { icon: Bell, label: 'Release alerts', text: 'New drops and updates announced first.' },
-  { icon: Users, label: 'Creator community', text: 'Share builds, swap techniques, get feedback.' },
-];
+const ICONS: Record<string, LucideIcon> = {
+  LifeBuoy, Bell, Users, MessageSquare, Gift, Sparkles,
+};
 
-export function DiscordCTA() {
+export async function DiscordCTA() {
+  const settings = await SettingsService.get();
+  const { discord, links } = settings;
   return (
     <section className="container">
       <div className="surface-card relative overflow-hidden px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
@@ -22,34 +24,34 @@ export function DiscordCTA() {
               <DiscordIcon className="size-3.5" /> Community
             </span>
             <h2 className="text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Build alongside other Roblox creators.
+              {discord.title}
             </h2>
-            <p className="max-w-xl text-pretty text-ink-muted sm:text-lg">
-              Our Discord is where support happens, releases are announced first, and creators share
-              what is working in their games. Free to join, no obligation to buy anything.
-            </p>
+            <p className="max-w-xl text-pretty text-ink-muted sm:text-lg">{discord.description}</p>
             <Button size="lg" asChild>
-              <a href={SITE.discordUrl} target="_blank" rel="noopener noreferrer">
-                <DiscordIcon /> Join our Discord <ArrowRight />
+              <a href={links.discordUrl} target="_blank" rel="noopener noreferrer">
+                <DiscordIcon /> {discord.ctaLabel} <ArrowRight />
               </a>
             </Button>
           </div>
 
           <ul className="grid gap-3">
-            {PERKS.map((perk) => (
-              <li
-                key={perk.label}
-                className="flex items-start gap-3.5 rounded-xl border border-line bg-surface/70 p-4 transition-colors duration-300 hover:border-line-strong"
-              >
-                <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-[#5865F2]/12 text-[#A5B4FC]">
-                  <perk.icon className="size-[18px]" />
-                </span>
-                <div className="space-y-0.5">
-                  <p className="text-sm font-medium text-ink">{perk.label}</p>
-                  <p className="text-sm text-ink-muted">{perk.text}</p>
-                </div>
-              </li>
-            ))}
+            {discord.perks.map((perk) => {
+              const Icon = ICONS[perk.icon] ?? Sparkles;
+              return (
+                <li
+                  key={perk.title}
+                  className="flex items-start gap-3.5 rounded-xl border border-line bg-surface/70 p-4 transition-colors duration-300 hover:border-line-strong"
+                >
+                  <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-[#5865F2]/12 text-[#A5B4FC]">
+                    <Icon className="size-[18px]" />
+                  </span>
+                  <div className="space-y-0.5">
+                    <p className="text-sm font-medium text-ink">{perk.title}</p>
+                    <p className="text-sm text-ink-muted">{perk.description}</p>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

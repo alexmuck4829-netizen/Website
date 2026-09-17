@@ -1,8 +1,9 @@
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import type { DownloadLogEntry, MediaAsset, Order, Product } from '../types';
-import { envOr } from '../env';
+import type { DownloadLogEntry, MediaAsset, Order, Product, SiteSettings } from '../types';
+import { envOr, envString } from '../env';
 import { SEED_PRODUCTS } from '../data';
+import { DEFAULT_SETTINGS } from '../data/default-settings';
 import { buildDemoOrders } from '../data/seed-orders';
 
 /**
@@ -19,6 +20,7 @@ export interface DbShape {
   orders: Order[];
   media: MediaAsset[];
   downloadLogs: DownloadLogEntry[];
+  settings?: SiteSettings;
   seededAt: string;
 }
 
@@ -55,12 +57,19 @@ async function fileStamp(): Promise<number> {
 
 function emptyDb(): DbShape {
   const products = SEED_PRODUCTS.map((p) => ({ ...p }));
+
+  // NEXT_PUBLIC_DISCORD_URL seeds the initial link; after that /admin/settings
+  // is the source of truth.
+  const settings = structuredClone(DEFAULT_SETTINGS);
+  const seededDiscord = envString('NEXT_PUBLIC_DISCORD_URL');
+  if (seededDiscord) settings.links.discordUrl = seededDiscord;
   return {
     products,
     // Demo ledger so the dashboard is not blank on first run. See seed-orders.ts.
     orders: buildDemoOrders(products),
     media: [],
     downloadLogs: [],
+    settings,
     seededAt: new Date().toISOString(),
   };
 }
@@ -77,6 +86,7 @@ async function load(): Promise<DbShape> {
       orders: parsed.orders ?? [],
       media: parsed.media ?? [],
       downloadLogs: parsed.downloadLogs ?? [],
+      settings: parsed.settings,
       seededAt: parsed.seededAt ?? new Date().toISOString(),
     };
     cacheStamp = stamp;

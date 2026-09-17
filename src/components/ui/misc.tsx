@@ -141,21 +141,28 @@ export function SectionHeading({
   );
 }
 
+/**
+ * `icon` takes a RENDERED element (`<Box className="size-6" />`), not a
+ * component type. Server Components cannot pass a component across the client
+ * boundary — lucide icons are forwardRef objects and React rejects them with
+ * "Functions cannot be passed directly to Client Components". An element is
+ * serialisable, so this works from both server and client callers.
+ */
 export function EmptyState({
-  icon: Icon,
+  icon,
   title,
   description,
   action,
 }: {
-  icon: React.ElementType;
+  icon: React.ReactNode;
   title: string;
   description: string;
   action?: React.ReactNode;
 }) {
   return (
     <div className="surface-card flex flex-col items-center gap-4 px-6 py-16 text-center">
-      <div className="grid size-14 place-items-center rounded-2xl border border-line bg-surface-overlay text-ink-subtle">
-        <Icon className="size-6" />
+      <div className="grid size-14 place-items-center rounded-2xl border border-line bg-surface-overlay text-ink-subtle [&_svg]:size-6">
+        {icon}
       </div>
       <div className="space-y-1.5">
         <h3 className="font-display text-lg font-semibold text-ink">{title}</h3>

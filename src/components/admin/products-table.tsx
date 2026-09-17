@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, startTransition } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -72,7 +72,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
         if (!response.ok) throw new Error();
         toast.success(next === 'published' ? 'Product published' : 'Product hidden');
       }
-      router.refresh();
+      startTransition(() => router.refresh());
     } catch {
       toast.error('Action failed');
     } finally {

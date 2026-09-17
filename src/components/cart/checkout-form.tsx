@@ -48,7 +48,7 @@ export function CheckoutForm({ stripeConfigured }: { stripeConfigured: boolean }
   if (cart.hydrated && cart.count === 0) {
     return (
       <EmptyState
-        icon={ShoppingBag}
+        icon={<ShoppingBag />}
         title="Nothing to check out"
         description="Add a product to your cart first."
         action={

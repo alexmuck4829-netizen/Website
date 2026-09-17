@@ -5,7 +5,13 @@ import { ArrowRight, Euro, Package, Plus, ShoppingCart, Users } from 'lucide-rea
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { StatCard } from '@/components/admin/stat-card';
-import { RevenueChart } from '@/components/admin/revenue-chart';
+import nextDynamic from 'next/dynamic';
+
+// recharts is ~380KB. Loading it on demand keeps it out of every shared chunk.
+const RevenueChart = nextDynamic(
+  () => import('@/components/admin/revenue-chart').then((m) => m.RevenueChart),
+  { loading: () => <div className="brick h-[19rem] animate-pulse" /> },
+);
 import { ProductService } from '@/lib/services/product-service';
 import { OrderService } from '@/lib/services/order-service';
 import { formatPrice, relativeDate } from '@/lib/utils';

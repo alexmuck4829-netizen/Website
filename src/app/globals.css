@@ -211,6 +211,19 @@
     @apply opacity-100;
   }
 
+  /* A light sweeping across a moulded surface on hover */
+  .shine {
+    @apply relative overflow-hidden;
+  }
+  .shine::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .shine:hover::after {
+    @apply translate-x-full;
+  }
+
   /* Animated conic border that travels around the element */
   .shimmer-border {
     @apply relative;

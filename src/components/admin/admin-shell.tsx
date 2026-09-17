@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, startTransition } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  ExternalLink, FolderOpen, LayoutDashboard, LogOut, Menu, Package, Plus, Receipt, X,
+  ExternalLink, FolderOpen, LayoutDashboard, LogOut, Menu, Package, Plus, Receipt, Settings, X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { LogoMark } from '@/components/layout/logo';
@@ -15,6 +15,7 @@ const NAV = [
   { label: 'Products', href: '/admin/products', icon: Package },
   { label: 'Orders', href: '/admin/orders', icon: Receipt },
   { label: 'Media', href: '/admin/media', icon: FolderOpen },
+  { label: 'Site settings', href: '/admin/settings', icon: Settings },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -24,8 +25,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     await fetch('/api/admin/logout', { method: 'POST' });
-    router.push('/admin/login');
-    router.refresh();
+    startTransition(() => {
+      router.push('/admin/login');
+      router.refresh();
+    });
   };
 
   const nav = (

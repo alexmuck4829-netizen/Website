@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, startTransition } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -148,7 +148,7 @@ export function ProductForm({ product }: { product?: Product }) {
       );
 
       router.push('/admin/products');
-      router.refresh();
+      startTransition(() => router.refresh());
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'Save failed');
       setSaving(null);
@@ -171,7 +171,7 @@ export function ProductForm({ product }: { product?: Product }) {
       setForm((current) => ({ ...current, versions: updated.versions }));
       setChangelogDraft('');
       toast.success(`Version ${updated.specs.version} published`);
-      router.refresh();
+      startTransition(() => router.refresh());
     } else {
       toast.error('Could not publish version');
     }
@@ -185,7 +185,7 @@ export function ProductForm({ product }: { product?: Product }) {
     if (response.ok) {
       toast.success('Product deleted');
       router.push('/admin/products');
-      router.refresh();
+      startTransition(() => router.refresh());
     } else {
       toast.error('Could not delete product');
     }

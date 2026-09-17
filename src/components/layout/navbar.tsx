@@ -10,8 +10,8 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Logo } from './logo';
 import { SearchDropdown } from './search-dropdown';
 import { DiscordIcon } from './discord-icon';
-import { SITE } from '@/lib/constants';
 import { useCart } from '@/lib/store/cart-store';
+import type { SiteSettings } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 /**
@@ -44,7 +44,13 @@ function useScrolled(threshold = 12): boolean {
   );
 }
 
-export function Navbar() {
+export function Navbar({
+  brand,
+  discordUrl,
+}: {
+  brand: SiteSettings['brand'];
+  discordUrl: string;
+}) {
   const scrolled = useScrolled();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -70,7 +76,7 @@ export function Navbar() {
         )}
       >
         <div className="container flex h-16 items-center gap-4 lg:h-[72px]">
-          <Logo />
+          <Logo wordmarkTop={brand.wordmarkTop} wordmarkBottom={brand.wordmarkBottom} />
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main">
             {NAV_LINKS.map((link) => {
@@ -117,7 +123,7 @@ export function Navbar() {
               aria-label="Join our Discord"
               className="hidden sm:inline-flex"
             >
-              <a href={SITE.discordUrl} target="_blank" rel="noopener noreferrer">
+              <a href={discordUrl} target="_blank" rel="noopener noreferrer">
                 <DiscordIcon />
               </a>
             </Button>
@@ -177,7 +183,7 @@ export function Navbar() {
         <DialogContent side="right" showClose={false} className="p-0">
           <div className="flex items-center justify-between border-b border-line p-4">
             <DialogTitle asChild>
-              <Logo />
+              <Logo wordmarkTop={brand.wordmarkTop} wordmarkBottom={brand.wordmarkBottom} />
             </DialogTitle>
             <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
               <X />
@@ -201,7 +207,7 @@ export function Navbar() {
               My Library
             </Link>
             <a
-              href={SITE.discordUrl}
+              href={discordUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
