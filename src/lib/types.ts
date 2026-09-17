@@ -169,6 +169,15 @@ export interface Order {
   paymentProvider: 'stripe' | 'demo';
   paymentIntentId?: string;
   createdAt: string;
+  /**
+   * Preuve des consentements recueillis avant paiement. La renonciation au
+   * droit de rétractation (art. L221-28 13° C. conso.) n'est opposable que si
+   * elle a été recueillie expressément AVANT le début de l'exécution.
+   */
+  consent?: {
+    termsAcceptedAt: string;
+    withdrawalWaivedAt: string;
+  };
 }
 
 export interface LibraryEntry {
@@ -246,7 +255,45 @@ export interface IconTextItem {
   colour?: string;
 }
 
+/**
+ * Mentions légales (LCEN art. 6 III) + informations précontractuelles.
+ * Champs volontairement vides par défaut : ils doivent être renseignés par
+ * l'éditeur du site. La page /mentions-legales signale ce qui manque.
+ */
+export interface LegalIdentity {
+  /** Personne physique ou morale éditrice */
+  editorType: 'individual' | 'company';
+  editorName: string;
+  legalForm: string;
+  shareCapital: string;
+  address: string;
+  phone: string;
+  email: string;
+  /** SIREN / SIRET */
+  registrationNumber: string;
+  /** RCS + ville d'immatriculation */
+  rcs: string;
+  /** Numéro de TVA intracommunautaire, si assujetti */
+  vatNumber: string;
+  /** Assujetti à la TVA : change l'affichage des prix */
+  vatRegistered: boolean;
+  /** Directeur de la publication */
+  publicationDirector: string;
+  /** Hébergeur : raison sociale, adresse, téléphone */
+  hostName: string;
+  hostAddress: string;
+  hostPhone: string;
+  /** Médiateur de la consommation (obligatoire pour les pros vendant aux consommateurs) */
+  mediatorName: string;
+  mediatorUrl: string;
+  /** Délégué à la protection des données, si désigné */
+  dpoContact: string;
+  /** Âge minimum requis pour acheter */
+  minimumAge: number;
+}
+
 export interface SiteSettings {
+  legal: LegalIdentity;
   brand: {
     name: string;
     shortName: string;

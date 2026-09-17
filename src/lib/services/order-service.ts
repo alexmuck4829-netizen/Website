@@ -12,6 +12,7 @@ export const OrderService = {
     discount?: number;
     provider?: Order['paymentProvider'];
     status?: OrderStatus;
+    consent?: Order['consent'];
   }): Promise<Order> {
     const subtotal = params.items.reduce((sum, i) => sum + i.price, 0);
     const discount = params.discount ?? 0;
@@ -28,6 +29,7 @@ export const OrderService = {
       status: params.status ?? 'pending',
       paymentProvider: params.provider ?? 'demo',
       createdAt: new Date().toISOString(),
+      consent: params.consent,
     };
 
     return writeDb((db) => {

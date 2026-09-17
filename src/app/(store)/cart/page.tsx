@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { CartView } from '@/components/cart/cart-view';
+import { SettingsService } from '@/lib/services/settings-service';
 
 export const metadata: Metadata = {
   title: 'Votre panier',
@@ -7,7 +8,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CartPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function CartPage() {
+  const settings = await SettingsService.get();
   return (
     <div className="container max-w-5xl py-12 lg:py-16">
       <header className="mb-8 space-y-2">
@@ -16,7 +20,7 @@ export default function CartPage() {
           Produits numériques — une licence par article, téléchargeable dès le paiement.
         </p>
       </header>
-      <CartView />
+      <CartView vatRegistered={settings.legal.vatRegistered} />
     </div>
   );
 }

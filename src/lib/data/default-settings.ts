@@ -9,6 +9,30 @@ import type { SiteSettings } from '../types';
  * revenir.
  */
 export const DEFAULT_SETTINGS: SiteSettings = {
+  // À COMPLÉTER dans /admin/settings → Mentions légales.
+  // Tant que ces champs sont vides, la page /mentions-legales affiche un
+  // avertissement : un site professionnel français doit les publier.
+  legal: {
+    editorType: 'individual',
+    editorName: '',
+    legalForm: '',
+    shareCapital: '',
+    address: '',
+    phone: '',
+    email: '',
+    registrationNumber: '',
+    rcs: '',
+    vatNumber: '',
+    vatRegistered: false,
+    publicationDirector: '',
+    hostName: 'Vercel Inc.',
+    hostAddress: '440 N Barranca Ave #4133, Covina, CA 91723, États-Unis',
+    hostPhone: 'https://vercel.com/contact',
+    mediatorName: '',
+    mediatorUrl: '',
+    dpoContact: '',
+    minimumAge: 18,
+  },
   brand: {
     name: 'One More Click Studio',
     shortName: 'OMC Studio',

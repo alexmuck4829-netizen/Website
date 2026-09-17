@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { CheckoutForm } from '@/components/cart/checkout-form';
 import { PaymentService } from '@/lib/services/payment-service';
+import { SettingsService } from '@/lib/services/settings-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CheckoutPage() {
+export default async function CheckoutPage() {
+  const settings = await SettingsService.get();
   return (
     <div className="container max-w-5xl py-12 lg:py-16">
       <header className="mb-8 space-y-2">
@@ -19,7 +21,10 @@ export default function CheckoutPage() {
           Vos fichiers se débloquent dès la confirmation du paiement.
         </p>
       </header>
-      <CheckoutForm stripeConfigured={PaymentService.isConfigured()} />
+      <CheckoutForm
+        stripeConfigured={PaymentService.isConfigured()}
+        vatRegistered={settings.legal.vatRegistered}
+      />
     </div>
   );
 }

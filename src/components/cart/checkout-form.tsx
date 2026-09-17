@@ -6,16 +6,24 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AlertCircle, CreditCard, Lock, ShieldCheck, ShoppingBag, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Field, Input } from '@/components/ui/form';
+import { Checkbox, Field, Input } from '@/components/ui/form';
 import { EmptyState } from '@/components/ui/misc';
 import { useCart } from '@/lib/store/cart-store';
 import { formatPrice } from '@/lib/utils';
 
-export function CheckoutForm({ stripeConfigured }: { stripeConfigured: boolean }) {
+export function CheckoutForm({
+  stripeConfigured,
+  vatRegistered,
+}: {
+  stripeConfigured: boolean;
+  vatRegistered: boolean;
+}) {
   const cart = useCart();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [waiveWithdrawal, setWaiveWithdrawal] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -32,6 +40,8 @@ export function CheckoutForm({ stripeConfigured }: { stripeConfigured: boolean }
           productIds: cart.items.map((i) => i.productId),
           email,
           name: name || undefined,
+          acceptTerms,
+          waiveWithdrawal,
         }),
       });
 
@@ -127,6 +137,60 @@ export function CheckoutForm({ stripeConfigured }: { stripeConfigured: boolean }
           </p>
         </section>
 
+        <section className="brick space-y-4 p-6">
+          <h2 className="font-display text-lg font-semibold text-ink">Avant de valider</h2>
+
+          <label className="flex cursor-pointer items-start gap-3">
+            <Checkbox
+              checked={acceptTerms}
+              onCheckedChange={(v) => setAcceptTerms(v === true)}
+              className="mt-0.5"
+              aria-label="Accepter les conditions générales de vente"
+            />
+            <span className="text-sm leading-relaxed text-ink-muted">
+              J’ai lu et j’accepte les{' '}
+              <Link href="/terms" target="_blank" className="text-brand hover:underline">
+                conditions générales de vente
+              </Link>
+              , la{' '}
+              <Link href="/license" target="_blank" className="text-brand hover:underline">
+                licence d’utilisation
+              </Link>{' '}
+              et la{' '}
+              <Link href="/privacy" target="_blank" className="text-brand hover:underline">
+                politique de confidentialité
+              </Link>
+              .
+            </span>
+          </label>
+
+          {/* Art. L221-28 13° du Code de la consommation : la renonciation au
+              droit de rétractation sur un contenu numérique n'est valable que
+              si elle est expresse et recueillie AVANT le téléchargement. */}
+          <label className="flex cursor-pointer items-start gap-3">
+            <Checkbox
+              checked={waiveWithdrawal}
+              onCheckedChange={(v) => setWaiveWithdrawal(v === true)}
+              className="mt-0.5"
+              aria-label="Renoncer au droit de rétractation"
+            />
+            <span className="text-sm leading-relaxed text-ink-muted">
+              Je demande expressément que le téléchargement commence dès la validation du paiement
+              et je reconnais <strong className="text-ink">perdre mon droit de rétractation</strong>{' '}
+              de 14 jours une fois l’exécution commencée.
+            </span>
+          </label>
+
+          <p className="text-xs leading-relaxed text-ink-subtle">
+            Sans ces deux accords, la commande ne peut pas être validée. Détail de vos droits sur la
+            page{' '}
+            <Link href="/refunds" target="_blank" className="text-brand hover:underline">
+              remboursements
+            </Link>
+            .
+          </p>
+        </section>
+
         {error && (
           <p className="flex items-center gap-2 rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
             <AlertCircle className="size-4" /> {error}
@@ -156,7 +220,19 @@ export function CheckoutForm({ stripeConfigured }: { stripeConfigured: boolean }
           </span>
         </div>
 
-        <Button type="submit" size="lg" className="w-full" loading={submitting}>
+        <p className="-mt-2 text-xs text-ink-subtle">
+          {vatRegistered
+            ? 'Prix TTC, TVA française incluse.'
+            : 'TVA non applicable, article 293 B du CGI.'}
+        </p>
+
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full"
+          loading={submitting}
+          disabled={!acceptTerms || !waiveWithdrawal}
+        >
           <ShieldCheck /> {stripeConfigured ? 'Payer avec Stripe' : 'Finaliser la commande démo'}
         </Button>
 

@@ -9,7 +9,7 @@ import { CATEGORY_MAP } from '@/lib/constants';
 import { useCart } from '@/lib/store/cart-store';
 import { formatPrice } from '@/lib/utils';
 
-export function CartView() {
+export function CartView({ vatRegistered }: { vatRegistered: boolean }) {
   const cart = useCart();
 
   if (!cart.hydrated) {
@@ -104,6 +104,12 @@ export function CartView() {
             </dd>
           </div>
         </dl>
+
+        <p className="-mt-2 text-xs text-ink-subtle">
+          {vatRegistered
+            ? 'Prix TTC, TVA française incluse.'
+            : 'TVA non applicable, article 293 B du CGI.'}
+        </p>
 
         <Button size="lg" className="w-full" asChild>
           <Link href="/checkout">

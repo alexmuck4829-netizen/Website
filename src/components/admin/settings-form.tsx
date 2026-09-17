@@ -3,9 +3,11 @@
 import { startTransition, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { Palette, Plus, RotateCcw, Save, Trash2 } from 'lucide-react';
+import { Palette, Plus, RotateCcw, Save, ShieldAlert, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Field, Input, Textarea } from '@/components/ui/form';
+import {
+  Field, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea, ToggleRow,
+} from '@/components/ui/form';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/misc';
 import { ListEditor } from './list-editor';
 import type { HeroStat, IconTextItem, SiteSettings } from '@/lib/types';
@@ -95,6 +97,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           <TabsTrigger value="home">Accueil</TabsTrigger>
           <TabsTrigger value="discord">Discord</TabsTrigger>
           <TabsTrigger value="footer">Pied de page et SEO</TabsTrigger>
+          <TabsTrigger value="legal">Mentions légales</TabsTrigger>
         </TabsList>
 
         {/* ---------------- BRAND ---------------- */}
@@ -515,6 +518,200 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
                   onChange={(e) => set('seo', { description: e.target.value })}
                 />
               </Field>
+            </div>
+          </Card>
+        </TabsContent>
+        {/* ---------------- MENTIONS LÉGALES ---------------- */}
+        <TabsContent value="legal" className="mt-6 space-y-6">
+          <div className="flex items-start gap-3 rounded-xl border border-gold/25 bg-gold/8 p-4">
+            <ShieldAlert className="mt-0.5 size-4 shrink-0 text-gold" />
+            <p className="text-sm leading-relaxed text-ink-muted">
+              Ces informations alimentent la page{' '}
+              <a href="/mentions-legales" target="_blank" className="text-brand hover:underline">
+                /mentions-legales
+              </a>{' '}
+              et la politique de confidentialité. Un site professionnel français doit les publier
+              (LCEN art. 6 III). Tant qu’un champ obligatoire est vide, la page le signale
+              publiquement. Ceci n’est pas un conseil juridique : faites valider votre situation.
+            </p>
+          </div>
+
+          <Card title="Éditeur du site">
+            <Field label="Type d’éditeur" className="mb-5 max-w-xs">
+              <Select
+                value={form.legal.editorType}
+                onValueChange={(v) => set('legal', { editorType: v as 'individual' | 'company' })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="individual">Personne physique / auto-entrepreneur</SelectItem>
+                  <SelectItem value="company">Société</SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Field
+                label={form.legal.editorType === 'company' ? 'Dénomination sociale' : 'Nom et prénom'}
+                required
+                className="sm:col-span-2"
+              >
+                <Input
+                  value={form.legal.editorName}
+                  onChange={(e) => set('legal', { editorName: e.target.value })}
+                />
+              </Field>
+
+              {form.legal.editorType === 'company' && (
+                <>
+                  <Field label="Forme juridique" hint="SAS, SARL…">
+                    <Input
+                      value={form.legal.legalForm}
+                      onChange={(e) => set('legal', { legalForm: e.target.value })}
+                    />
+                  </Field>
+                  <Field label="Capital social">
+                    <Input
+                      value={form.legal.shareCapital}
+                      onChange={(e) => set('legal', { shareCapital: e.target.value })}
+                      placeholder="1 000 €"
+                    />
+                  </Field>
+                  <Field label="RCS" hint="numéro + ville d’immatriculation" className="sm:col-span-2">
+                    <Input
+                      value={form.legal.rcs}
+                      onChange={(e) => set('legal', { rcs: e.target.value })}
+                      placeholder="123 456 789 R.C.S. Paris"
+                    />
+                  </Field>
+                </>
+              )}
+
+              <Field label="Adresse complète" required className="sm:col-span-2">
+                <Textarea
+                  rows={2}
+                  value={form.legal.address}
+                  onChange={(e) => set('legal', { address: e.target.value })}
+                />
+              </Field>
+              <Field label="E-mail de contact" required>
+                <Input
+                  type="email"
+                  value={form.legal.email}
+                  onChange={(e) => set('legal', { email: e.target.value })}
+                />
+              </Field>
+              <Field label="Téléphone" required>
+                <Input
+                  value={form.legal.phone}
+                  onChange={(e) => set('legal', { phone: e.target.value })}
+                />
+              </Field>
+              <Field label="SIREN / SIRET" required>
+                <Input
+                  value={form.legal.registrationNumber}
+                  onChange={(e) => set('legal', { registrationNumber: e.target.value })}
+                />
+              </Field>
+              <Field label="Directeur de la publication" required>
+                <Input
+                  value={form.legal.publicationDirector}
+                  onChange={(e) => set('legal', { publicationDirector: e.target.value })}
+                />
+              </Field>
+            </div>
+          </Card>
+
+          <Card title="TVA" description="Détermine la mention affichée à côté des prix.">
+            <ToggleRow
+              label="Assujetti à la TVA"
+              description="Si désactivé, le site affiche « TVA non applicable, art. 293 B du CGI »."
+              checked={form.legal.vatRegistered}
+              onCheckedChange={(v) => set('legal', { vatRegistered: v })}
+            />
+            {form.legal.vatRegistered && (
+              <Field label="Numéro de TVA intracommunautaire" className="mt-5 max-w-sm">
+                <Input
+                  value={form.legal.vatNumber}
+                  onChange={(e) => set('legal', { vatNumber: e.target.value })}
+                  placeholder="FR12345678901"
+                />
+              </Field>
+            )}
+            <p className="mt-4 text-xs leading-relaxed text-ink-subtle">
+              La TVA sur les services numériques vendus à des particuliers dans l’UE relève de règles
+              spécifiques (guichet OSS). À valider avec un comptable.
+            </p>
+          </Card>
+
+          <Card title="Hébergeur" description="Nom, adresse et contact de l’hébergeur du site.">
+            <div className="grid gap-5">
+              <Field label="Raison sociale">
+                <Input
+                  value={form.legal.hostName}
+                  onChange={(e) => set('legal', { hostName: e.target.value })}
+                />
+              </Field>
+              <Field label="Adresse">
+                <Input
+                  value={form.legal.hostAddress}
+                  onChange={(e) => set('legal', { hostAddress: e.target.value })}
+                />
+              </Field>
+              <Field label="Téléphone ou page de contact">
+                <Input
+                  value={form.legal.hostPhone}
+                  onChange={(e) => set('legal', { hostPhone: e.target.value })}
+                />
+              </Field>
+            </div>
+          </Card>
+
+          <Card
+            title="Médiation et protection des données"
+            description="Obligatoire pour un professionnel vendant à des consommateurs."
+          >
+            <div className="grid gap-5">
+              <Field label="Médiateur de la consommation" hint="art. L.612-1 C. conso.">
+                <Input
+                  value={form.legal.mediatorName}
+                  onChange={(e) => set('legal', { mediatorName: e.target.value })}
+                />
+              </Field>
+              <Field label="Site du médiateur">
+                <Input
+                  value={form.legal.mediatorUrl}
+                  onChange={(e) => set('legal', { mediatorUrl: e.target.value })}
+                />
+              </Field>
+              <Field label="Contact DPO" hint="uniquement si un délégué est désigné">
+                <Input
+                  value={form.legal.dpoContact}
+                  onChange={(e) => set('legal', { dpoContact: e.target.value })}
+                />
+              </Field>
+              <Field label="Âge minimum pour acheter" hint="voir l’avertissement ci-dessous">
+                <Input
+                  type="number"
+                  min={0}
+                  max={99}
+                  className="max-w-[8rem]"
+                  value={form.legal.minimumAge}
+                  onChange={(e) => set('legal', { minimumAge: Number(e.target.value) })}
+                />
+              </Field>
+            </div>
+            <div className="mt-5 flex items-start gap-3 rounded-xl border border-danger/25 bg-danger/8 p-4">
+              <ShieldAlert className="mt-0.5 size-4 shrink-0 text-danger" />
+              <p className="text-sm leading-relaxed text-ink-muted">
+                <strong className="text-ink">Point sensible :</strong> le public Roblox comprend
+                beaucoup de mineurs. Vendre à des mineurs soulève des questions de capacité à
+                contracter et, en France, le consentement au traitement des données d’un mineur de
+                moins de 15 ans requiert celui du titulaire de l’autorité parentale (RGPD art. 8).
+                À traiter avec un professionnel du droit.
+              </p>
             </div>
           </Card>
         </TabsContent>

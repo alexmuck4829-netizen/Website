@@ -19,7 +19,13 @@ const REASSURANCE = [
   { icon: RefreshCw, label: 'Mises à jour incluses' },
 ];
 
-export function BuyBox({ product }: { product: Product }) {
+export function BuyBox({
+  product,
+  vatRegistered,
+}: {
+  product: Product;
+  vatRegistered: boolean;
+}) {
   const cart = useCart();
   const wishlist = useWishlist();
   const router = useRouter();
@@ -92,6 +98,12 @@ export function BuyBox({ product }: { product: Product }) {
             </>
           )}
         </div>
+
+        <p className="-mt-2 text-xs text-ink-subtle">
+          {vatRegistered
+            ? 'Prix TTC. Téléchargement immédiat après paiement.'
+            : 'TVA non applicable, art. 293 B du CGI. Téléchargement immédiat après paiement.'}
+        </p>
 
         <div className="space-y-2.5">
           <Button size="lg" className="w-full" onClick={buyNow} loading={buying}>

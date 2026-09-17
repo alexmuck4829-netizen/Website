@@ -14,6 +14,7 @@ import { Reveal } from '@/components/ui/reveal';
 import { DiscordCTA } from '@/components/layout/discord-cta';
 import { CATEGORY_MAP } from '@/lib/constants';
 import { ProductService } from '@/lib/services/product-service';
+import { SettingsService } from '@/lib/services/settings-service';
 import { AuthService } from '@/lib/services/auth-service';
 import { absoluteUrlSafe, productJsonLd } from '@/lib/seo';
 import { effectivePrice } from '@/lib/utils';
@@ -54,7 +55,10 @@ export default async function ProductPage({ params }: { params: Params }) {
   const product = await ProductService.bySlug(slug, Boolean(admin));
   if (!product) notFound();
 
-  const related = await ProductService.related(product, 4);
+  const [related, settings] = await Promise.all([
+    ProductService.related(product, 4),
+    SettingsService.get(),
+  ]);
   const category = CATEGORY_MAP[product.category];
 
   return (
@@ -104,7 +108,7 @@ export default async function ProductPage({ params }: { params: Params }) {
             productName={product.name}
           />
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <BuyBox product={product} />
+            <BuyBox product={product} vatRegistered={settings.legal.vatRegistered} />
           </div>
         </div>
       </div>

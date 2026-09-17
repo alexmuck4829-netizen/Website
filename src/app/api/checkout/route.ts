@@ -18,19 +18,39 @@ export async function POST(request: NextRequest) {
     productIds?: string[];
     email?: string;
     name?: string;
+    acceptTerms?: boolean;
+    waiveWithdrawal?: boolean;
   };
 
   const email = body.email?.trim().toLowerCase();
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
+    return NextResponse.json({ error: 'Une adresse e-mail valide est requise.' }, { status: 400 });
   }
   if (!body.productIds?.length) {
-    return NextResponse.json({ error: 'Your cart is empty.' }, { status: 400 });
+    return NextResponse.json({ error: 'Votre panier est vide.' }, { status: 400 });
+  }
+
+  // Les deux consentements sont vérifiés côté serveur, pas seulement dans le
+  // formulaire : une commande créée sans eux ne serait pas opposable.
+  if (!body.acceptTerms) {
+    return NextResponse.json(
+      { error: 'Vous devez accepter les conditions générales de vente.' },
+      { status: 400 },
+    );
+  }
+  if (!body.waiveWithdrawal) {
+    return NextResponse.json(
+      {
+        error:
+          'Vous devez accepter le démarrage immédiat du téléchargement et la renonciation au droit de rétractation qui en découle.',
+      },
+      { status: 400 },
+    );
   }
 
   const products = await ProductService.byIds(body.productIds);
   if (products.length === 0) {
-    return NextResponse.json({ error: 'None of these products are available.' }, { status: 400 });
+    return NextResponse.json({ error: 'Aucun de ces produits n’est disponible.' }, { status: 400 });
   }
 
   const items: OrderItem[] = products.map((p) => ({
@@ -41,11 +61,13 @@ export async function POST(request: NextRequest) {
     thumbnail: p.thumbnail,
   }));
 
+  const now = new Date().toISOString();
   const order = await OrderService.create({
     customerEmail: email,
     customerName: body.name,
     items,
     provider: PaymentService.isConfigured() ? 'stripe' : 'demo',
+    consent: { termsAcceptedAt: now, withdrawalWaivedAt: now },
   });
 
   // Session starts now so the success page and library recognise the buyer.

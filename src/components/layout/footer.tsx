@@ -29,6 +29,7 @@ function buildColumns(discordUrl: string) {
   {
     title: 'Légal',
     links: [
+      { label: 'Mentions légales', href: '/mentions-legales' },
       { label: 'Conditions', href: '/terms' },
       { label: 'Confidentialité', href: '/privacy' },
       { label: 'Remboursements', href: '/refunds' },

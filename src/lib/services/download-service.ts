@@ -14,7 +14,17 @@ import { StorageService } from './storage-service';
  */
 
 const LINK_TTL_SECONDS = 300; // 5 minutes
-const RATE_LIMIT = { windowMs: 60 * 60 * 1000, max: 30 }; // per customer per hour
+const RATE_LIMIT = { windowMs: 60 * 60 * 1000, max: 30 }; // par client et par heure
+
+/**
+ * Durée de conservation des journaux de téléchargement.
+ *
+ * Ils contiennent une adresse e-mail et une adresse IP : ce sont des données
+ * personnelles. Le RGPD impose une durée limitée et déterminée (art. 5.1.e), et
+ * un plafond en nombre d'entrées n'en est pas une — un site peu fréquenté
+ * garderait des IP indéfiniment. 90 jours couvre la détection d'abus.
+ */
+const LOG_RETENTION_DAYS = 90;
 
 export interface DownloadGrant {
   url: string;
@@ -67,7 +77,11 @@ export const DownloadService = {
         ip: params.ip ?? 'unknown',
         at: new Date().toISOString(),
       });
-      db.downloadLogs = db.downloadLogs.slice(0, 5000);
+      // Purge par ancienneté, puis plafond de volume en filet de sécurité.
+      const cutoff = Date.now() - LOG_RETENTION_DAYS * 86_400_000;
+      db.downloadLogs = db.downloadLogs
+        .filter((l) => +new Date(l.at) > cutoff)
+        .slice(0, 5000);
     });
 
     return { ok: true, grant: { url, file, expiresIn: LINK_TTL_SECONDS }, product };
