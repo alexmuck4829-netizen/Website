@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="advanced-inventory-gui">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a10"/><stop offset="55%" stop-color="#101019"/><stop offset="100%" stop-color="#08080d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A855F7"/><stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <radialGradient id="glow"><stop offset="0%" stop-color="#A855F7" stop-opacity="0.5"/><stop offset="100%" stop-color="#A855F7" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <ellipse cx="505.0781252384186" cy="446.4" rx="704" ry="216" fill="url(#glow)" opacity="0.55"/>
+  <g opacity="0.55"><rect x="188.92863834276795" y="282.47963252011687" width="504.3355860421434" height="194.7208262514323" rx="18" fill="#12121b" stroke="#2a2a38" stroke-width="2"/>
+  <rect x="206.92863834276795" y="300.47963252011687" width="226.95101371896453" height="12" rx="6" fill="#A855F7" opacity="0.8"/>
+  <rect x="206.92863834276795" y="330.47963252011687" width="395.0781719395891" height="10" rx="5" fill="#ffffff" opacity="0.19646951412782074"/>
+  <rect x="206.92863834276795" y="356.47963252011687" width="464.5648055160418" height="10" rx="5" fill="#ffffff" opacity="0.1869323434960097"/>
+  <rect x="206.92863834276795" y="382.47963252011687" width="420.49426967371255" height="10" rx="5" fill="#ffffff" opacity="0.11706736364401878"/>
+  <rect x="206.92863834276795" y="408.47963252011687" width="413.01212562341243" height="10" rx="5" fill="#ffffff" opacity="0.14735240627080204"/>
+  <rect x="206.92863834276795" y="431.20045877154917" width="110" height="30" rx="10" fill="url(#accent)"/></g>
+  <g opacity="0.7000000000000001"><rect x="409.3612825591117" y="293.63857271149755" width="459.96670737396926" height="331.49990011006594" rx="18" fill="#12121b" stroke="#A855F7" stroke-width="2"/>
+  <rect x="427.3612825591117" y="311.63857271149755" width="206.98501831828617" height="12" rx="6" fill="#A855F7" opacity="0.8"/>
+  <rect x="427.3612825591117" y="341.63857271149755" width="416.74255372118205" height="10" rx="5" fill="#ffffff" opacity="0.12219017954543233"/>
+  <rect x="427.3612825591117" y="367.63857271149755" width="407.97803019266576" height="10" rx="5" fill="#ffffff" opacity="0.20173491824418305"/>
+  <rect x="427.3612825591117" y="393.63857271149755" width="367.8949187239632" height="10" rx="5" fill="#ffffff" opacity="0.11107171840034426"/>
+  <rect x="427.3612825591117" y="419.63857271149755" width="365.9386625988409" height="10" rx="5" fill="#ffffff" opacity="0.1983626228943467"/>
+  <rect x="427.3612825591117" y="579.1384728215635" width="110" height="30" rx="10" fill="url(#accent)"/></g>
+  <g opacity="0.8500000000000001"><rect x="679.5269648451358" y="207.26708062458783" width="387.5849684840068" height="262.8652336541563" rx="18" fill="#12121b" stroke="#2a2a38" stroke-width="2"/>
+  <rect x="697.5269648451358" y="225.26708062458783" width="174.41323581780307" height="12" rx="6" fill="#A855F7" opacity="0.8"/>
+  <rect x="697.5269648451358" y="255.26708062458783" width="273.6900499565527" height="10" rx="5" fill="#ffffff" opacity="0.18253880295902492"/>
+  <rect x="697.5269648451358" y="281.26708062458783" width="286.38480733241886" height="10" rx="5" fill="#ffffff" opacity="0.14153391567990184"/>
+  <rect x="697.5269648451358" y="307.26708062458783" width="345.6181024117395" height="10" rx="5" fill="#ffffff" opacity="0.13551624556072056"/>
+  <rect x="697.5269648451358" y="333.26708062458783" width="287.78431904595345" height="10" rx="5" fill="#ffffff" opacity="0.16816956514492631"/>
+  <rect x="697.5269648451358" y="424.13231427874416" width="110" height="30" rx="10" fill="url(#accent)"/></g>
+  <rect width="1280" height="720" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="2"/>
+</svg>

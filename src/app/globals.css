@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   ONE MORE CLICK STUDIO — design tokens
+   Change the palette here and the whole site follows.
+   ========================================================= */
+@layer base {
+  :root {
+    /* Surfaces: deep charcoal with a faint blue cast */
+    --c-base: 8 8 12;
+    --c-surface: 16 16 23;
+    --c-surface-raised: 22 22 31;
+    --c-surface-overlay: 29 29 40;
+
+    /* Hairlines */
+    --c-line: 38 38 50;
+    --c-line-strong: 55 55 71;
+
+    /* Type */
+    --c-ink: 237 237 242;
+    --c-ink-muted: 156 156 176;
+    --c-ink-subtle: 113 113 133;
+
+    /* Accents */
+    --c-brand: 124 92 255;
+    --c-brand-hover: 143 115 255;
+    --c-brand-soft: 45 36 82;
+    --c-electric: 61 139 255;
+    --c-gold: 245 165 36;
+    --c-success: 52 211 153;
+    --c-danger: 244 91 105;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-base text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-brand/30 text-white;
+  }
+
+  /* Focus ring — visible for keyboard users, quiet for mouse users */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-base;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-base;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-[3px] border-solid border-base bg-line-strong;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-subtle;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Premium card surface used across product / category / admin cards */
+  .surface-card {
+    @apply relative rounded-2xl border border-line bg-surface-gradient shadow-card;
+  }
+
+  /* Subtle top highlight that sells the "glass" feel without neon */
+  .surface-card::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-br from-white via-white to-white/55 bg-clip-text text-transparent;
+  }
+
+  .brand-gradient-text {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+
+  /* Ambient glow blob — used sparingly behind hero / CTA sections */
+  .glow-blob {
+    @apply pointer-events-none absolute rounded-full blur-[120px] animate-pulse-glow;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-line-strong to-transparent;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden bg-surface-raised;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/5 to-transparent;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Edge-fade for horizontal scrollers on mobile */
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+  }
+
+  .balance {
+    text-wrap: balance;
+  }
+}
