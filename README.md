@@ -32,6 +32,78 @@ real to show.
 
 ---
 
+## Getting a live URL
+
+The project is not deployed anywhere yet — it runs locally. Two routes, pick by
+what you need.
+
+### Fast: Vercel (2 minutes, demo-grade)
+
+```bash
+npm i -g vercel
+vercel          # preview URL
+vercel --prod   # production URL
+```
+
+`vercel.json` already points `DATA_DIR` and `STORAGE_DIR` at `/tmp`, because
+Vercel's filesystem is read-only outside it.
+
+⚠️ **Important caveat.** `/tmp` is per-instance and wiped between deployments and
+cold starts. Products you create in `/admin` and files you upload will disappear.
+That is fine for showing the site to someone; it is not a shop you can run.
+For a real shop, connect Supabase (below) or use the next option.
+
+Set these in the Vercel dashboard → Settings → Environment Variables:
+
+| Variable | Value |
+|---|---|
+| `ADMIN_PASSWORD` | your own password |
+| `AUTH_SECRET` | `openssl rand -hex 32` |
+| `DOWNLOAD_SIGNING_SECRET` | `openssl rand -hex 32` |
+| `NEXT_PUBLIC_SITE_URL` | your deployed URL |
+| `NEXT_PUBLIC_DISCORD_URL` | your Discord invite |
+
+### Durable: a host with a real disk
+
+Railway, Render, Fly.io, or any VPS with Docker. The JSON store and the private
+file storage both work unchanged as long as the process has a persistent volume.
+
+```bash
+npm run build
+npm run start       # respects PORT
+```
+
+Mount a volume and point the app at it:
+
+```
+DATA_DIR=/data/omc
+STORAGE_DIR=/data/omc-files
+```
+
+This is the fastest way to a shop that actually keeps its products and files
+without writing any database code.
+
+---
+
+## Admin access
+
+| | |
+|---|---|
+| **URL** | `/admin` (e.g. `http://localhost:3000/admin`) |
+| **Password** | `omc-admin` — the development default |
+| **Change it** | set `ADMIN_PASSWORD` in `.env.local`, then restart |
+
+The dashboard is protected in two layers: middleware rejects any request to
+`/admin/*` without a session cookie, and the admin layout verifies that cookie's
+HMAC signature and expiry server-side before rendering anything. The login
+endpoint is rate limited to 8 attempts per 10 minutes per IP.
+
+There is no sign-up — admin is a single password by design. When you connect
+Supabase Auth, replace `getAdminSession` in
+`src/lib/services/auth-service.ts` with a role check.
+
+---
+
 ## Where to change things
 
 | I want to… | Go to |
@@ -51,6 +123,40 @@ real to show.
 The store lives in `.data/db.json` (git-ignored). Delete it and restart, or
 `POST /api/admin/reset` while signed in as admin, to restore the seed catalogue
 and clear the demo order history.
+
+---
+
+## Design language
+
+**Dark marketplace shell, Roblox brick material.** The layout density follows
+resource marketplaces like BuiltByBit; the surfaces are moulded plastic bricks.
+
+- **`.brick`** — the core material. A lit top edge, a dark bottom edge and a
+  drop shadow, so every panel reads as an injection-moulded plate rather than a
+  flat rectangle. `.brick-press` adds the physical press on hover and click.
+- **`.studs-top`** — a row of studs moulded into a panel's top edge.
+- **`.stud-field`** — studs as a background texture, used behind the hero and
+  the promo banner.
+- **`.stud`** — a single stud, used as a bullet and as corner rivets.
+- **Brick palette** — `#0084FF` blue as the brand, with classic brick red,
+  yellow, green and orange keyed per category in `src/lib/constants.ts`.
+
+### Motion
+
+`src/components/ui/motion.tsx` holds the interaction primitives. House rules:
+pointer- or scroll-driven, never autoplay-loud; transforms only; and every one
+no-ops under `prefers-reduced-motion`.
+
+| Primitive | Where it is used |
+|---|---|
+| `Spotlight` | Cursor-tracked glow on product, category and showcase cards |
+| `Tilt` | 3D rotation toward the cursor on every product card |
+| `Magnetic` | The primary hero CTA only — more than that gets tiring |
+| `BlurReveal` | Hero headline, word by word |
+| `Counter` | Hero stats, counting up once on scroll into view |
+| `Marquee` | Category ticker under the trust bar, pauses on hover |
+| `Parallax` | Hero showcase drifting against the scroll |
+| `StudRow` | The brand motif, popping in with a slight overshoot |
 
 ---
 

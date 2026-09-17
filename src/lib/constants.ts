@@ -25,7 +25,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Complete environments ready for your next experience.',
     description:
       'Full Roblox Studio places with optimised lighting, collisions and interiors. Open the file, publish, iterate.',
-    accent: ['#7C5CFF', '#3D8BFF'],
+    accent: ['#0084FF', '#22D3EE'],
     icon: 'Map',
   },
   {
@@ -34,7 +34,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Modular 3D pieces built to drop straight into a build.',
     description:
       'Clean geometry, sensible pivots and consistent scale so parts snap together instead of fighting you.',
-    accent: ['#3D8BFF', '#22D3EE'],
+    accent: ['#3AD685', '#22D3EE'],
     icon: 'Boxes',
   },
   {
@@ -43,7 +43,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Interfaces that make a game feel finished.',
     description:
       'Inventories, shops, HUDs and menus with proper scaling, states and mobile support already handled.',
-    accent: ['#A855F7', '#EC4899'],
+    accent: ['#7C5CFF', '#EC4899'],
     icon: 'LayoutDashboard',
   },
   {
@@ -52,7 +52,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Systems that work on the first run.',
     description:
       'Commented Luau modules for the mechanics you would otherwise rebuild on every project.',
-    accent: ['#34D399', '#3D8BFF'],
+    accent: ['#3AD685', '#0084FF'],
     icon: 'Code2',
   },
   {
@@ -61,7 +61,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Drivable models with tuned handling.',
     description:
       'Cars, emergency fleets and utility vehicles with working seats, lights and chassis setups.',
-    accent: ['#F5A524', '#F45B69'],
+    accent: ['#FF8A3C', '#F45656'],
     icon: 'Car',
   },
   {
@@ -70,7 +70,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Exteriors and interiors, both finished.',
     description:
       'Houses, shops and industrial structures detailed inside and out — no hollow facades.',
-    accent: ['#60A5FA', '#7C5CFF'],
+    accent: ['#FFBD2E', '#FF8A3C'],
     icon: 'Building2',
   },
   {
@@ -79,7 +79,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'The details that sell a scene.',
     description:
       'Street furniture, clutter and set dressing that turn an empty baseplate into a believable place.',
-    accent: ['#22D3EE', '#34D399'],
+    accent: ['#22D3EE', '#0084FF'],
     icon: 'Lamp',
   },
   {
@@ -88,7 +88,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Building kits and modular blocks.',
     description:
       'Grid-aligned construction packs for rapid blockouts and consistent architecture.',
-    accent: ['#FBBF24', '#7C5CFF'],
+    accent: ['#FFBD2E', '#3AD685'],
     icon: 'Grid3x3',
   },
   {
@@ -97,7 +97,7 @@ export const CATEGORIES: Category[] = [
     tagline: 'Everything for a genre, bundled.',
     description:
       'Multi-category collections priced well below buying each piece on its own.',
-    accent: ['#EC4899', '#7C5CFF'],
+    accent: ['#F45656', '#7C5CFF'],
     icon: 'Package',
   },
   {
@@ -105,7 +105,7 @@ export const CATEGORIES: Category[] = [
     name: 'Other',
     tagline: 'Tools, docs and extras.',
     description: 'Supporting resources that do not fit a single category.',
-    accent: ['#94A3B8', '#3D8BFF'],
+    accent: ['#94A3B8', '#0084FF'],
     icon: 'Sparkles',
   },
 ];

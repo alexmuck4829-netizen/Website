@@ -13,7 +13,9 @@ const config: Config = {
     container: {
       center: true,
       padding: { DEFAULT: '1.25rem', sm: '1.5rem', lg: '2rem' },
-      screens: { '2xl': '1360px' },
+      // 1520 at 2xl so the full nav (needs ~1428px) fits once the two extra
+      // links come back, and large screens get more presence.
+      screens: { '2xl': '1520px' },
     },
     extend: {
       colors: {
@@ -38,6 +40,13 @@ const config: Config = {
           soft: 'rgb(var(--c-brand-soft) / <alpha-value>)',
         },
         electric: 'rgb(var(--c-electric) / <alpha-value>)',
+        violet: 'rgb(var(--c-violet) / <alpha-value>)',
+        brick: {
+          red: 'rgb(var(--c-brick-red) / <alpha-value>)',
+          yellow: 'rgb(var(--c-brick-yellow) / <alpha-value>)',
+          green: 'rgb(var(--c-brick-green) / <alpha-value>)',
+          orange: 'rgb(var(--c-brick-orange) / <alpha-value>)',
+        },
         gold: 'rgb(var(--c-gold) / <alpha-value>)',
         success: 'rgb(var(--c-success) / <alpha-value>)',
         danger: 'rgb(var(--c-danger) / <alpha-value>)',
@@ -62,6 +71,8 @@ const config: Config = {
       backgroundImage: {
         'brand-gradient':
           'linear-gradient(135deg, rgb(var(--c-brand)) 0%, rgb(var(--c-electric)) 100%)',
+        'brand-gradient-deep':
+          'linear-gradient(135deg, rgb(var(--c-violet)) 0%, rgb(var(--c-brand)) 55%, rgb(var(--c-electric)) 100%)',
         'surface-gradient':
           'linear-gradient(180deg, rgb(var(--c-surface-raised) / 0.9) 0%, rgb(var(--c-surface) / 0.7) 100%)',
         'grid-faint':
@@ -91,6 +102,19 @@ const config: Config = {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
         },
+        'blur-in': {
+          from: { opacity: '0', filter: 'blur(10px)', transform: 'translateY(14px)' },
+          to: { opacity: '1', filter: 'blur(0)', transform: 'translateY(0)' },
+        },
+        'stud-pop': {
+          '0%': { transform: 'scale(0.6)', opacity: '0' },
+          '60%': { transform: 'scale(1.12)', opacity: '1' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
@@ -99,9 +123,14 @@ const config: Config = {
         marquee: 'marquee 40s linear infinite',
         'accordion-down': 'accordion-down 0.25s ease-out',
         'accordion-up': 'accordion-up 0.25s ease-out',
+        'blur-in': 'blur-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'stud-pop': 'stud-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+        float: 'float 6s ease-in-out infinite',
       },
       transitionTimingFunction: {
         premium: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        // Slight overshoot — makes brick presses feel physical
+        brick: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
       },
     },
   },

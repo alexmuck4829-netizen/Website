@@ -21,7 +21,17 @@ export interface DbShape {
   seededAt: string;
 }
 
-const DB_PATH = join(process.cwd(), '.data', 'db.json');
+/**
+ * Where the document lives. Override with DATA_DIR when the project directory
+ * is not writable — on serverless hosts that means something under /tmp, which
+ * is per-instance and ephemeral (fine for a demo, not for real orders: connect
+ * Supabase for that). See README → Deployment.
+ */
+const DATA_DIR = process.env.DATA_DIR ?? join(process.cwd(), '.data');
+const DB_PATH = join(DATA_DIR, 'db.json');
+
+/** Set once if the filesystem rejects a write, so we warn only a single time. */
+let readOnly = false;
 
 let cache: DbShape | null = null;
 /**
@@ -78,9 +88,19 @@ async function load(): Promise<DbShape> {
 }
 
 async function persist(db: DbShape): Promise<void> {
-  await mkdir(dirname(DB_PATH), { recursive: true });
-  await writeFile(DB_PATH, JSON.stringify(db, null, 2), 'utf8');
-  cacheStamp = await fileStamp();
+  if (readOnly) return;
+  try {
+    await mkdir(dirname(DB_PATH), { recursive: true });
+    await writeFile(DB_PATH, JSON.stringify(db, null, 2), 'utf8');
+    cacheStamp = await fileStamp();
+  } catch (error) {
+    readOnly = true;
+    console.warn(
+      `[db] ${DB_PATH} is not writable — running in read-only demo mode. ` +
+        'Set DATA_DIR to a writable path, or connect a real database. ' +
+        `(${error instanceof Error ? error.message : String(error)})`,
+    );
+  }
 }
 
 /** Read-only snapshot. */

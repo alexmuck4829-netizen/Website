@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "installCommand": "npm install",
+  "build": {
+    "env": {
+      "DATA_DIR": "/tmp/omc-data",
+      "STORAGE_DIR": "/tmp/omc-storage"
+    }
+  },
+  "env": {
+    "DATA_DIR": "/tmp/omc-data",
+    "STORAGE_DIR": "/tmp/omc-storage"
+  }
+}

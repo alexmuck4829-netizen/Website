@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, Clock, Layers, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal } from '@/components/ui/reveal';
+import { StudRow } from '@/components/ui/motion';
 import type { Product } from '@/lib/types';
 
 const POINTS = [
@@ -18,12 +19,14 @@ export function PromoBanner({ products }: { products: Product[] }) {
     <section className="container">
       <Reveal>
         <div className="surface-card relative overflow-hidden">
-          <div className="glow-blob left-[-6rem] top-[-6rem] size-[26rem] bg-brand/20" />
-          <div className="glow-blob bottom-[-8rem] right-[-4rem] size-[22rem] bg-electric/14" />
+          <div className="stud-field absolute inset-0 opacity-60" />
+          <div className="glow-blob left-[-6rem] top-[-6rem] size-[26rem] bg-brand/28" />
+          <div className="glow-blob bottom-[-8rem] right-[-4rem] size-[22rem] bg-violet/20" />
 
           <div className="relative grid gap-12 p-7 sm:p-10 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:p-14">
             <div className="space-y-6">
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-brand/30 bg-brand/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+                <StudRow count={3} size={7} colors={['#0084FF', '#22D3EE', '#7C5CFF']} />
                 Premium resources
               </span>
 
@@ -39,7 +42,7 @@ export function PromoBanner({ products }: { products: Product[] }) {
               <ul className="grid gap-3 sm:grid-cols-3">
                 {POINTS.map((point) => (
                   <li key={point.title} className="space-y-2">
-                    <span className="grid size-9 place-items-center rounded-lg border border-line bg-surface-overlay text-brand">
+                    <span className="grid size-10 place-items-center rounded-xl bg-brand/12 text-brand [box-shadow:inset_0_1px_0_rgb(var(--c-brand)/0.35),inset_0_-3px_0_rgb(0_0_0/0.45)]">
                       <point.icon className="size-4" />
                     </span>
                     <p className="text-sm font-medium text-ink">{point.title}</p>

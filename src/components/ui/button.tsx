@@ -7,20 +7,33 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-medium transition-all duration-200 ease-premium disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none active:scale-[0.98] [&_svg]:shrink-0',
+  [
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold',
+    'transition-all duration-200 ease-brick cursor-pointer select-none [&_svg]:shrink-0',
+    'disabled:pointer-events-none disabled:opacity-50',
+    // Brick press: the button sits on a dark bottom edge and sinks into it
+    'active:translate-y-[3px] active:[box-shadow:inset_0_1px_0_0_rgb(255_255_255/0.14)]',
+  ].join(' '),
   {
     variants: {
       variant: {
-        primary:
-          'bg-brand-gradient text-white shadow-[0_6px_20px_-8px_rgb(var(--c-brand)/0.9)] hover:shadow-[0_10px_30px_-8px_rgb(var(--c-brand)/1)] hover:brightness-110',
-        secondary:
-          'bg-surface-overlay text-ink border border-line-strong hover:border-brand/50 hover:bg-surface-raised',
+        primary: [
+          'bg-brand-gradient text-white',
+          '[box-shadow:inset_0_1px_0_0_rgb(255_255_255/0.35),inset_0_-3px_0_0_rgb(0_0_0/0.28),0_6px_20px_-8px_rgb(var(--c-brand)/0.95)]',
+          'hover:-translate-y-0.5 hover:brightness-110',
+          'hover:[box-shadow:inset_0_1px_0_0_rgb(255_255_255/0.4),inset_0_-3px_0_0_rgb(0_0_0/0.28),0_12px_28px_-8px_rgb(var(--c-brand)/1)]',
+        ].join(' '),
+        secondary: [
+          'bg-surface-overlay text-ink border border-line-strong',
+          '[box-shadow:inset_0_1px_0_0_rgb(255_255_255/0.08),inset_0_-3px_0_0_rgb(0_0_0/0.4)]',
+          'hover:-translate-y-0.5 hover:border-brand/50 hover:bg-surface-raised',
+        ].join(' '),
         outline:
-          'border border-line-strong bg-transparent text-ink hover:bg-surface-raised hover:border-brand/40',
-        ghost: 'text-ink-muted hover:bg-surface-raised hover:text-ink',
+          'border-2 border-line-strong bg-transparent text-ink hover:bg-surface-raised hover:border-brand/50',
+        ghost: 'text-ink-muted hover:bg-surface-raised hover:text-ink active:translate-y-0',
         subtle: 'bg-white/5 text-ink hover:bg-white/10',
         danger: 'bg-danger/15 text-danger border border-danger/30 hover:bg-danger/25',
-        link: 'text-brand underline-offset-4 hover:underline p-0 h-auto',
+        link: 'text-brand underline-offset-4 hover:underline p-0 h-auto active:translate-y-0',
       },
       size: {
         sm: 'h-9 px-3.5 text-sm [&_svg]:size-4',

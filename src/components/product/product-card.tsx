@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { Eye, Heart, ShoppingCart, Check } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Rating } from '@/components/ui/rating';
+import { Spotlight, Tilt } from '@/components/ui/motion';
 import { CATEGORY_MAP } from '@/lib/constants';
 import { useCart } from '@/lib/store/cart-store';
 import { useWishlist } from '@/lib/store/wishlist-store';
@@ -38,17 +38,18 @@ export function ProductCard({
   const category = CATEGORY_MAP[product.category];
 
   return (
-    <motion.article
-      className={cn(
-        'surface-card group relative flex flex-col overflow-hidden transition-[transform,box-shadow,border-color] duration-300 ease-premium',
-        'hover:-translate-y-1 hover:border-brand/30 hover:shadow-lift',
-        className,
-      )}
-    >
+    <Tilt strength={5} scale={1.01} className={cn('h-full', className)}>
+      <Spotlight
+        as="article"
+        className={cn(
+          'brick brick-press studs-top group relative flex h-full flex-col',
+          'transition-colors duration-300 hover:border-brand/35',
+        )}
+      >
       {/* ---- Preview ------------------------------------------------ */}
       <Link
         href={`/product/${product.slug}`}
-        className="relative block aspect-[16/10] overflow-hidden bg-surface-overlay"
+        className="relative block aspect-[16/10] overflow-hidden rounded-t-2xl bg-surface-overlay"
         aria-label={`View ${product.name}`}
       >
         <Image
@@ -148,7 +149,8 @@ export function ProductCard({
           </Button>
         </div>
       </div>
-    </motion.article>
+      </Spotlight>
+    </Tilt>
   );
 }
 

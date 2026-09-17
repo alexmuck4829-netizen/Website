@@ -35,7 +35,8 @@ export interface StorageProvider {
   signedUrl(key: string, expiresInSeconds: number): Promise<string>;
 }
 
-const ROOT = join(process.cwd(), '.storage');
+/** Override with STORAGE_DIR when the project directory is not writable. */
+const ROOT = process.env.STORAGE_DIR ?? join(process.cwd(), '.storage');
 const SIGNING_SECRET =
   process.env.DOWNLOAD_SIGNING_SECRET ?? 'dev-only-signing-secret-change-me';
 

@@ -4,33 +4,46 @@
 
 /* =========================================================
    ONE MORE CLICK STUDIO — design tokens
+   Dark marketplace shell + Roblox brick/stud material language.
    Change the palette here and the whole site follows.
    ========================================================= */
 @layer base {
   :root {
-    /* Surfaces: deep charcoal with a faint blue cast */
-    --c-base: 8 8 12;
-    --c-surface: 16 16 23;
-    --c-surface-raised: 22 22 31;
-    --c-surface-overlay: 29 29 40;
+    /* Surfaces: deep cool charcoal, marketplace-dense */
+    --c-base: 7 9 14;
+    --c-surface: 14 17 25;
+    --c-surface-raised: 20 24 34;
+    --c-surface-overlay: 27 32 45;
 
-    /* Hairlines */
-    --c-line: 38 38 50;
-    --c-line-strong: 55 55 71;
+    /* Hairlines — thicker, brick-like edges */
+    --c-line: 34 40 55;
+    --c-line-strong: 52 61 82;
 
     /* Type */
-    --c-ink: 237 237 242;
-    --c-ink-muted: 156 156 176;
-    --c-ink-subtle: 113 113 133;
+    --c-ink: 240 243 250;
+    --c-ink-muted: 152 162 184;
+    --c-ink-subtle: 108 118 140;
 
-    /* Accents */
-    --c-brand: 124 92 255;
-    --c-brand-hover: 143 115 255;
-    --c-brand-soft: 45 36 82;
-    --c-electric: 61 139 255;
-    --c-gold: 245 165 36;
-    --c-success: 52 211 153;
-    --c-danger: 244 91 105;
+    /* Brand: Roblox-brick blue -> electric cyan */
+    --c-brand: 0 132 255;
+    --c-brand-hover: 46 156 255;
+    --c-brand-soft: 12 42 82;
+    --c-electric: 34 211 238;
+    --c-violet: 124 92 255;
+
+    /* Classic brick accents, used for categories and badges */
+    --c-brick-red: 244 86 86;
+    --c-brick-yellow: 255 189 46;
+    --c-brick-green: 58 214 133;
+    --c-brick-orange: 255 138 60;
+
+    --c-gold: 255 189 46;
+    --c-success: 58 214 133;
+    --c-danger: 244 86 86;
+
+    /* Brick material: top highlight + bottom edge depth */
+    --brick-top: rgb(255 255 255 / 0.1);
+    --brick-edge: rgb(0 0 0 / 0.55);
   }
 
   * {
@@ -49,15 +62,13 @@
   }
 
   ::selection {
-    @apply bg-brand/30 text-white;
+    @apply bg-brand/35 text-white;
   }
 
-  /* Focus ring — visible for keyboard users, quiet for mouse users */
   :focus-visible {
     @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-base;
   }
 
-  /* Scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -85,15 +96,78 @@
 }
 
 @layer components {
-  /* Premium card surface used across product / category / admin cards */
-  .surface-card {
-    @apply relative rounded-2xl border border-line bg-surface-gradient shadow-card;
+  /* ---------------------------------------------------------
+     BRICK SURFACE — the core material of the site.
+     A moulded plastic plate: lit top edge, dark bottom edge.
+     --------------------------------------------------------- */
+  .brick {
+    @apply relative rounded-2xl border border-line bg-surface-gradient;
+    box-shadow:
+      inset 0 1px 0 0 var(--brick-top),
+      inset 0 -3px 0 0 var(--brick-edge),
+      0 2px 4px rgb(0 0 0 / 0.35),
+      0 12px 28px -14px rgb(0 0 0 / 0.75);
   }
 
-  /* Subtle top highlight that sells the "glass" feel without neon */
-  .surface-card::before {
+  /* Interactive brick: presses down like a real key */
+  .brick-press {
+    @apply transition-all duration-200 ease-premium;
+  }
+  .brick-press:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 0 var(--brick-top),
+      inset 0 -4px 0 0 var(--brick-edge),
+      0 4px 8px rgb(0 0 0 / 0.4),
+      0 22px 42px -18px rgb(0 0 0 / 0.85);
+  }
+  .brick-press:active {
+    transform: translateY(0);
+    box-shadow:
+      inset 0 1px 0 0 var(--brick-top),
+      inset 0 -1px 0 0 var(--brick-edge),
+      0 1px 2px rgb(0 0 0 / 0.4);
+  }
+
+  /* Legacy alias so existing cards inherit the new material */
+  .surface-card {
+    @apply brick;
+  }
+
+  /* ---------------------------------------------------------
+     STUDS — the signature motif.
+     --------------------------------------------------------- */
+
+  /* A row of studs moulded into the top edge of a panel */
+  .studs-top::before {
     content: '';
-    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent;
+    @apply pointer-events-none absolute -top-px left-5 right-5 h-2 rounded-b-full;
+    background-image: radial-gradient(
+      circle at 6px 0,
+      rgb(255 255 255 / 0.16) 0 5px,
+      transparent 5.5px
+    );
+    background-size: 22px 8px;
+    background-repeat: repeat-x;
+  }
+
+  /* Field of studs used as a background texture */
+  .stud-field {
+    background-image:
+      radial-gradient(circle at center, rgb(255 255 255 / 0.1) 0 4.5px, transparent 5px),
+      radial-gradient(circle at center, rgb(0 0 0 / 0.45) 0 6px, transparent 6.5px);
+    background-size: 34px 34px;
+    background-position: 0 0, 0 1.5px;
+  }
+
+  /* Single stud — used as a bullet / corner rivet */
+  .stud {
+    @apply relative inline-block rounded-full;
+    background: linear-gradient(160deg, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.04));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      inset 0 -1px 2px rgb(0 0 0 / 0.5),
+      0 1px 2px rgb(0 0 0 / 0.4);
   }
 
   .text-gradient {
@@ -104,7 +178,6 @@
     @apply bg-brand-gradient bg-clip-text text-transparent;
   }
 
-  /* Ambient glow blob — used sparingly behind hero / CTA sections */
   .glow-blob {
     @apply pointer-events-none absolute rounded-full blur-[120px] animate-pulse-glow;
   }
@@ -120,6 +193,49 @@
     content: '';
     @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/5 to-transparent;
   }
+
+  /* ---------------------------------------------------------
+     SPOTLIGHT — cursor-tracked glow (21st.dev style).
+     Driven by --mx/--my set from JS; degrades to nothing without.
+     --------------------------------------------------------- */
+  .spotlight::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--c-brand) / 0.14),
+      transparent 60%
+    );
+  }
+  .spotlight:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Animated conic border that travels around the element */
+  .shimmer-border {
+    @apply relative;
+  }
+  .shimmer-border::before {
+    content: '';
+    @apply pointer-events-none absolute -inset-px rounded-[inherit] opacity-0 transition-opacity duration-300;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 0%,
+      rgb(var(--c-brand) / 0.7) 12%,
+      rgb(var(--c-electric) / 0.7) 20%,
+      transparent 34%
+    );
+    animation: spin-border 4s linear infinite;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    padding: 1px;
+  }
+  .shimmer-border:hover::before {
+    @apply opacity-100;
+  }
 }
 
 @layer utilities {
@@ -131,12 +247,32 @@
     scrollbar-width: none;
   }
 
-  /* Edge-fade for horizontal scrollers on mobile */
   .mask-fade-x {
     mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
   }
 
+  .mask-fade-edges {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
   .balance {
     text-wrap: balance;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+/* Registered so the conic gradient angle can actually animate */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-border {
+  to {
+    --angle: 360deg;
   }
 }

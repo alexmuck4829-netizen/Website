@@ -14,14 +14,19 @@ import { SITE } from '@/lib/constants';
 import { useCart } from '@/lib/store/cart-store';
 import { cn } from '@/lib/utils';
 
+/**
+ * `wide: true` keeps a link out of the bar until 2xl. The full set does not fit
+ * inside the 1360px container at xl — it overflowed and clipped the CTA.
+ * Every link remains reachable from the mobile menu, footer and category grid.
+ */
 const NAV_LINKS = [
   { label: 'Marketplace', href: '/marketplace' },
   { label: 'Maps', href: '/marketplace?category=maps' },
   { label: 'Assets', href: '/marketplace?category=assets' },
   { label: 'GUI', href: '/marketplace?category=gui' },
   { label: 'Scripts', href: '/marketplace?category=scripts' },
-  { label: 'Vehicles', href: '/marketplace?category=vehicles' },
-  { label: 'Packs', href: '/marketplace?category=packs' },
+  { label: 'Vehicles', href: '/marketplace?category=vehicles', wide: true },
+  { label: 'Packs', href: '/marketplace?category=packs', wide: true },
   { label: 'New Releases', href: '/new-releases' },
 ];
 
@@ -60,7 +65,7 @@ export function Navbar() {
         className={cn(
           'fixed inset-x-0 top-0 z-40 transition-all duration-300 ease-premium',
           scrolled
-            ? 'border-b border-line bg-base/72 backdrop-blur-xl supports-[backdrop-filter]:bg-base/60'
+            ? 'border-b border-line bg-base/80 backdrop-blur-xl supports-[backdrop-filter]:bg-base/65 [box-shadow:inset_0_-1px_0_rgb(255_255_255/0.04),0_8px_24px_-16px_rgb(0_0_0/0.9)]'
             : 'border-b border-transparent bg-transparent',
         )}
       >
@@ -77,6 +82,7 @@ export function Navbar() {
                   className={cn(
                     'relative whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200',
                     active ? 'text-ink' : 'text-ink-muted hover:text-ink',
+                    link.wide && 'hidden 2xl:block',
                   )}
                 >
                   {link.label}
@@ -92,7 +98,7 @@ export function Navbar() {
           </nav>
 
           <div className="ml-auto flex items-center gap-1.5">
-            <SearchDropdown className="hidden w-56 lg:block xl:w-64" />
+            <SearchDropdown className="hidden lg:block lg:w-48 xl:w-52 2xl:w-64" />
 
             <Button
               variant="ghost"
