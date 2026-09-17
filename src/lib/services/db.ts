@@ -1,6 +1,7 @@
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import type { DownloadLogEntry, MediaAsset, Order, Product } from '../types';
+import { envOr } from '../env';
 import { SEED_PRODUCTS } from '../data';
 import { buildDemoOrders } from '../data/seed-orders';
 
@@ -27,7 +28,7 @@ export interface DbShape {
  * is per-instance and ephemeral (fine for a demo, not for real orders: connect
  * Supabase for that). See README → Deployment.
  */
-const DATA_DIR = process.env.DATA_DIR ?? join(process.cwd(), '.data');
+const DATA_DIR = envOr('DATA_DIR', join(process.cwd(), '.data'));
 const DB_PATH = join(DATA_DIR, 'db.json');
 
 /** Set once if the filesystem rejects a write, so we warn only a single time. */

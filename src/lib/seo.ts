@@ -2,6 +2,20 @@ import { SITE } from './constants';
 
 export { SITE };
 
+/**
+ * metadataBase for the root layout. Next evaluates this at module scope while
+ * collecting page data, so a throw here fails the whole build — which is
+ * exactly what an empty NEXT_PUBLIC_SITE_URL used to do. Returning undefined
+ * only costs relative OG image URLs.
+ */
+export function metadataBase(): URL | undefined {
+  try {
+    return new URL(SITE.url);
+  } catch {
+    return undefined;
+  }
+}
+
 /** Absolute URL helper that tolerates a missing/relative NEXT_PUBLIC_SITE_URL. */
 export function absoluteUrlSafe(path = '/'): string {
   try {

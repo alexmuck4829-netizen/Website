@@ -1,3 +1,4 @@
+import { envString } from '../env';
 import type { Order, OrderItem } from '../types';
 
 /**
@@ -18,7 +19,7 @@ export interface CheckoutSession {
 }
 
 export function isStripeConfigured(): boolean {
-  return Boolean(process.env.STRIPE_SECRET_KEY);
+  return envString('STRIPE_SECRET_KEY') !== undefined;
 }
 
 export const PaymentService = {

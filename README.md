@@ -60,8 +60,14 @@ Set these in the Vercel dashboard → Settings → Environment Variables:
 | `ADMIN_PASSWORD` | your own password |
 | `AUTH_SECRET` | `openssl rand -hex 32` |
 | `DOWNLOAD_SIGNING_SECRET` | `openssl rand -hex 32` |
-| `NEXT_PUBLIC_SITE_URL` | your deployed URL |
 | `NEXT_PUBLIC_DISCORD_URL` | your Discord invite |
+
+`NEXT_PUBLIC_SITE_URL` is optional on Vercel — the deployment URL is detected
+automatically from `VERCEL_URL`. Set it only once you have a custom domain.
+
+**Never create a variable with an empty value.** Leave it out entirely instead.
+Every env read goes through `src/lib/env.ts`, which treats empty as absent, but
+an empty value still signals intent you did not mean.
 
 ### Durable: a host with a real disk
 

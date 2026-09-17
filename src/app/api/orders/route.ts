@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { AuthService } from '@/lib/services/auth-service';
 import { OrderService } from '@/lib/services/order-service';
+import { isStripeConfigured } from '@/lib/services/payment-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
   const order = await OrderService.byId(orderId);
   if (!order) return NextResponse.json({ error: 'Order not found' }, { status: 404 });
 
-  if (process.env.STRIPE_SECRET_KEY) {
+  if (isStripeConfigured()) {
     return NextResponse.json(
       { error: 'Stripe is configured — orders must be confirmed by the Stripe webhook.' },
       { status: 409 },

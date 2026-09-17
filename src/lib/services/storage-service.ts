@@ -1,6 +1,7 @@
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, normalize } from 'node:path';
 import { createHmac, randomUUID } from 'node:crypto';
+import { envOr } from '../env';
 
 /**
  * StorageService — the single seam between the app and wherever files live.
@@ -36,9 +37,8 @@ export interface StorageProvider {
 }
 
 /** Override with STORAGE_DIR when the project directory is not writable. */
-const ROOT = process.env.STORAGE_DIR ?? join(process.cwd(), '.storage');
-const SIGNING_SECRET =
-  process.env.DOWNLOAD_SIGNING_SECRET ?? 'dev-only-signing-secret-change-me';
+const ROOT = envOr('STORAGE_DIR', join(process.cwd(), '.storage'));
+const SIGNING_SECRET = envOr('DOWNLOAD_SIGNING_SECRET', 'dev-only-signing-secret-change-me');
 
 /** Blocks path traversal (`../`) in keys built from user-supplied filenames. */
 export function safeKey(key: string): string {
@@ -138,7 +138,9 @@ class SupabaseStorageProvider implements StorageProvider {
 }
 
 const provider: StorageProvider =
-  process.env.STORAGE_PROVIDER === 'supabase' ? new SupabaseStorageProvider() : new LocalStorageProvider();
+  envOr('STORAGE_PROVIDER', 'local') === 'supabase'
+    ? new SupabaseStorageProvider()
+    : new LocalStorageProvider();
 
 export const StorageService = {
   provider: provider.name,

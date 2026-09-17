@@ -1,3 +1,4 @@
+import { envOr, resolveSiteUrl } from './env';
 import type { Category, CategorySlug } from './types';
 
 /**
@@ -10,9 +11,9 @@ export const SITE = {
   tagline: 'Premium Roblox Studio resources',
   description:
     'Premium maps, assets, interfaces and development resources made for ambitious Roblox creators.',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://onemoreclick.studio',
+  url: resolveSiteUrl(),
   /** ← Put your real invite here (or set NEXT_PUBLIC_DISCORD_URL) */
-  discordUrl: process.env.NEXT_PUBLIC_DISCORD_URL ?? 'https://discord.gg/onemoreclick',
+  discordUrl: envOr('NEXT_PUBLIC_DISCORD_URL', 'https://discord.gg/onemoreclick'),
   supportEmail: 'support@onemoreclick.studio',
   currency: 'EUR' as const,
   locale: 'en-GB',

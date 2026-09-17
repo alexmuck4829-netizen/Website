@@ -1,5 +1,6 @@
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import { cookies } from 'next/headers';
+import { envOr, envString } from '../env';
 
 /**
  * Session handling.
@@ -12,11 +13,11 @@ import { cookies } from 'next/headers';
 
 const ADMIN_COOKIE = 'omc_admin_session';
 const CUSTOMER_COOKIE = 'omc_customer_session';
-const SECRET = process.env.AUTH_SECRET ?? 'dev-only-auth-secret-change-me';
+const SECRET = envOr('AUTH_SECRET', 'dev-only-auth-secret-change-me');
 const MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'omc-admin';
-export const IS_DEV_AUTH = !process.env.ADMIN_PASSWORD;
+export const ADMIN_PASSWORD = envOr('ADMIN_PASSWORD', 'omc-admin');
+export const IS_DEV_AUTH = envString('ADMIN_PASSWORD') === undefined;
 
 function sign(value: string): string {
   return createHmac('sha256', SECRET).update(value).digest('hex');
@@ -68,6 +69,9 @@ const cookieOptions = {
 
 export const AuthService = {
   verifyAdminPassword(password: string): boolean {
+    // Guard both sides: timingSafeEqual on two empty buffers returns true, so
+    // an empty configured password would let an empty submission straight in.
+    if (!password || !ADMIN_PASSWORD) return false;
     const a = Buffer.from(password);
     const b = Buffer.from(ADMIN_PASSWORD);
     if (a.length !== b.length) return false;
