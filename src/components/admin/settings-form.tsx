@@ -58,6 +58,39 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
     }
   };
 
+  const [clearing, setClearing] = useState(false);
+
+  const clearDemo = async () => {
+    if (
+      !confirm(
+        'Supprimer définitivement TOUTES les données de démonstration ?\n\n' +
+          '• les 18 produits du catalogue de démo et leurs 56 avis inventés\n' +
+          '• les 26 commandes fictives\n\n' +
+          'Vos propres produits, commandes et réglages sont conservés. Action irréversible.',
+      )
+    )
+      return;
+
+    setClearing(true);
+    try {
+      const response = await fetch('/api/admin/reset', { method: 'DELETE' });
+      if (!response.ok) throw new Error();
+      const r = (await response.json()) as {
+        productsRemoved: number;
+        ordersRemoved: number;
+        reviewsRemoved: number;
+      };
+      toast.success('Données de démonstration supprimées', {
+        description: `${r.productsRemoved} produits, ${r.reviewsRemoved} avis et ${r.ordersRemoved} commandes retirés.`,
+      });
+      startTransition(() => router.refresh());
+    } catch {
+      toast.error('La suppression a échoué');
+    } finally {
+      setClearing(false);
+    }
+  };
+
   const reset = async () => {
     if (!confirm('Réinitialiser tous les réglages aux valeurs d’usine ? Les produits ne sont pas affectés.')) return;
     const response = await fetch('/api/settings', { method: 'DELETE' });
@@ -102,6 +135,35 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
         {/* ---------------- BRAND ---------------- */}
         <TabsContent value="brand" className="mt-6 space-y-6">
+          <section className="brick space-y-4 border-danger/30 p-6">
+            <header className="flex items-start gap-3">
+              <ShieldAlert className="mt-0.5 size-5 shrink-0 text-danger" />
+              <div className="space-y-1">
+                <h2 className="font-display text-lg font-semibold text-ink">
+                  Avant d’ouvrir la boutique au public
+                </h2>
+                <p className="text-sm leading-relaxed text-ink-muted">
+                  Le site est livré avec un catalogue de démonstration :{' '}
+                  <strong className="text-ink">18 produits, 56 avis clients inventés et 26
+                  commandes fictives</strong>. Publier des avis et des compteurs de ventes qui ne
+                  correspondent à rien constitue une pratique commerciale trompeuse
+                  (art. L121-2 et L121-4 du Code de la consommation). Supprimez-les avant de vendre.
+                </p>
+                <p className="text-sm leading-relaxed text-ink-muted">
+                  Pensez aussi aux chiffres du hero (onglet <strong className="text-ink">Hero</strong>{' '}
+                  → Compteurs) : « 1 240+ ressources livrées », « 12k+ créateurs » sont également
+                  fictifs.
+                </p>
+              </div>
+            </header>
+            <Button variant="danger" onClick={clearDemo} loading={clearing}>
+              <Trash2 /> Supprimer les données de démonstration
+            </Button>
+            <p className="text-xs text-ink-subtle">
+              Vos propres produits, vos commandes réelles et vos réglages sont conservés.
+            </p>
+          </section>
+
           <Card title="Identité">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field label="Nom du site" hint="utilisé dans les métadonnées et le pied de page">

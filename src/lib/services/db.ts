@@ -140,8 +140,54 @@ export function invalidateDbCache(): void {
   cacheStamp = 0;
 }
 
-/** Restores the demo catalogue and clears orders/media. */
+/** Restores the demo catalogue and demo ledger. Used to go back to a fresh demo. */
 export async function resetDb(): Promise<void> {
   cache = emptyDb();
   await persist(cache);
+}
+
+/**
+ * Supprime toutes les données de démonstration.
+ *
+ * À utiliser avant d'ouvrir la boutique au public : des avis inventés et des
+ * compteurs de ventes fictifs sur un site marchand sont des pratiques
+ * commerciales trompeuses.
+ *
+ * Les produits créés depuis l'administration reçoivent un UUID, alors que les
+ * produits de démonstration ont pour identifiant leur slug — c'est ce qui
+ * permet de ne supprimer que la démo et de garder votre travail.
+ */
+export async function clearDemoData(): Promise<{
+  productsRemoved: number;
+  ordersRemoved: number;
+  reviewsRemoved: number;
+}> {
+  const demoSlugs = new Set(SEED_PRODUCTS.map((p) => p.id));
+
+  return writeDb((db) => {
+    const productsBefore = db.products.length;
+    const reviewsBefore = db.products.reduce((n, p) => n + p.reviews.length, 0);
+    const ordersBefore = db.orders.length;
+
+    db.products = db.products.filter((p) => !demoSlugs.has(p.id));
+    db.orders = db.orders.filter((o) => !o.id.startsWith('demo-order-'));
+
+    // Les produits que vous avez créés gardent leurs vraies ventes ; on ne
+    // remet à zéro que ce qui viendrait des commandes de démonstration.
+    const realProductIds = new Set(db.products.map((p) => p.id));
+    for (const product of db.products) {
+      product.salesCount = db.orders
+        .filter((o) => o.status === 'paid')
+        .reduce((n, o) => n + o.items.filter((i) => i.productId === product.id).length, 0);
+    }
+
+    db.media = db.media.filter((m) => !m.productId || realProductIds.has(m.productId));
+    db.downloadLogs = [];
+
+    return {
+      productsRemoved: productsBefore - db.products.length,
+      ordersRemoved: ordersBefore - db.orders.length,
+      reviewsRemoved: reviewsBefore - db.products.reduce((n, p) => n + p.reviews.length, 0),
+    };
+  });
 }

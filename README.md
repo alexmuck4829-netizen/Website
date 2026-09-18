@@ -323,6 +323,22 @@ already expects "a session or null", so nothing else changes. Swap
 
 ---
 
+## Clearing the demo data before you sell
+
+`/admin/settings` → Marque → **« Supprimer les données de démonstration »** removes
+the 18 seeded products, their 56 invented reviews and the 26 fictitious orders,
+while keeping everything you created yourself.
+
+Do this before opening the shop to the public. Publishing invented customer
+reviews and sales counters on a live storefront is a misleading commercial
+practice under French consumer law (art. L121-2 and L121-4 du Code de la
+consommation; the EU Omnibus directive targets fake reviews explicitly).
+
+The hero counters ("1 240+ ressources livrées", "12k+ créateurs") are separate —
+edit or remove them in `/admin/settings` → Hero → Compteurs.
+
+---
+
 ## What is demo data
 
 Everything in this list is placeholder content to be replaced:
