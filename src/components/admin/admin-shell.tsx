@@ -18,7 +18,14 @@ const NAV = [
   { label: 'Réglages du site', href: '/admin/settings', icon: Settings },
 ];
 
-export function AdminShell({ children }: { children: React.ReactNode }) {
+export function AdminShell({
+  children,
+  build,
+}: {
+  children: React.ReactNode;
+  /** Short commit SHA of the running deployment, for spotting a stale deploy. */
+  build?: string;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileNav, setMobileNav] = useState(false);
@@ -58,7 +65,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-base">
       {/* Sidebar — desktop */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-line bg-surface/50 p-4 lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-line bg-surface/50 p-4 md:flex">
         <Link href="/admin" className="mb-6 flex items-center gap-2.5 px-1">
           <LogoMark />
           <div className="flex flex-col leading-none">
@@ -78,11 +85,19 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           <Button variant="ghost" className="w-full justify-start" onClick={signOut}>
             <LogOut /> Déconnexion
           </Button>
+          {build && (
+            <p
+              className="px-3 pt-1 font-mono text-[10px] text-ink-subtle"
+              title="Version déployée — comparez-la au dernier commit du dépôt"
+            >
+              build {build}
+            </p>
+          )}
         </div>
       </aside>
 
       {/* Topbar — mobile */}
-      <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-line bg-base/85 px-4 py-3 backdrop-blur-xl lg:hidden">
+      <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-line bg-base/85 px-4 py-3 backdrop-blur-xl md:hidden">
         <Button variant="ghost" size="icon" onClick={() => setMobileNav(true)} aria-label="Ouvrir le menu">
           <Menu />
         </Button>
@@ -98,7 +113,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       </header>
 
       {mobileNav && (
-        <div className="fixed inset-0 z-50 lg:hidden">
+        <div className="fixed inset-0 z-50 md:hidden">
           <button
             type="button"
             aria-label="Fermer le menu"
@@ -127,8 +142,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      <div className="lg:pl-60">
-        <div className="mx-auto max-w-6xl px-5 py-8 lg:px-8 lg:py-10">{children}</div>
+      <div className="md:pl-60">
+        <div className="mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-10">{children}</div>
       </div>
     </div>
   );

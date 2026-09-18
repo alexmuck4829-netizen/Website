@@ -1,5 +1,6 @@
 import { AdminShell } from '@/components/admin/admin-shell';
 import { AuthService } from '@/lib/services/auth-service';
+import { envString } from '@/lib/env';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,5 +13,8 @@ export const dynamic = 'force-dynamic';
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await AuthService.getAdminSession();
   if (!session) return <>{children}</>;
-  return <AdminShell>{children}</AdminShell>;
+
+  // Vercel injects the commit SHA; locally there is none and the marker hides.
+  const build = envString('VERCEL_GIT_COMMIT_SHA')?.slice(0, 7);
+  return <AdminShell build={build}>{children}</AdminShell>;
 }

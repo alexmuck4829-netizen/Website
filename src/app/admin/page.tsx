@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Euro, Package, Plus, ShoppingCart, Users } from 'lucide-react';
+import {
+  ArrowRight, Euro, FolderOpen, Package, Plus, Receipt, Settings, ShoppingCart, Users,
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { StatCard } from '@/components/admin/stat-card';
@@ -42,6 +44,35 @@ export default async function AdminDashboard() {
           </Link>
         </Button>
       </header>
+
+      {/* Raccourcis : chaque section reste atteignable même si la barre
+          latérale est masquée sur un écran étroit. */}
+      <nav aria-label="Sections de l’administration">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { href: '/admin/products', icon: Package, label: 'Produits', sub: 'Créer, modifier, publier' },
+            { href: '/admin/orders', icon: Receipt, label: 'Commandes', sub: 'Achats et téléchargements' },
+            { href: '/admin/media', icon: FolderOpen, label: 'Médias', sub: 'Images et fichiers' },
+            { href: '/admin/settings', icon: Settings, label: 'Réglages du site', sub: 'Textes, couleurs, Discord' },
+          ].map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="brick brick-press group flex h-full items-center gap-3.5 p-4"
+              >
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand/12 text-brand [box-shadow:inset_0_1px_0_rgb(var(--c-brand)/0.35),inset_0_-3px_0_rgb(0_0_0/0.45)]">
+                  <item.icon className="size-[18px]" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-semibold text-ink">{item.label}</span>
+                  <span className="block truncate text-xs text-ink-subtle">{item.sub}</span>
+                </span>
+                <ArrowRight className="size-4 shrink-0 text-ink-subtle transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-brand" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
