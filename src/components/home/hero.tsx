@@ -2,14 +2,14 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   ArrowRight, Blocks, CheckCircle2, Gem, ShieldCheck, Sparkles, Zap, type LucideIcon,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
-  BlurReveal, Counter, Magnetic, Parallax, Spotlight, StudRow, Tilt,
+  BlurReveal, Counter, Magnetic, Parallax, Spotlight, Tilt, usePrefersReducedMotion,
 } from '@/components/ui/motion';
 import { CATEGORY_MAP } from '@/lib/constants';
 import type { Product, SiteSettings } from '@/lib/types';
@@ -26,36 +26,33 @@ export function Hero({
   products: Product[];
   hero: SiteSettings['hero'];
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const showcase = products.slice(0, 4);
 
   return (
     <section className="relative overflow-hidden">
-      {/* ---- Ambient layers: stud field + brick-coloured glow ---- */}
+      {/* Lavis de teinte : la seule « profondeur » admise sur canevas clair. */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="glow-blob left-[6%] top-[-8rem] size-[36rem] bg-brand/28" />
-        <div className="glow-blob right-[-6%] top-[4rem] size-[30rem] bg-violet/20" />
-        <div className="glow-blob left-[38%] top-[18rem] size-[24rem] bg-electric/14" />
-        <div className="stud-field absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_75%_65%_at_50%_0%,black,transparent)]" />
+        <div className="glow-blob left-[4%] top-[-12rem] size-[40rem] bg-brand/[0.07]" />
+        <div className="glow-blob right-[-8%] top-[2rem] size-[34rem] bg-electric/[0.06]" />
+        <div className="glow-blob left-[34%] top-[20rem] size-[26rem] bg-lavender/20" />
       </div>
 
       <div className="container grid gap-14 pb-16 pt-16 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-10 lg:pb-24 lg:pt-24">
-        {/* ---------------- Copy ---------------- */}
+        {/* ---------------- Texte ---------------- */}
         <div className="max-w-xl">
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE }}
-            className="flex items-center gap-3"
           >
-            <span className="brick inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-ink-muted">
+            <span className="card inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-ink-muted">
               <Sparkles className="size-3.5 text-brand" />
               {hero.badge}
             </span>
-            <StudRow count={4} colors={['#F45656', '#FFBD2E', '#3AD685', '#0084FF']} />
           </motion.div>
 
-          <h1 className="mt-6 text-balance font-display text-[2.6rem] font-bold leading-[1.04] tracking-tight text-ink sm:text-6xl lg:text-[4.1rem]">
+          <h1 className="mt-6 text-balance font-display text-[2.6rem] font-light leading-[1.04] tracking-[-0.03em] text-ink sm:text-6xl lg:text-[4.1rem]">
             <BlurReveal text={hero.titleLine1} as="span" className="block" />
             <BlurReveal text={hero.titleLine2} as="span" className="block" delay={0.12} />
             <BlurReveal
@@ -71,7 +68,7 @@ export function Hero({
             initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.42, ease: EASE }}
-            className="mt-6 text-pretty text-lg leading-relaxed text-ink-muted"
+            className="mt-6 text-pretty text-lede text-ink-muted"
           >
             {hero.subtitle}
           </motion.p>
@@ -85,7 +82,8 @@ export function Hero({
             <Magnetic>
               <Button size="lg" asChild>
                 <Link href={hero.primaryCta.href}>
-                  {hero.primaryCta.label} <ArrowRight />
+                  {hero.primaryCta.label}
+                  <ArrowRight className="transition-transform duration-300 ease-premium group-hover/btn:translate-x-1" />
                 </Link>
               </Button>
             </Magnetic>
@@ -94,17 +92,20 @@ export function Hero({
             </Button>
           </motion.div>
 
-          {/* ---- Live counters ---- */}
+          {/* ---- Compteurs ---- */}
           <motion.dl
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.66 }}
-            className="mt-10 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line"
+            className="mt-10 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded border border-line bg-line"
           >
             {hero.stats.map((stat) => (
-              <div key={stat.label} className="bg-surface/90 px-4 py-3.5">
+              <div
+                key={stat.label}
+                className="group bg-base px-4 py-3.5 transition-colors duration-300 hover:bg-brand-soft"
+              >
                 <dt className="sr-only">{stat.label}</dt>
-                <dd className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
+                <dd className="font-display text-xl font-normal tracking-[-0.025em] text-ink transition-colors duration-300 group-hover:text-brand sm:text-2xl">
                   <Counter to={stat.value} suffix={stat.suffix} decimals={stat.decimals ?? 0} />
                 </dd>
                 <p className="mt-0.5 text-[11px] leading-tight text-ink-subtle">{stat.label}</p>
@@ -113,27 +114,31 @@ export function Hero({
           </motion.dl>
         </div>
 
-        {/* ---------------- Showcase ---------------- */}
+        {/* ---------------- Vitrine ---------------- */}
         <div className="relative">
           <Parallax offset={24}>
-            <div className="relative mx-auto grid max-w-lg grid-cols-2 gap-4 lg:max-w-none">
-              {showcase.map((product, i) => (
-                <motion.div
-                  key={product.id}
-                  initial={reduce ? false : { opacity: 0, y: 34, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: EASE }}
-                  className={i % 2 === 1 ? 'lg:translate-y-10' : i === 0 ? 'lg:-translate-y-2' : ''}
-                >
-                  <ShowcaseCard product={product} priority={i < 2} float={!reduce} index={i} />
-                </motion.div>
-              ))}
-            </div>
+            {showcase.length > 0 ? (
+              <div className="relative mx-auto grid max-w-lg grid-cols-2 gap-4 lg:max-w-none">
+                {showcase.map((product, i) => (
+                  <motion.div
+                    key={product.id}
+                    initial={reduce ? false : { opacity: 0, y: 34, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: EASE }}
+                    className={i % 2 === 1 ? 'lg:translate-y-10' : i === 0 ? 'lg:-translate-y-2' : ''}
+                  >
+                    <ShowcaseCard product={product} priority={i < 2} float={!reduce} index={i} />
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <EmptyShowcase />
+            )}
           </Parallax>
         </div>
       </div>
 
-      {/* ---- Reassurance strip, moulded into the section edge ---- */}
+      {/* ---- Bandeau de réassurance ---- */}
       <div className="container pb-4">
         <motion.ul
           initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -144,8 +149,11 @@ export function Hero({
           {hero.reassurance.map((label, i) => {
             const Icon = REASSURANCE_ICONS[i % REASSURANCE_ICONS.length];
             return (
-              <li key={label} className="flex items-center gap-2 text-sm text-ink-muted">
-                <Icon className="size-4 text-brand" />
+              <li
+                key={label}
+                className="group flex items-center gap-2 text-sm text-ink-muted transition-colors duration-300 hover:text-ink"
+              >
+                <Icon className="size-4 text-brand transition-transform duration-300 ease-spring group-hover:scale-125" />
                 {label}
               </li>
             );
@@ -153,6 +161,30 @@ export function Hero({
         </motion.ul>
       </div>
     </section>
+  );
+}
+
+/**
+ * Boutique encore vide (catalogue de démonstration supprimé, aucun produit
+ * publié) : on montre un panneau de marque plutôt qu'une colonne blanche.
+ */
+function EmptyShowcase() {
+  return (
+    <div className="card relative mx-auto grid aspect-[4/3] max-w-lg place-items-center overflow-hidden bg-surface lg:max-w-none">
+      <div className="absolute inset-0 bg-grid-faint [background-size:32px_32px] opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand/[0.06] via-transparent to-electric/[0.06]" />
+      <div className="relative flex flex-col items-center gap-3 px-8 text-center">
+        <span className="grid size-12 place-items-center rounded bg-brand-gradient text-white">
+          <Blocks className="size-6" />
+        </span>
+        <p className="font-display text-lg font-light tracking-[-0.02em] text-ink">
+          Le catalogue arrive
+        </p>
+        <p className="max-w-xs text-sm leading-relaxed text-ink-muted">
+          Les premières ressources apparaîtront ici dès qu&apos;un produit sera publié.
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -178,30 +210,32 @@ function ShowcaseCard({
       animate={float ? { y: [0, index % 2 === 0 ? -8 : 8, 0] } : undefined}
       transition={{ duration: 7 + index, repeat: Infinity, ease: 'easeInOut' }}
     >
-      <Tilt strength={6}>
-        <Spotlight className="brick brick-press studs-top shimmer-border block rounded-2xl">
+      <Tilt strength={8}>
+        <Spotlight className="card card-hover shimmer-border block overflow-hidden hover:shadow-lift">
           <Link href={`/product/${product.slug}`} className="group block">
-            <div className="relative aspect-[16/11] overflow-hidden rounded-t-2xl bg-surface-overlay">
+            <div className="relative aspect-[16/11] overflow-hidden bg-surface-overlay">
               <Image
                 src={product.thumbnail}
                 alt={product.name}
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
                 priority={priority}
-                className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
+                className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105 motion-reduce:group-hover:scale-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-violet/45 to-transparent" />
               <Badge variant={badge.variant} className="absolute left-2.5 top-2.5">
                 {badge.label}
               </Badge>
             </div>
             <div className="space-y-1 p-3.5">
-              <p className="truncate font-display text-sm font-semibold text-ink">{product.name}</p>
+              <p className="truncate font-display text-sm font-medium tracking-[-0.015em] text-ink transition-colors duration-300 group-hover:text-brand">
+                {product.name}
+              </p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-ink-subtle">
                   {CATEGORY_MAP[product.category]?.name}
                 </span>
-                <span className="text-sm font-bold text-ink">
+                <span className="text-sm font-medium text-ink">
                   {formatPrice(effectivePrice(product))}
                 </span>
               </div>

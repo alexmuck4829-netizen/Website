@@ -1,11 +1,13 @@
 'use client';
 
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 /**
- * Scroll-triggered entrance. Elegant rather than flashy: a short rise + fade,
- * played once, and skipped entirely for users who ask for reduced motion.
+ * Entrée déclenchée au défilement : une courte montée en fondu, jouée une fois.
+ * Le respect de « mouvement réduit » est assuré par le MotionConfig global —
+ * brancher ici sur useReducedMotion produisait un arbre différent côté client
+ * et donc un décalage d'hydratation.
  */
 export function Reveal({
   children,
@@ -20,14 +22,13 @@ export function Reveal({
   className?: string;
   as?: 'div' | 'section' | 'li' | 'article' | 'header';
 }) {
-  const reduce = useReducedMotion();
   const Comp = motion[as];
 
   return (
     <Comp
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
     >
@@ -54,13 +55,12 @@ export function StaggerGroup({
   children: ReactNode;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
       variants={staggerContainer}
-      initial={reduce ? false : 'hidden'}
-      whileInView={reduce ? undefined : 'show'}
+      initial="hidden"
+      whileInView="show"
       viewport={{ once: true, margin: '-60px' }}
     >
       {children}

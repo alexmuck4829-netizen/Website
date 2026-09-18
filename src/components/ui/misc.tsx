@@ -16,7 +16,7 @@ export const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      'inline-flex items-center gap-1 rounded-xl border border-line bg-surface/70 p-1',
+      'inline-flex items-center gap-1 rounded border border-line bg-surface p-1',
       className,
     )}
     {...props}
@@ -31,7 +31,7 @@ export const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-ink-muted transition-all duration-200 hover:text-ink data-[state=active]:bg-surface-overlay data-[state=active]:text-ink data-[state=active]:shadow-inset',
+      'relative cursor-pointer rounded px-4 py-2 text-sm font-medium text-ink-muted transition-all duration-300 ease-premium hover:text-ink data-[state=active]:bg-base data-[state=active]:text-brand data-[state=active]:shadow-card',
       className,
     )}
     {...props}
@@ -129,12 +129,15 @@ export function SectionHeading({
     >
       <div className={cn('max-w-2xl space-y-3', align === 'center' && 'mx-auto')}>
         {eyebrow && (
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">{eyebrow}</p>
+          <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-brand">
+            <span className="h-px w-6 origin-left animate-draw-line bg-brand/50" />
+            {eyebrow}
+          </p>
         )}
-        <h2 className="text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        <h2 className="text-balance font-display text-3xl font-light tracking-[-0.028em] text-ink sm:text-4xl">
           {title}
         </h2>
-        {description && <p className="text-pretty text-ink-muted sm:text-lg">{description}</p>}
+        {description && <p className="text-pretty text-ink-muted sm:text-lede">{description}</p>}
       </div>
       {action && <div className="shrink-0">{action}</div>}
     </div>
@@ -161,11 +164,11 @@ export function EmptyState({
 }) {
   return (
     <div className="surface-card flex flex-col items-center gap-4 px-6 py-16 text-center">
-      <div className="grid size-14 place-items-center rounded-2xl border border-line bg-surface-overlay text-ink-subtle [&_svg]:size-6">
+      <div className="grid size-14 place-items-center rounded border border-line bg-surface text-brand [&_svg]:size-6">
         {icon}
       </div>
       <div className="space-y-1.5">
-        <h3 className="font-display text-lg font-semibold text-ink">{title}</h3>
+        <h3 className="font-display text-lg font-medium text-ink">{title}</h3>
         <p className="mx-auto max-w-sm text-sm text-ink-muted">{description}</p>
       </div>
       {action}

@@ -13,7 +13,7 @@ export function RevenueChart({
   return (
     <div className="surface-card p-5">
       <div className="mb-5 space-y-1">
-        <h2 className="font-display text-lg font-semibold text-ink">Chiffre d’affaires</h2>
+        <h2 className="font-display text-lg font-medium text-ink">Chiffre d’affaires</h2>
         <p className="text-sm text-ink-muted">14 derniers jours</p>
       </div>
 

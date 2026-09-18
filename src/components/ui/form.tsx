@@ -78,7 +78,7 @@ export const Switch = React.forwardRef<
   <SwitchPrimitive.Root
     ref={ref}
     className={cn(
-      'peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border border-line-strong transition-colors duration-200 data-[state=checked]:border-brand data-[state=checked]:bg-brand data-[state=unchecked]:bg-surface-overlay',
+      'peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border border-line-strong transition-colors duration-200 data-[state=checked]:border-brand data-[state=checked]:bg-brand data-[state=unchecked]:bg-line',
       className,
     )}
     {...props}
@@ -162,7 +162,7 @@ export const SelectContent = React.forwardRef<
       ref={ref}
       position={position}
       className={cn(
-        'relative z-50 max-h-80 min-w-[10rem] overflow-hidden rounded-xl border border-line-strong bg-surface-overlay shadow-lift',
+        'relative z-50 max-h-80 min-w-[10rem] overflow-hidden rounded border border-line-strong bg-base shadow-lift',
         'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0',
         position === 'popper' && 'translate-y-1',
         className,
@@ -182,7 +182,7 @@ export const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2 text-sm text-ink-muted outline-none transition-colors data-[highlighted]:bg-white/5 data-[highlighted]:text-ink data-[state=checked]:text-brand',
+      'relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2 text-sm text-ink-muted outline-none transition-colors data-[highlighted]:bg-brand-soft data-[highlighted]:text-ink data-[state=checked]:text-brand',
       className,
     )}
     {...props}
@@ -201,7 +201,7 @@ export const Slider = React.forwardRef<
     className={cn('relative flex w-full touch-none select-none items-center', className)}
     {...props}
   >
-    <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-surface-overlay">
+    <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-line">
       <SliderPrimitive.Range className="absolute h-full bg-brand-gradient" />
     </SliderPrimitive.Track>
     {(props.value ?? props.defaultValue ?? [0]).map((_, i) => (

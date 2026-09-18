@@ -119,7 +119,7 @@ export default async function ProductPage({ params }: { params: Params }) {
           <div className="space-y-8">
             <Reveal>
               <section className="space-y-4">
-                <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
+                <h2 className="font-display text-2xl font-medium tracking-tight text-ink">
                   À propos de ce produit
                 </h2>
                 {product.description.split('\n\n').map((paragraph) => (

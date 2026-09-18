@@ -40,7 +40,7 @@ export function Toolbar({
     <>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-ink-muted">
-          <span className="font-semibold text-ink">{total}</span>{' '}
+          <span className="font-medium text-ink">{total}</span>{' '}
           {total === 1 ? 'produit' : 'produits'}
         </p>
 
@@ -89,7 +89,7 @@ export function Toolbar({
 
       <Dialog open={filtersOpen} onOpenChange={setFiltersOpen}>
         <DialogContent side="bottom" className="p-0">
-          <DialogTitle className="border-b border-line p-5 font-display text-lg font-semibold">
+          <DialogTitle className="border-b border-line p-5 font-display text-lg font-medium">
             Filtres
           </DialogTitle>
           <FilterDrawerContent counts={counts} onClose={() => setFiltersOpen(false)} />

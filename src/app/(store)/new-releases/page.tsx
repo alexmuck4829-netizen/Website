@@ -20,8 +20,8 @@ export default async function NewReleasesPage() {
     <div className="space-y-20 py-12 lg:py-16">
       <div className="container space-y-10">
         <header className="max-w-3xl space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Tout juste ajouté</p>
-          <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand">Tout juste ajouté</p>
+          <h1 className="text-balance font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
             Nouveautés
           </h1>
           <p className="text-pretty text-lg text-ink-muted">

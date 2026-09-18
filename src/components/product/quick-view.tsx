@@ -50,10 +50,10 @@ export function QuickView({
 
           <div className="flex flex-col gap-4 p-6">
             <div className="space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-brand">
                 {CATEGORY_MAP[product.category]?.name}
               </p>
-              <DialogTitle className="font-display text-2xl font-semibold tracking-tight text-ink">
+              <DialogTitle className="font-display text-2xl font-medium tracking-tight text-ink">
                 {product.name}
               </DialogTitle>
               <Rating value={product.rating} count={product.reviewCount} size="md" />
@@ -74,7 +74,7 @@ export function QuickView({
 
             <div className="mt-auto space-y-3 border-t border-line pt-4">
               <div className="flex items-baseline gap-2.5">
-                <span className="font-display text-3xl font-semibold tracking-tight text-ink">
+                <span className="font-display text-3xl font-medium tracking-tight text-ink">
                   {formatPrice(price)}
                 </span>
                 {onSale && (

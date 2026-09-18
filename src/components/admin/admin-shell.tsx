@@ -51,7 +51,7 @@ export function AdminShell({
               'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200',
               active
                 ? 'bg-brand/12 text-brand'
-                : 'text-ink-muted hover:bg-surface-raised hover:text-ink',
+                : 'text-ink-muted hover:bg-brand-soft hover:text-brand',
             )}
           >
             <item.icon className="size-[18px]" />
@@ -69,7 +69,7 @@ export function AdminShell({
         <Link href="/admin" className="mb-6 flex items-center gap-2.5 px-1">
           <LogoMark />
           <div className="flex flex-col leading-none">
-            <span className="font-display text-sm font-bold text-ink">OMC Studio</span>
+            <span className="font-display text-sm font-medium text-ink">OMC Studio</span>
             <span className="text-[10px] uppercase tracking-[0.2em] text-ink-subtle">Admin</span>
           </div>
         </Link>
@@ -103,7 +103,7 @@ export function AdminShell({
         </Button>
         <Link href="/admin" className="flex items-center gap-2">
           <LogoMark className="size-8" />
-          <span className="font-display text-sm font-bold text-ink">Admin</span>
+          <span className="font-display text-sm font-medium text-ink">Admin</span>
         </Link>
         <Button size="sm" className="ml-auto" asChild>
           <Link href="/admin/products/new">
@@ -122,7 +122,7 @@ export function AdminShell({
           />
           <div className="absolute inset-y-0 left-0 flex w-64 flex-col border-r border-line bg-surface p-4">
             <div className="mb-6 flex items-center justify-between">
-              <span className="font-display font-bold text-ink">Admin</span>
+              <span className="font-display font-medium text-ink">Admin</span>
               <Button variant="ghost" size="icon" onClick={() => setMobileNav(false)} aria-label="Fermer">
                 <X />
               </Button>

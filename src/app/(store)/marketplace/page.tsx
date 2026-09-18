@@ -61,10 +61,10 @@ export default async function MarketplacePage({ searchParams }: { searchParams: 
   return (
     <div className="container space-y-10 py-12 lg:py-16">
       <header className="max-w-3xl space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand">
           {activeCategory ? activeCategory.name : 'Marketplace'}
         </p>
-        <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h1 className="text-balance font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
           {query
             ? `Résultats pour « ${query} »`
             : activeCategory

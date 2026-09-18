@@ -34,10 +34,41 @@ function merge(stored: Partial<SiteSettings> | undefined): SiteSettings {
   return out;
 }
 
+/**
+ * La direction artistique est passée d'un canevas sombre à un canevas clair.
+ * Les anciennes valeurs par défaut (bleu / cyan / violet) sont illisibles sur
+ * fond blanc. On ne les remplace QUE si elles sont restées telles quelles :
+ * dès que le propriétaire a choisi sa propre couleur, on n'y touche pas.
+ */
+const RETIRED_THEME = { brand: '#3B82F6', accent: '#22D3EE', violet: '#8B5CF6' } as const;
+const RETIRED_TRUST_COLOURS: Record<string, string> = {
+  '#FFC531': '#B45309',
+  '#22D3EE': '#533AFD',
+  '#2FD97C': '#059669',
+  '#8B5CF6': '#7F71E6',
+};
+
+function migrateRetiredPalette(settings: SiteSettings): SiteSettings {
+  const theme = settings.theme;
+  const untouched =
+    theme?.brand?.toUpperCase() === RETIRED_THEME.brand &&
+    theme?.accent?.toUpperCase() === RETIRED_THEME.accent &&
+    theme?.violet?.toUpperCase() === RETIRED_THEME.violet;
+
+  if (untouched) settings.theme = { ...DEFAULT_SETTINGS.theme };
+
+  settings.trust = settings.trust.map((item) => {
+    const replacement = item.colour ? RETIRED_TRUST_COLOURS[item.colour.toUpperCase()] : undefined;
+    return replacement ? { ...item, colour: replacement } : item;
+  });
+
+  return settings;
+}
+
 export const SettingsService = {
   async get(): Promise<SiteSettings> {
     const db = await readDb();
-    return merge(db.settings);
+    return migrateRetiredPalette(merge(db.settings));
   },
 
   async update(patch: Partial<SiteSettings>): Promise<SiteSettings> {

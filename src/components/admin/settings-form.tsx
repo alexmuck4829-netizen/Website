@@ -109,7 +109,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
     <div className="space-y-6">
       <header className="sticky top-0 z-20 -mx-5 flex flex-wrap items-center gap-3 border-b border-line bg-base/90 px-5 py-4 backdrop-blur-xl lg:-mx-8 lg:px-8">
         <div className="min-w-0 flex-1">
-          <h1 className="font-display text-xl font-bold tracking-tight text-ink">Réglages du site</h1>
+          <h1 className="font-display text-xl font-medium tracking-tight text-ink">Réglages du site</h1>
           <p className="text-xs text-ink-subtle">
             {dirty ? 'Modifications non enregistrées' : 'Tout le site, hors produits'}
           </p>
@@ -135,11 +135,11 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
         {/* ---------------- BRAND ---------------- */}
         <TabsContent value="brand" className="mt-6 space-y-6">
-          <section className="brick space-y-4 border-danger/30 p-6">
+          <section className="card space-y-4 border-danger/30 p-6">
             <header className="flex items-start gap-3">
               <ShieldAlert className="mt-0.5 size-5 shrink-0 text-danger" />
               <div className="space-y-1">
-                <h2 className="font-display text-lg font-semibold text-ink">
+                <h2 className="font-display text-lg font-medium text-ink">
                   Avant d’ouvrir la boutique au public
                 </h2>
                 <p className="text-sm leading-relaxed text-ink-muted">
@@ -260,7 +260,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 <span
-                  className="rounded-xl px-5 py-2.5 text-sm font-semibold text-white"
+                  className="rounded-xl px-5 py-2.5 text-sm font-medium text-white"
                   style={{
                     background: `linear-gradient(135deg, ${form.theme.brand}, ${form.theme.accent})`,
                     boxShadow: 'inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -3px 0 rgb(0 0 0 / 0.28)',
@@ -794,9 +794,9 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <section className="brick p-6">
+    <section className="card p-6">
       <header className="mb-5 space-y-1">
-        <h2 className="font-display text-lg font-semibold text-ink">{title}</h2>
+        <h2 className="font-display text-lg font-medium text-ink">{title}</h2>
         {description && <p className="text-sm text-ink-muted">{description}</p>}
       </header>
       {children}

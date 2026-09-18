@@ -42,7 +42,7 @@ function buildColumns(discordUrl: string) {
 export function Footer({ settings }: { settings: SiteSettings }) {
   const COLUMNS = buildColumns(settings.links.discordUrl);
   return (
-    <footer className="mt-24 border-t border-line bg-surface/40">
+    <footer className="mt-24 border-t border-line bg-surface">
       <div className="container py-14">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="space-y-5">
@@ -55,15 +55,15 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               href={settings.links.discordUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-line-strong bg-surface px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-[#5865F2]/50 hover:text-white"
+              className="group inline-flex items-center gap-2 rounded border border-line-strong bg-base px-4 py-2.5 text-sm font-medium text-ink transition-all duration-300 ease-premium hover:-translate-y-px hover:border-[#5865F2] hover:bg-[#5865F2] hover:text-white"
             >
-              <DiscordIcon className="size-4 text-[#A5B4FC]" /> {settings.discord.ctaLabel}
+              <DiscordIcon className="size-4 text-[#5865F2] transition-colors duration-300 group-hover:text-white" /> {settings.discord.ctaLabel}
             </a>
           </div>
 
           {COLUMNS.map((column) => (
             <div key={column.title} className="space-y-4">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-ink">
+              <h3 className="text-xs font-medium uppercase tracking-[0.16em] text-ink">
                 {column.title}
               </h3>
               <ul className="space-y-2.5">
@@ -74,14 +74,14 @@ export function Footer({ settings }: { settings: SiteSettings }) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-ink-muted transition-colors hover:text-ink"
+                        className="text-sm text-ink-muted transition-colors duration-300 hover:text-brand"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm text-ink-muted transition-colors hover:text-ink"
+                        className="text-sm text-ink-muted transition-colors duration-300 hover:text-brand"
                       >
                         {link.label}
                       </Link>

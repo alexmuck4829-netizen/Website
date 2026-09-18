@@ -45,7 +45,7 @@ export function DemoPayment({ order }: { order: Order }) {
 
       <div className="space-y-1.5 text-center">
         <p className="text-sm text-ink-muted">Commande {order.reference}</p>
-        <p className="font-display text-4xl font-bold tracking-tight text-ink">
+        <p className="font-display text-4xl font-medium tracking-tight text-ink">
           {formatPrice(order.total)}
         </p>
         <p className="text-sm text-ink-subtle">

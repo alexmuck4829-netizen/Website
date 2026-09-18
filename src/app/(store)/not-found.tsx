@@ -9,7 +9,7 @@ export default function NotFound() {
         <Compass className="size-7" />
       </span>
       <div className="space-y-2">
-        <h1 className="font-display text-4xl font-bold tracking-tight text-ink">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink">
           Cette page n’existe pas
         </h1>
         <p className="text-ink-muted">

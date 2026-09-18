@@ -43,7 +43,7 @@ export function SignInPrompt() {
         <span className="mx-auto grid size-12 place-items-center rounded-xl border border-line bg-surface-overlay text-brand">
           <KeyRound className="size-5" />
         </span>
-        <h1 className="font-display text-2xl font-bold tracking-tight text-ink">
+        <h1 className="font-display text-2xl font-medium tracking-tight text-ink">
           Accéder à ma bibliothèque
         </h1>
         <p className="text-sm text-ink-muted">

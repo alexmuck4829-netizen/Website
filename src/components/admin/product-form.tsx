@@ -204,7 +204,7 @@ export function ProductForm({ product }: { product?: Product }) {
       {/* Sticky action bar */}
       <header className="sticky top-0 z-20 -mx-5 flex flex-wrap items-center gap-3 border-b border-line bg-base/90 px-5 py-4 backdrop-blur-xl lg:-mx-8 lg:px-8">
         <div className="min-w-0 flex-1">
-          <h1 className="truncate font-display text-xl font-bold tracking-tight text-ink">
+          <h1 className="truncate font-display text-xl font-medium tracking-tight text-ink">
             {form.name || (isEdit ? 'Modifier le produit' : 'Créer un produit')}
           </h1>
           <p className="text-xs text-ink-subtle">
@@ -768,7 +768,7 @@ function Card({
   return (
     <section className="surface-card p-6">
       <header className="mb-5 space-y-1">
-        <h2 className="font-display text-lg font-semibold text-ink">{title}</h2>
+        <h2 className="font-display text-lg font-medium text-ink">{title}</h2>
         {description && <p className="text-sm text-ink-muted">{description}</p>}
       </header>
       {children}

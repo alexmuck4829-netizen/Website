@@ -131,7 +131,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
                   (header) => (
                     <th
                       key={header}
-                      className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-ink-subtle"
+                      className="whitespace-nowrap px-4 py-3 text-xs font-medium uppercase tracking-wider text-ink-subtle"
                     >
                       {header}
                     </th>
@@ -144,7 +144,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
                 <tr
                   key={product.id}
                   className={cn(
-                    'transition-colors hover:bg-white/[0.02]',
+                    'transition-colors hover:bg-surface',
                     busy === product.id && 'opacity-50',
                   )}
                 >
@@ -226,7 +226,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
                             className="fixed inset-0 z-10 cursor-default"
                             onClick={() => setMenuFor(null)}
                           />
-                          <div className="absolute right-0 top-9 z-20 w-44 overflow-hidden rounded-xl border border-line-strong bg-surface-overlay p-1 shadow-lift">
+                          <div className="absolute right-0 top-9 z-20 w-44 overflow-hidden rounded border border-line-strong bg-base p-1 shadow-lift">
                             <MenuItem
                               icon={Pencil}
                               label="Modifier"
@@ -295,7 +295,7 @@ function MenuItem({
   external?: boolean;
 }) {
   const className = cn(
-    'flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink',
+    'flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-ink-muted transition-colors hover:bg-brand-soft hover:text-brand',
     danger && 'hover:bg-danger/10 hover:text-danger',
   );
 

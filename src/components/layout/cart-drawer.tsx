@@ -17,10 +17,10 @@ export function CartDrawer() {
       <DialogContent side="right" className="flex flex-col p-0">
         <div className="flex items-center gap-2.5 border-b border-line p-5">
           <ShoppingBag className="size-5 text-brand" />
-          <DialogTitle className="font-display text-lg font-semibold text-ink">
+          <DialogTitle className="font-display text-lg font-medium text-ink">
             Votre panier
           </DialogTitle>
-          <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-ink-muted">
+          <span className="rounded-full bg-surface px-2 py-0.5 text-xs text-ink-muted">
             {cart.count}
           </span>
         </div>
@@ -64,7 +64,7 @@ export function CartDrawer() {
                       {item.name}
                     </Link>
                     <p className="text-xs text-ink-subtle">{CATEGORY_MAP[item.category]?.name}</p>
-                    <p className="mt-1 text-sm font-semibold text-ink">{formatPrice(item.price)}</p>
+                    <p className="mt-1 text-sm font-medium text-ink">{formatPrice(item.price)}</p>
                   </div>
                   <button
                     type="button"
@@ -81,7 +81,7 @@ export function CartDrawer() {
             <div className="space-y-4 border-t border-line bg-surface/80 p-5">
               <div className="flex items-baseline justify-between">
                 <span className="text-sm text-ink-muted">Sous-total</span>
-                <span className="font-display text-xl font-semibold text-ink">
+                <span className="font-display text-xl font-medium text-ink">
                   {formatPrice(cart.subtotal)}
                 </span>
               </div>

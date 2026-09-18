@@ -47,9 +47,9 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     supportEmail: 'support@onemoreclick.studio',
   },
   theme: {
-    brand: '#3B82F6',
-    accent: '#22D3EE',
-    violet: '#8B5CF6',
+    brand: '#533AFD',
+    accent: '#7F71E6',
+    violet: '#182659',
   },
   hero: {
     badge: 'Nouveautés chaque semaine',
@@ -72,25 +72,25 @@ export const DEFAULT_SETTINGS: SiteSettings = {
       icon: 'Zap',
       title: 'Téléchargement immédiat',
       description: 'Les fichiers se débloquent dès le paiement validé.',
-      colour: '#FFC531',
+      colour: '#B45309',
     },
     {
       icon: 'Gem',
       title: 'Assets de qualité',
       description: 'Optimisés, testés, prêts pour la production.',
-      colour: '#22D3EE',
+      colour: '#533AFD',
     },
     {
       icon: 'ShieldCheck',
       title: 'Paiement sécurisé',
       description: 'Transactions gérées par Stripe.',
-      colour: '#2FD97C',
+      colour: '#059669',
     },
     {
       icon: 'Blocks',
       title: 'Prêt pour Roblox Studio',
       description: 'Importez, publiez, continuez à créer.',
-      colour: '#8B5CF6',
+      colour: '#7F71E6',
     },
   ],
   ticker: [

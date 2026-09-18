@@ -84,7 +84,7 @@ export function GalleryManager({
                   sizes="(max-width: 640px) 100vw, 33vw"
                   className="object-cover"
                 />
-                <span className="absolute left-2 top-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                <span className="absolute left-2 top-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white">
                   {index + 1}
                 </span>
               </div>
@@ -155,7 +155,7 @@ function IconAction({
       aria-label={label}
       title={label}
       className={cn(
-        'grid size-7 cursor-pointer place-items-center rounded-lg text-ink-subtle transition-colors hover:bg-white/5 hover:text-ink disabled:cursor-not-allowed disabled:opacity-30',
+        'grid size-7 cursor-pointer place-items-center rounded-lg text-ink-subtle transition-colors hover:bg-brand-soft hover:text-brand disabled:cursor-not-allowed disabled:opacity-30',
         danger && 'hover:bg-danger/10 hover:text-danger',
       )}
     >

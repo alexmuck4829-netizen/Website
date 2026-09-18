@@ -38,18 +38,18 @@ export function ProductCard({
   const category = CATEGORY_MAP[product.category];
 
   return (
-    <Tilt strength={5} scale={1.01} className={cn('h-full', className)}>
+    <Tilt strength={7} scale={1.015} className={cn('h-full', className)}>
       <Spotlight
         as="article"
         className={cn(
-          'brick brick-press studs-top shine group relative flex h-full flex-col',
-          'transition-colors duration-300 hover:border-brand/35',
+          'card card-hover shine group relative flex h-full flex-col overflow-hidden',
+          'hover:border-brand/40 hover:shadow-lift',
         )}
       >
       {/* ---- Preview ------------------------------------------------ */}
       <Link
         href={`/product/${product.slug}`}
-        className="relative block aspect-[16/10] overflow-hidden rounded-t-2xl bg-surface-overlay"
+        className="relative block aspect-[16/10] overflow-hidden bg-surface-overlay"
         aria-label={`Voir ${product.name}`}
       >
         <Image
@@ -58,9 +58,9 @@ export function ProductCard({
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           priority={priority}
-          className="object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.06]"
+          className="object-cover transition-transform duration-[900ms] ease-premium group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
+        <div className="absolute inset-0 bg-gradient-to-t from-violet/55 via-violet/[0.04] to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
 
         {/* Badges */}
         <div className="absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
@@ -82,7 +82,7 @@ export function ProductCard({
             }}
             aria-label={wishlist.has(product.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}
             aria-pressed={wishlist.has(product.id)}
-            className="grid size-9 cursor-pointer place-items-center rounded-lg border border-white/10 bg-black/55 text-white backdrop-blur-md transition-colors hover:border-brand/50 hover:bg-black/75"
+            className="grid size-9 cursor-pointer place-items-center rounded border border-white/15 bg-violet/55 text-white backdrop-blur-md transition-all duration-300 ease-premium hover:scale-110 hover:border-white/40 hover:bg-brand motion-reduce:hover:scale-100"
           >
             <Heart
               className={cn('size-4 transition-all', wishlist.has(product.id) && 'fill-danger text-danger')}
@@ -96,7 +96,7 @@ export function ProductCard({
                 onQuickView(product);
               }}
               aria-label={`Aperçu rapide de ${product.name}`}
-              className="grid size-9 cursor-pointer place-items-center rounded-lg border border-white/10 bg-black/55 text-white backdrop-blur-md transition-colors hover:border-brand/50 hover:bg-black/75"
+              className="grid size-9 cursor-pointer place-items-center rounded border border-white/15 bg-violet/55 text-white backdrop-blur-md transition-all duration-300 ease-premium hover:scale-110 hover:border-white/40 hover:bg-brand motion-reduce:hover:scale-100"
             >
               <Eye className="size-4" />
             </button>
@@ -104,7 +104,7 @@ export function ProductCard({
         </div>
 
         {/* Category chip sits on the image so the card body stays for selling copy */}
-        <span className="absolute bottom-3 left-3 rounded-full border border-white/10 bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white/85 backdrop-blur-md">
+        <span className="absolute bottom-3 left-3 rounded-full border border-white/15 bg-violet/55 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur-md transition-transform duration-500 ease-premium group-hover:-translate-y-0.5">
           {category?.name ?? product.category}
         </span>
       </Link>
@@ -112,7 +112,7 @@ export function ProductCard({
       {/* ---- Body --------------------------------------------------- */}
       <div className={cn('flex flex-1 flex-col gap-3 p-4', compact && 'gap-2 p-3.5')}>
         <div className="space-y-1.5">
-          <h3 className="font-display text-base font-semibold leading-snug tracking-tight text-ink">
+          <h3 className="font-display text-base font-medium leading-snug tracking-[-0.02em] text-ink">
             <Link href={`/product/${product.slug}`} className="transition-colors hover:text-brand">
               {product.name}
             </Link>
@@ -128,7 +128,7 @@ export function ProductCard({
 
         <div className="mt-auto flex items-end justify-between gap-3 pt-1">
           <div className="flex items-baseline gap-2">
-            <span className="font-display text-xl font-semibold tracking-tight text-ink">
+            <span className="font-display text-xl font-medium tracking-[-0.025em] text-ink">
               {formatPrice(price)}
             </span>
             {onSale && (
@@ -165,7 +165,7 @@ export function ProductCardSkeleton() {
         <div className="skeleton h-3 w-2/3 rounded" />
         <div className="flex justify-between pt-2">
           <div className="skeleton h-6 w-20 rounded" />
-          <div className="skeleton size-10 rounded-xl" />
+          <div className="skeleton size-10 rounded" />
         </div>
       </div>
     </div>

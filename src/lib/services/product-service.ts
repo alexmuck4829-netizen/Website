@@ -54,6 +54,66 @@ function matchesQuery(p: Product, q: ProductQuery): boolean {
   return true;
 }
 
+
+/**
+ * Une fiche produit doit toujours avoir sa structure complète : les pages
+ * lisent `specs.version`, `gallery`, `files`… sans garde. Le formulaire d'admin
+ * envoie tout, mais un appel direct à l'API peut omettre des champs — sans ces
+ * valeurs par défaut, le produit incomplet faisait planter le tableau de bord.
+ */
+function productDefaults(now: string): Omit<Product, 'id' | 'slug' | 'name'> {
+  return {
+    shortDescription: '',
+    description: '',
+    category: 'other',
+    tags: [],
+    price: 0,
+    salePrice: null,
+    saleActive: false,
+    currency: 'EUR',
+    thumbnail: '',
+    gallery: [],
+    videoUrl: null,
+    files: [],
+    versions: [],
+    license: {
+      type: 'standard',
+      commercialUse: true,
+      modification: true,
+      redistribution: false,
+      resale: false,
+      attributionRequired: false,
+    },
+    specs: {
+      compatibility: 'Roblox Studio',
+      fileType: '—',
+      fileSize: '—',
+      version: '1.0',
+      updatedAt: now,
+    },
+    included: [],
+    benefits: [],
+    perfectFor: [],
+    rating: 0,
+    reviewCount: 0,
+    reviews: [],
+    salesCount: 0,
+    featured: false,
+    newRelease: true,
+    bestSeller: false,
+    status: 'draft',
+    createdAt: now,
+    updatedAt: now,
+  };
+}
+
+/** Une clé absente doit garder la valeur par défaut, pas l'écraser par undefined. */
+function stripUndefined<T extends object>(value: T): Partial<T> {
+  return Object.fromEntries(
+    Object.entries(value).filter(([, v]) => v !== undefined),
+  ) as Partial<T>;
+}
+
 export const ProductService = {
   async all(includeUnpublished = false): Promise<Product[]> {
     const db = await readDb();
@@ -101,7 +161,10 @@ export const ProductService = {
 
   async featured(limit = 4): Promise<Product[]> {
     const items = await ProductService.all();
-    return sortProducts(items.filter((p) => p.featured), 'popular').slice(0, limit);
+    const flagged = items.filter((p) => p.featured);
+    // Une boutique qui n'a encore rien mis en avant ne doit pas afficher une
+    // vitrine vide : on retombe sur le catalogue, comme bestSellers/newReleases.
+    return sortProducts(flagged.length >= limit ? flagged : items, 'popular').slice(0, limit);
   },
 
   async bestSellers(limit = 8): Promise<Product[]> {
@@ -152,8 +215,10 @@ export const ProductService = {
       const now = new Date().toISOString();
       const slug = uniqueSlug(db.products, input.slug || slugify(input.name));
       const product: Product = {
-        ...input,
+        ...productDefaults(now),
+        ...stripUndefined(input),
         id: randomUUID(),
+        name: input.name,
         slug,
         rating: input.rating ?? 0,
         reviewCount: input.reviewCount ?? 0,

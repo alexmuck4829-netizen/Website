@@ -21,7 +21,7 @@ export function LegalPage({
   return (
     <div className="container max-w-3xl py-12 lg:py-20">
       <header className="space-y-3">
-        <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
           {title}
         </h1>
         <p className="text-pretty text-lg text-ink-muted">{intro}</p>
@@ -61,7 +61,7 @@ export function LegalPage({
 export function LegalSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="space-y-3">
-      <h2 className="font-display text-xl font-semibold tracking-tight text-ink">{title}</h2>
+      <h2 className="font-display text-xl font-medium tracking-tight text-ink">{title}</h2>
       <div className="space-y-3 leading-relaxed text-ink-muted [&_a]:text-brand [&_a:hover]:underline [&_li]:leading-relaxed [&_strong]:text-ink">
         {children}
       </div>

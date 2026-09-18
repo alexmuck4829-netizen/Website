@@ -61,7 +61,7 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
                   <div className="flex flex-wrap items-center gap-2">
                     <Link
                       href={`/product/${product.slug}`}
-                      className="font-display text-lg font-semibold text-ink transition-colors hover:text-brand"
+                      className="font-display text-lg font-medium text-ink transition-colors hover:text-brand"
                     >
                       {product.name}
                     </Link>
@@ -122,7 +122,7 @@ export function LibraryList({ entries }: { entries: LibraryEntry[] }) {
 
       <Dialog open={!!changelogFor} onOpenChange={(open) => !open && setChangelogFor(null)}>
         <DialogContent className="max-h-[80vh] overflow-y-auto p-0">
-          <DialogTitle className="border-b border-line p-5 font-display text-lg font-semibold">
+          <DialogTitle className="border-b border-line p-5 font-display text-lg font-medium">
             {changelogFor?.name} — historique des versions
           </DialogTitle>
           <ol className="space-y-5 p-5">

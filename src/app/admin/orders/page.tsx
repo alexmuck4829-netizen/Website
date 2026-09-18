@@ -12,7 +12,7 @@ export default async function AdminOrdersPage() {
   return (
     <div className="space-y-6">
       <header className="space-y-1">
-        <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Commandes</h1>
+        <h1 className="font-display text-3xl font-medium tracking-tight text-ink">Commandes</h1>
         <p className="text-ink-muted">Chaque achat, qui l’a fait et ce qu’il peut télécharger.</p>
       </header>
 

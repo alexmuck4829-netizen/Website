@@ -56,7 +56,7 @@ export function CartView({ vatRegistered }: { vatRegistered: boolean }) {
               <div className="space-y-1">
                 <Link
                   href={`/product/${item.slug}`}
-                  className="font-display font-semibold text-ink transition-colors hover:text-brand"
+                  className="font-display font-medium text-ink transition-colors hover:text-brand"
                 >
                   {item.name}
                 </Link>
@@ -67,7 +67,7 @@ export function CartView({ vatRegistered }: { vatRegistered: boolean }) {
               </div>
 
               <div className="flex items-center justify-between gap-3">
-                <span className="font-display text-lg font-semibold text-ink">
+                <span className="font-display text-lg font-medium text-ink">
                   {formatPrice(item.price)}
                 </span>
                 <button
@@ -84,7 +84,7 @@ export function CartView({ vatRegistered }: { vatRegistered: boolean }) {
       </ul>
 
       <aside className="surface-card space-y-5 p-6 lg:sticky lg:top-24">
-        <h2 className="font-display text-lg font-semibold text-ink">Récapitulatif</h2>
+        <h2 className="font-display text-lg font-medium text-ink">Récapitulatif</h2>
 
         <dl className="space-y-2.5 text-sm">
           <div className="flex justify-between">
@@ -99,7 +99,7 @@ export function CartView({ vatRegistered }: { vatRegistered: boolean }) {
           </div>
           <div className="flex justify-between border-t border-line pt-3">
             <dt className="font-medium text-ink">Total</dt>
-            <dd className="font-display text-2xl font-bold text-ink">
+            <dd className="font-display text-2xl font-medium text-ink">
               {formatPrice(cart.subtotal)}
             </dd>
           </div>

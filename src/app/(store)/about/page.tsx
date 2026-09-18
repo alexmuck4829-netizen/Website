@@ -40,8 +40,8 @@ export default function AboutPage() {
   return (
     <div className="space-y-20 py-12 lg:py-20">
       <div className="container max-w-3xl space-y-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">À propos</p>
-        <h1 className="text-balance font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-brand">À propos</p>
+        <h1 className="text-balance font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
           Nous construisons les parties de votre jeu que vous préférez ne pas refaire deux fois.
         </h1>
         <div className="space-y-4 text-pretty text-lg leading-relaxed text-ink-muted">
@@ -66,7 +66,7 @@ export default function AboutPage() {
               <span className="grid size-11 place-items-center rounded-xl border border-line bg-surface-overlay text-brand">
                 <value.icon className="size-5" />
               </span>
-              <h2 className="font-display text-lg font-semibold text-ink">{value.title}</h2>
+              <h2 className="font-display text-lg font-medium text-ink">{value.title}</h2>
               <p className="leading-relaxed text-ink-muted">{value.text}</p>
             </div>
           </Reveal>

@@ -12,7 +12,7 @@ import nextDynamic from 'next/dynamic';
 // recharts is ~380KB. Loading it on demand keeps it out of every shared chunk.
 const RevenueChart = nextDynamic(
   () => import('@/components/admin/revenue-chart').then((m) => m.RevenueChart),
-  { loading: () => <div className="brick h-[19rem] animate-pulse" /> },
+  { loading: () => <div className="card h-[19rem] animate-pulse" /> },
 );
 import { ProductService } from '@/lib/services/product-service';
 import { OrderService } from '@/lib/services/order-service';
@@ -35,7 +35,7 @@ export default async function AdminDashboard() {
     <div className="space-y-8">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Tableau de bord</h1>
+          <h1 className="font-display text-3xl font-medium tracking-tight text-ink">Tableau de bord</h1>
           <p className="text-ink-muted">Tout ce qui se passe dans la boutique.</p>
         </div>
         <Button asChild>
@@ -58,13 +58,13 @@ export default async function AdminDashboard() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="brick brick-press group flex h-full items-center gap-3.5 p-4"
+                className="card card-hover group flex h-full items-center gap-3.5 p-4"
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand/12 text-brand [box-shadow:inset_0_1px_0_rgb(var(--c-brand)/0.35),inset_0_-3px_0_rgb(0_0_0/0.45)]">
                   <item.icon className="size-[18px]" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-semibold text-ink">{item.label}</span>
+                  <span className="block truncate text-sm font-medium text-ink">{item.label}</span>
                   <span className="block truncate text-xs text-ink-subtle">{item.sub}</span>
                 </span>
                 <ArrowRight className="size-4 shrink-0 text-ink-subtle transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-brand" />
@@ -111,7 +111,7 @@ export default async function AdminDashboard() {
         {/* Recent orders */}
         <section className="surface-card overflow-hidden">
           <header className="flex items-center justify-between border-b border-line p-5">
-            <h2 className="font-display text-lg font-semibold text-ink">Commandes récentes</h2>
+            <h2 className="font-display text-lg font-medium text-ink">Commandes récentes</h2>
             <Link
               href="/admin/orders"
               className="flex items-center gap-1 text-sm text-brand hover:underline"
@@ -138,7 +138,7 @@ export default async function AdminDashboard() {
                   <Badge variant={order.status === 'paid' ? 'success' : 'neutral'}>
                     {order.status}
                   </Badge>
-                  <span className="shrink-0 text-sm font-semibold text-ink">
+                  <span className="shrink-0 text-sm font-medium text-ink">
                     {formatPrice(order.total)}
                   </span>
                 </li>
@@ -150,7 +150,7 @@ export default async function AdminDashboard() {
         {/* Best selling */}
         <section className="surface-card overflow-hidden">
           <header className="border-b border-line p-5">
-            <h2 className="font-display text-lg font-semibold text-ink">Produits les plus vendus</h2>
+            <h2 className="font-display text-lg font-medium text-ink">Produits les plus vendus</h2>
           </header>
 
           {bestSelling.length === 0 ? (
@@ -171,7 +171,7 @@ export default async function AdminDashboard() {
                     </Link>
                     <p className="text-xs text-ink-subtle">{sales} vendus</p>
                   </div>
-                  <span className="shrink-0 text-sm font-semibold text-ink">
+                  <span className="shrink-0 text-sm font-medium text-ink">
                     {formatPrice(revenue)}
                   </span>
                 </li>
@@ -184,7 +184,7 @@ export default async function AdminDashboard() {
       {/* Recent products */}
       <section className="surface-card overflow-hidden">
         <header className="flex items-center justify-between border-b border-line p-5">
-          <h2 className="font-display text-lg font-semibold text-ink">Ajoutés récemment</h2>
+          <h2 className="font-display text-lg font-medium text-ink">Ajoutés récemment</h2>
           <Link
             href="/admin/products"
             className="flex items-center gap-1 text-sm text-brand hover:underline"
@@ -212,7 +212,7 @@ export default async function AdminDashboard() {
               <Badge variant={product.status === 'published' ? 'success' : product.status === 'draft' ? 'draft' : 'hidden'}>
                 {product.status}
               </Badge>
-              <span className="shrink-0 text-sm font-semibold text-ink">
+              <span className="shrink-0 text-sm font-medium text-ink">
                 {formatPrice(product.price)}
               </span>
             </li>

@@ -41,7 +41,7 @@ export function AdminLoginForm({ next, devMode }: { next?: string; devMode: bool
       <div className="flex flex-col items-center gap-3 text-center">
         <LogoMark className="size-12" />
         <div className="space-y-1">
-          <h1 className="font-display text-2xl font-bold tracking-tight text-ink">
+          <h1 className="font-display text-2xl font-medium tracking-tight text-ink">
             Tableau de bord
           </h1>
           <p className="text-sm text-ink-muted">Zone privée. Connectez-vous pour gérer la boutique.</p>

@@ -11,11 +11,11 @@ const badgeVariants = cva(
         popular: 'border-brand/30 bg-brand/12 text-brand',
         best: 'border-gold/30 bg-gold/12 text-gold',
         sale: 'border-danger/30 bg-danger/15 text-danger',
-        neutral: 'border-line-strong bg-white/5 text-ink-muted',
+        neutral: 'border-line bg-surface text-ink-muted',
         success: 'border-success/30 bg-success/12 text-success',
         outline: 'border-line-strong bg-transparent text-ink-muted',
         draft: 'border-gold/30 bg-gold/10 text-gold',
-        hidden: 'border-line-strong bg-white/5 text-ink-subtle',
+        hidden: 'border-line bg-surface text-ink-subtle',
       },
       size: {
         sm: 'px-2 py-0.5 text-[10px] uppercase',

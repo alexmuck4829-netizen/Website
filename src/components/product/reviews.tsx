@@ -36,7 +36,7 @@ export function Reviews({
   return (
     <section id="reviews" className="scroll-mt-24 space-y-8">
       <Reveal>
-        <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+        <h2 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
           Ce que disent les créateurs
         </h2>
       </Reveal>
@@ -46,7 +46,7 @@ export function Reviews({
         <Reveal>
           <div className="surface-card space-y-5 p-6">
             <div className="space-y-2 text-center">
-              <p className="font-display text-5xl font-bold tracking-tight text-ink">
+              <p className="font-display text-5xl font-medium tracking-tight text-ink">
                 {rating.toFixed(1)}
               </p>
               <Rating value={rating} showValue={false} size="md" className="justify-center" />
@@ -81,7 +81,7 @@ export function Reviews({
               <article className="surface-card space-y-3 p-5">
                 <header className="flex flex-wrap items-center gap-3">
                   <span
-                    className="grid size-10 shrink-0 place-items-center rounded-full text-sm font-bold text-white"
+                    className="grid size-10 shrink-0 place-items-center rounded-full text-sm font-medium text-white"
                     style={{ background: avatarColour(review.avatarSeed) }}
                     aria-hidden
                   >

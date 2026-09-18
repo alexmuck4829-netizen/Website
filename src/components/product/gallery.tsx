@@ -79,7 +79,7 @@ export function Gallery({
             <button
               type="button"
               onClick={() => setVideoOpen(true)}
-              className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-white/10 bg-black/60 px-3 py-2 text-xs font-medium text-white backdrop-blur-md transition-colors hover:bg-black/80"
+              className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-white/15 bg-violet/65 px-3 py-2 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 ease-premium hover:-translate-y-px hover:bg-brand"
             >
               <Play className="size-3.5 fill-white" /> Aperçu vidéo
             </button>
@@ -88,13 +88,13 @@ export function Gallery({
             type="button"
             onClick={() => setFullscreen(true)}
             aria-label="Afficher en plein écran"
-            className="grid size-9 cursor-pointer place-items-center rounded-lg border border-white/10 bg-black/60 text-white backdrop-blur-md transition-colors hover:bg-black/80"
+            className="grid size-9 cursor-pointer place-items-center rounded border border-white/15 bg-violet/65 text-white backdrop-blur-md transition-all duration-300 ease-premium hover:scale-110 hover:bg-brand motion-reduce:hover:scale-100"
           >
             <Expand className="size-4" />
           </button>
         </div>
 
-        <span className="absolute bottom-3 right-3 rounded-full bg-black/60 px-2.5 py-1 text-xs text-white/85 backdrop-blur-md">
+        <span className="absolute bottom-3 right-3 rounded-full bg-violet/65 px-2.5 py-1 text-xs text-white/90 backdrop-blur-md">
           {index + 1} / {ordered.length}
         </span>
       </div>
@@ -129,7 +129,7 @@ export function Gallery({
           className="max-w-[min(96vw,1400px)] border-none bg-transparent p-0 shadow-none"
         >
           <DialogTitle className="sr-only">Captures de {productName}</DialogTitle>
-          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-black">
+          <div className="relative aspect-[16/10] overflow-hidden rounded bg-violet">
             <Image
               src={current.url}
               alt={`${productName} — capture ${index + 1}`}
@@ -147,7 +147,7 @@ export function Gallery({
               type="button"
               onClick={() => setFullscreen(false)}
               aria-label="Fermer"
-              className="absolute right-3 top-3 grid size-10 cursor-pointer place-items-center rounded-xl border border-white/10 bg-black/60 text-white backdrop-blur-md transition-colors hover:bg-black/80"
+              className="absolute right-3 top-3 grid size-10 cursor-pointer place-items-center rounded border border-white/15 bg-violet/65 text-white backdrop-blur-md transition-all duration-300 ease-premium hover:scale-110 hover:bg-brand motion-reduce:hover:scale-100"
             >
               <X className="size-5" />
             </button>
@@ -184,7 +184,7 @@ function GalleryNav({ side, onClick }: { side: 'left' | 'right'; onClick: () => 
       onClick={onClick}
       aria-label={side === 'left' ? 'Image précédente' : 'Image suivante'}
       className={cn(
-        'absolute top-1/2 grid size-10 -translate-y-1/2 cursor-pointer place-items-center rounded-xl border border-white/10 bg-black/55 text-white backdrop-blur-md transition-all duration-200 hover:bg-black/80',
+        'absolute top-1/2 grid size-10 -translate-y-1/2 cursor-pointer place-items-center rounded border border-white/15 bg-violet/60 text-white backdrop-blur-md transition-all duration-300 ease-premium hover:bg-brand',
         'opacity-0 group-hover:opacity-100 max-md:opacity-100',
         side === 'left' ? 'left-3' : 'right-3',
       )}

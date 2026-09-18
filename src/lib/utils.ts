@@ -40,11 +40,15 @@ export function relativeDate(input: string | Date): string {
   const date = typeof input === 'string' ? new Date(input) : input;
   const diff = Date.now() - date.getTime();
   const days = Math.floor(diff / 86_400_000);
-  if (days < 1) return 'Today';
-  if (days === 1) return 'Yesterday';
-  if (days < 30) return `${days} days ago`;
-  if (days < 365) return `${Math.floor(days / 30)} months ago`;
-  return `${Math.floor(days / 365)} years ago`;
+  if (days < 1) return "Aujourd'hui";
+  if (days === 1) return 'Hier';
+  if (days < 30) return `Il y a ${days} jours`;
+  if (days < 365) {
+    const months = Math.floor(days / 30);
+    return `Il y a ${months} mois`;
+  }
+  const years = Math.floor(days / 365);
+  return `Il y a ${years} an${years > 1 ? 's' : ''}`;
 }
 
 export function slugify(value: string): string {

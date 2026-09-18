@@ -15,9 +15,11 @@ import type { SiteSettings } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
 /**
- * `wide: true` keeps a link out of the bar until 2xl. The full set does not fit
- * inside the 1360px container at xl — it overflowed and clipped the CTA.
- * Every link remains reachable from the mobile menu, footer and category grid.
+ * `secondary: true` garde le lien hors de la barre de bureau : la série
+ * complète demande ~1443px, le conteneur du système en fait 1320 — au-delà,
+ * la barre débordait et rognait le bouton d'action.
+ * Ces liens restent atteignables depuis le menu mobile, le pied de page et
+ * la grille de catégories.
  */
 const NAV_LINKS = [
   { label: 'Marketplace', href: '/marketplace' },
@@ -25,8 +27,8 @@ const NAV_LINKS = [
   { label: 'Assets', href: '/marketplace?category=assets' },
   { label: 'GUI', href: '/marketplace?category=gui' },
   { label: 'Scripts', href: '/marketplace?category=scripts' },
-  { label: 'Véhicules', href: '/marketplace?category=vehicles', wide: true },
-  { label: 'Packs', href: '/marketplace?category=packs', wide: true },
+  { label: 'Véhicules', href: '/marketplace?category=vehicles', secondary: true },
+  { label: 'Packs', href: '/marketplace?category=packs', secondary: true },
   { label: 'Nouveautés', href: '/new-releases' },
 ];
 
@@ -71,7 +73,7 @@ export function Navbar({
         className={cn(
           'fixed inset-x-0 top-0 z-40 transition-all duration-300 ease-premium',
           scrolled
-            ? 'border-b border-line bg-base/80 backdrop-blur-xl supports-[backdrop-filter]:bg-base/65 [box-shadow:inset_0_-1px_0_rgb(255_255_255/0.04),0_8px_24px_-16px_rgb(0_0_0/0.9)]'
+            ? 'border-b border-line bg-base/85 backdrop-blur-xl supports-[backdrop-filter]:bg-base/70'
             : 'border-b border-transparent bg-transparent',
         )}
       >
@@ -79,19 +81,23 @@ export function Navbar({
           <Logo wordmarkTop={brand.wordmarkTop} wordmarkBottom={brand.wordmarkBottom} />
 
           <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigation principale">
-            {NAV_LINKS.map((link) => {
+            {NAV_LINKS.filter((link) => !link.secondary).map((link) => {
               const active = pathname === link.href.split('?')[0] && !link.href.includes('?');
               return (
                 <Link
                   key={link.label}
                   href={link.href}
                   className={cn(
-                    'relative whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200',
-                    active ? 'text-ink' : 'text-ink-muted hover:text-ink',
-                    link.wide && 'hidden 2xl:block',
+                    'group/nav relative whitespace-nowrap rounded px-3 py-2 text-sm font-normal transition-colors duration-300',
+                    active ? 'text-brand' : 'text-ink-muted hover:text-brand',
                   )}
                 >
                   {link.label}
+                  {/* Filet qui se dessine du centre vers les bords au survol */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-brand transition-transform duration-300 ease-premium group-hover/nav:scale-x-100 motion-reduce:transition-none"
+                  />
                   {active && (
                     <motion.span
                       layoutId="nav-active"
@@ -144,7 +150,7 @@ export function Navbar({
               type="button"
               onClick={cart.openCart}
               aria-label={`Panier, ${cart.count} article${cart.count === 1 ? '' : 's'}`}
-              className="relative grid size-10 cursor-pointer place-items-center rounded-xl text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
+              className="relative grid size-10 cursor-pointer place-items-center rounded-xl text-ink-muted transition-colors hover:bg-brand-soft hover:text-brand"
             >
               <ShoppingCart className="size-[18px]" />
               <AnimatePresence>
@@ -153,7 +159,7 @@ export function Navbar({
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
-                    className="absolute -right-0.5 -top-0.5 grid size-[18px] place-items-center rounded-full bg-brand text-[10px] font-bold text-white"
+                    className="absolute -right-0.5 -top-0.5 grid size-[18px] place-items-center rounded-full bg-brand text-[10px] font-medium text-white"
                   >
                     {cart.count}
                   </motion.span>
@@ -194,7 +200,7 @@ export function Navbar({
               <Link
                 key={link.label}
                 href={link.href}
-                className="rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
+                className="rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-brand-soft hover:text-brand"
               >
                 {link.label}
               </Link>
@@ -202,7 +208,7 @@ export function Navbar({
             <div className="hairline my-3" />
             <Link
               href="/library"
-              className="rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
+              className="rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-brand-soft hover:text-brand"
             >
               Ma bibliothèque
             </Link>
@@ -210,7 +216,7 @@ export function Navbar({
               href={discordUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
+              className="flex items-center gap-2 rounded-xl px-3 py-3 text-base font-medium text-ink-muted transition-colors hover:bg-brand-soft hover:text-brand"
             >
               <DiscordIcon className="size-4" /> Discord
             </a>

@@ -33,7 +33,7 @@ export default async function LibraryPage() {
     <div className="container max-w-5xl py-12 lg:py-16">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-2">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-ink">Ma bibliothèque</h1>
+          <h1 className="font-display text-4xl font-medium tracking-tight text-ink">Ma bibliothèque</h1>
           <p className="text-ink-muted">
             Connecté en tant que <span className="text-ink">{session.email}</span> —{' '}
             {entries.length} produit{entries.length === 1 ? '' : 's'} acquis.

@@ -4,48 +4,45 @@
 
 /* =========================================================
    ONE MORE CLICK STUDIO — design tokens
-   Dark marketplace shell + Roblox brick/stud material language.
-   Change the palette here and the whole site follows.
+   Canevas clair, encre indigo. Profondeur par teinte de fond
+   et par mouvement, jamais par ombre portée.
    ========================================================= */
 @layer base {
   :root {
-    /* Surfaces: deep indigo-black. The purple cast gives the dark UI colour
-       life that a neutral charcoal cannot, without lifting the contrast. */
-    --c-base: 10 11 20;
-    --c-surface: 18 20 32;
-    --c-surface-raised: 26 29 45;
-    --c-surface-overlay: 36 40 60;
+    /* Surfaces — du blanc pur au lavande, sans élévation */
+    --c-base: 255 255 255;          /* canvas   #ffffff */
+    --c-surface: 248 250 253;       /* band     #f8fafd */
+    --c-surface-raised: 255 255 255;
+    --c-surface-overlay: 238 242 248; /* pâle    #eef2f8 */
 
-    /* Hairlines — thicker, brick-like edges */
-    --c-line: 45 50 74;
-    --c-line-strong: 66 73 105;
+    /* Filets */
+    --c-line: 229 237 245;          /* frost    #e5edf5 */
+    --c-line-strong: 214 217 252;   /* lilas    #d6d9fc */
 
-    /* Type */
-    --c-ink: 243 245 252;
-    --c-ink-muted: 165 174 202;
-    --c-ink-subtle: 118 128 160;
+    /* Encre */
+    --c-ink: 6 27 49;               /* midnight #061b31 */
+    --c-ink-muted: 80 97 122;       /* steel    #50617a */
+    --c-ink-subtle: 100 116 141;    /* slate    #64748d */
+    --c-smoke: 131 155 200;         /* smoke    #839bc8 */
 
-    /* Brand: violet -> vivid blue -> cyan */
-    --c-brand: 59 130 246;
-    --c-brand-hover: 96 158 255;
-    --c-brand-soft: 24 38 84;
-    --c-electric: 34 211 238;
-    --c-violet: 139 92 246;
+    /* Action — une seule couleur vive, en petites doses */
+    --c-brand: 83 58 253;           /* indigo   #533afd */
+    --c-brand-hover: 115 137 255;   /* hover    #7389ff */
+    --c-brand-soft: 232 233 255;
+    --c-electric: 127 113 230;      /* amethyst #7f71e6 */
+    --c-violet: 24 38 89;           /* deep     #182659 */
+    --c-lavender: 185 185 249;      /* #b9b9f9 */
 
-    /* Classic brick accents, saturated for category identity */
-    --c-brick-red: 255 77 94;
-    --c-brick-yellow: 255 197 49;
-    --c-brick-green: 47 217 124;
-    --c-brick-orange: 255 138 60;
-    --c-brick-pink: 236 72 153;
+    /* Accents catégories — conservés pour différencier les rayons */
+    --c-brick-red: 244 63 94;
+    --c-brick-yellow: 217 119 6;
+    --c-brick-green: 5 150 105;
+    --c-brick-orange: 234 88 12;
+    --c-brick-pink: 219 39 119;
 
-    --c-gold: 255 197 49;
-    --c-success: 47 217 124;
-    --c-danger: 255 77 94;
-
-    /* Brick material: top highlight + bottom edge depth */
-    --brick-top: rgb(255 255 255 / 0.1);
-    --brick-edge: rgb(0 0 0 / 0.55);
+    --c-gold: 180 83 9;
+    --c-success: 5 150 105;
+    --c-danger: 225 29 72;
   }
 
   * {
@@ -59,12 +56,23 @@
 
   body {
     @apply bg-base text-ink font-sans antialiased;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    font-weight: 300;
+    font-feature-settings: 'ss01' on, 'tnum' on;
     text-rendering: optimizeLegibility;
   }
 
+  /* Le tracking se resserre quand le corps grandit — signature Stripe */
+  h1, h2, h3, h4 {
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+  .text-display,
+  h1 {
+    letter-spacing: -0.025em;
+  }
+
   ::selection {
-    @apply bg-brand/35 text-white;
+    @apply bg-brand/20 text-ink;
   }
 
   :focus-visible {
@@ -76,13 +84,13 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-base;
+    @apply bg-surface;
   }
   ::-webkit-scrollbar-thumb {
     @apply rounded-full border-[3px] border-solid border-base bg-line-strong;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-ink-subtle;
+    @apply bg-smoke;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -99,88 +107,52 @@
 
 @layer components {
   /* ---------------------------------------------------------
-     BRICK SURFACE — the core material of the site.
-     A moulded plastic plate: lit top edge, dark bottom edge.
+     CARTE — filet de 1px, coins 4px, aucune ombre au repos.
+     La profondeur vient du glissement de teinte au survol.
      --------------------------------------------------------- */
-  .brick {
-    @apply relative rounded-2xl border border-line bg-surface-gradient;
-    box-shadow:
-      inset 0 1px 0 0 var(--brick-top),
-      inset 0 -3px 0 0 var(--brick-edge),
-      0 2px 4px rgb(0 0 0 / 0.35),
-      0 12px 28px -14px rgb(0 0 0 / 0.75);
+  .card {
+    @apply relative rounded border border-line bg-base transition-all duration-300 ease-premium;
   }
 
-  /* Interactive brick: presses down like a real key */
-  .brick-press {
-    @apply transition-all duration-200 ease-premium;
+  .card-hover:hover {
+    @apply border-lavender;
+    background: rgb(var(--c-surface));
+    transform: translateY(-2px);
   }
-  .brick-press:hover {
-    transform: translateY(-3px);
-    box-shadow:
-      inset 0 1px 0 0 var(--brick-top),
-      inset 0 -4px 0 0 var(--brick-edge),
-      0 4px 8px rgb(0 0 0 / 0.4),
-      0 22px 42px -18px rgb(0 0 0 / 0.85);
+
+  /* Alias pour que les composants existants suivent la nouvelle DA */
+  .brick,
+  .surface-card {
+    @apply card;
+  }
+  .brick-press {
+    @apply card-hover;
   }
   .brick-press:active {
     transform: translateY(0);
-    box-shadow:
-      inset 0 1px 0 0 var(--brick-top),
-      inset 0 -1px 0 0 var(--brick-edge),
-      0 1px 2px rgb(0 0 0 / 0.4);
   }
 
-  /* Legacy alias so existing cards inherit the new material */
-  .surface-card {
-    @apply brick;
-  }
-
-  /* ---------------------------------------------------------
-     STUDS — the signature motif.
-     --------------------------------------------------------- */
-
-  /* A row of studs moulded into the top edge of a panel */
-  .studs-top::before {
-    content: '';
-    @apply pointer-events-none absolute -top-px left-5 right-5 h-2 rounded-b-full;
-    background-image: radial-gradient(
-      circle at 6px 0,
-      rgb(255 255 255 / 0.16) 0 5px,
-      transparent 5.5px
-    );
-    background-size: 22px 8px;
-    background-repeat: repeat-x;
-  }
-
-  /* Field of studs used as a background texture */
+  /* Les motifs briques/studs de l'ancienne DA n'ont plus d'objet */
+  .studs-top::before,
   .stud-field {
-    background-image:
-      radial-gradient(circle at center, rgb(255 255 255 / 0.1) 0 4.5px, transparent 5px),
-      radial-gradient(circle at center, rgb(0 0 0 / 0.45) 0 6px, transparent 6.5px);
-    background-size: 34px 34px;
-    background-position: 0 0, 0 1.5px;
+    display: none;
   }
-
-  /* Single stud — used as a bullet / corner rivet */
   .stud {
-    @apply relative inline-block rounded-full;
-    background: linear-gradient(160deg, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.04));
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.3),
-      inset 0 -1px 2px rgb(0 0 0 / 0.5),
-      0 1px 2px rgb(0 0 0 / 0.4);
+    @apply inline-block rounded-full bg-brand/30;
   }
 
-  .text-gradient {
-    @apply bg-gradient-to-br from-white via-white to-white/55 bg-clip-text text-transparent;
-  }
-
+  .text-gradient,
   .brand-gradient-text {
-    @apply bg-brand-gradient-deep bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand via-electric to-brand bg-clip-text text-transparent;
+    background-size: 200% 100%;
+    animation: gradient-pan 6s ease infinite;
   }
 
-  /* Section ambience — a coloured wash that keeps long pages from going grey */
+  /* Halo — remplacé par un lavis de teinte, pas une lueur */
+  .glow-blob {
+    @apply pointer-events-none absolute rounded-full blur-[120px] opacity-60;
+  }
+
   .aura {
     @apply pointer-events-none absolute inset-0 -z-10 overflow-hidden;
   }
@@ -191,39 +163,32 @@
   }
   .aura::before {
     @apply left-[-10%] top-[-30%] size-[32rem];
-    background: rgb(var(--c-violet) / 0.16);
+    background: rgb(var(--c-brand) / 0.07);
   }
   .aura::after {
-    @apply right-[-10%] bottom-[-30%] size-[28rem];
-    background: rgb(var(--c-brand) / 0.16);
-  }
-
-  .glow-blob {
-    @apply pointer-events-none absolute rounded-full blur-[120px] animate-pulse-glow;
+    @apply bottom-[-30%] right-[-10%] size-[28rem];
+    background: rgb(var(--c-electric) / 0.07);
   }
 
   .hairline {
-    @apply h-px w-full bg-gradient-to-r from-transparent via-line-strong to-transparent;
+    @apply h-px w-full bg-line;
   }
 
   .skeleton {
-    @apply relative overflow-hidden bg-surface-raised;
+    @apply relative overflow-hidden bg-surface;
   }
   .skeleton::after {
     content: '';
-    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/5 to-transparent;
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-black/5 to-transparent;
   }
 
-  /* ---------------------------------------------------------
-     SPOTLIGHT — cursor-tracked glow (21st.dev style).
-     Driven by --mx/--my set from JS; degrades to nothing without.
-     --------------------------------------------------------- */
+  /* Curseur — un lavis lavande qui suit le pointeur */
   .spotlight::after {
     content: '';
     @apply pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300;
     background: radial-gradient(
       420px circle at var(--mx, 50%) var(--my, 50%),
-      rgb(var(--c-brand) / 0.14),
+      rgb(var(--c-brand) / 0.06),
       transparent 60%
     );
   }
@@ -231,20 +196,7 @@
     @apply opacity-100;
   }
 
-  /* A light sweeping across a moulded surface on hover */
-  .shine {
-    @apply relative overflow-hidden;
-  }
-  .shine::after {
-    content: '';
-    @apply pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent;
-    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .shine:hover::after {
-    @apply translate-x-full;
-  }
-
-  /* Animated conic border that travels around the element */
+  /* Bordure animée : un filet indigo qui fait le tour */
   .shimmer-border {
     @apply relative;
   }
@@ -254,8 +206,8 @@
     background: conic-gradient(
       from var(--angle, 0deg),
       transparent 0%,
-      rgb(var(--c-brand) / 0.7) 12%,
-      rgb(var(--c-electric) / 0.7) 20%,
+      rgb(var(--c-brand) / 0.8) 12%,
+      rgb(var(--c-electric) / 0.8) 20%,
       transparent 34%
     );
     animation: spin-border 4s linear infinite;
@@ -268,6 +220,29 @@
   }
   .shimmer-border:hover::before {
     @apply opacity-100;
+  }
+
+  /* Balayage lumineux au survol */
+  .shine {
+    @apply relative overflow-hidden;
+  }
+  .shine::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-brand/[0.06] to-transparent;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .shine:hover::after {
+    @apply translate-x-full;
+  }
+
+  /* Filet de section — l'élément structurant principal */
+  .rule {
+    @apply h-px w-full bg-line;
+  }
+
+  /* Étiquette de section : 12px, majuscules, smoke */
+  .section-label {
+    @apply text-xs font-normal uppercase tracking-[0.08em] text-smoke;
   }
 }
 
@@ -283,7 +258,6 @@
   .mask-fade-x {
     mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
   }
-
   .mask-fade-edges {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
@@ -291,13 +265,11 @@
   .balance {
     text-wrap: balance;
   }
-
   .preserve-3d {
     transform-style: preserve-3d;
   }
 }
 
-/* Registered so the conic gradient angle can actually animate */
 @property --angle {
   syntax: '<angle>';
   initial-value: 0deg;
@@ -308,4 +280,9 @@
   to {
     --angle: 360deg;
   }
+}
+
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }

@@ -155,7 +155,7 @@ export function SearchDropdown({ className, autoFocus }: { className?: string; a
                         onMouseEnter={() => setActive(i)}
                         className={cn(
                           'flex items-center gap-3 rounded-xl p-2 transition-colors',
-                          active === i ? 'bg-white/[0.07]' : 'hover:bg-white/[0.04]',
+                          active === i ? 'bg-brand-soft text-ink' : 'hover:bg-surface',
                         )}
                       >
                         <div className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-surface">
@@ -167,7 +167,7 @@ export function SearchDropdown({ className, autoFocus }: { className?: string; a
                             {CATEGORY_MAP[p.category]?.name}
                           </p>
                         </div>
-                        <span className="shrink-0 text-sm font-semibold text-ink">
+                        <span className="shrink-0 text-sm font-medium text-ink">
                           {formatPrice(effectivePrice(p))}
                         </span>
                       </Link>
@@ -177,7 +177,7 @@ export function SearchDropdown({ className, autoFocus }: { className?: string; a
                 <button
                   type="button"
                   onClick={() => submit(term)}
-                  className="w-full cursor-pointer border-t border-line px-4 py-3 text-left text-sm font-medium text-brand transition-colors hover:bg-white/[0.04]"
+                  className="w-full cursor-pointer border-t border-line px-4 py-3 text-left text-sm font-medium text-brand transition-colors hover:bg-surface"
                 >
                   Voir tous les résultats pour &laquo;&nbsp;{term}&nbsp;&raquo;
                 </button>

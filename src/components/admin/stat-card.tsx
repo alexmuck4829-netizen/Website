@@ -26,7 +26,7 @@ export function StatCard({
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1">
           <p className="text-sm text-ink-muted">{label}</p>
-          <p className="font-display text-3xl font-bold tracking-tight text-ink">{value}</p>
+          <p className="font-display text-3xl font-medium tracking-tight text-ink">{value}</p>
           {sub && <p className="text-xs text-ink-subtle">{sub}</p>}
         </div>
         <span className={cn('grid size-10 shrink-0 place-items-center rounded-xl border', accents[accent])}>

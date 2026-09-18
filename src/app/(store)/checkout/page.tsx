@@ -16,7 +16,7 @@ export default async function CheckoutPage() {
   return (
     <div className="container max-w-5xl py-12 lg:py-16">
       <header className="mb-8 space-y-2">
-        <h1 className="font-display text-4xl font-bold tracking-tight text-ink">Paiement</h1>
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink">Paiement</h1>
         <p className="text-ink-muted">
           Vos fichiers se débloquent dès la confirmation du paiement.
         </p>

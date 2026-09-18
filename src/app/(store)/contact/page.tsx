@@ -36,7 +36,7 @@ export default function ContactPage() {
   return (
     <div className="container max-w-3xl py-12 lg:py-20">
       <header className="space-y-3">
-        <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
           Contact
         </h1>
         <p className="text-pretty text-lg text-ink-muted">
@@ -55,7 +55,7 @@ export default function ContactPage() {
               <channel.icon className="size-5" />
             </span>
             <div className="flex-1 space-y-1">
-              <h2 className="font-display text-lg font-semibold text-ink">{channel.title}</h2>
+              <h2 className="font-display text-lg font-medium text-ink">{channel.title}</h2>
               <p className="text-sm leading-relaxed text-ink-muted">{channel.text}</p>
             </div>
             <Button variant="secondary" asChild className="shrink-0">

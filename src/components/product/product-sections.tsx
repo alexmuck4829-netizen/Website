@@ -14,7 +14,7 @@ export function WhatsIncluded({ items }: { items: string[] }) {
   return (
     <Reveal>
       <section className="surface-card space-y-4 p-6">
-        <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
+        <h2 className="font-display text-xl font-medium tracking-tight text-ink">
           Contenu du produit
         </h2>
         <ul className="grid gap-2.5 sm:grid-cols-2">
@@ -45,7 +45,7 @@ export function ProductInformation({ product }: { product: Product }) {
   return (
     <Reveal>
       <section className="surface-card overflow-hidden">
-        <h2 className="border-b border-line p-6 pb-4 font-display text-xl font-semibold tracking-tight text-ink">
+        <h2 className="border-b border-line p-6 pb-4 font-display text-xl font-medium tracking-tight text-ink">
           Informations produit
         </h2>
         <dl className="divide-y divide-line">
@@ -67,7 +67,7 @@ export function WhyYoullLoveIt({ benefits }: { benefits: Product['benefits'] }) 
   return (
     <section className="space-y-6">
       <Reveal>
-        <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+        <h2 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
           Pourquoi vous allez l’adorer
         </h2>
       </Reveal>
@@ -80,7 +80,7 @@ export function WhyYoullLoveIt({ benefits }: { benefits: Product['benefits'] }) 
                 <span className="grid size-11 place-items-center rounded-xl border border-line bg-surface-overlay text-brand transition-transform duration-300 group-hover:scale-105">
                   <Icon className="size-5" />
                 </span>
-                <h3 className="font-display text-base font-semibold text-ink">{benefit.title}</h3>
+                <h3 className="font-display text-base font-medium text-ink">{benefit.title}</h3>
                 <p className="text-sm leading-relaxed text-ink-muted">{benefit.description}</p>
               </div>
             </Reveal>
@@ -97,7 +97,7 @@ export function PerfectFor({ items }: { items: string[] }) {
   return (
     <Reveal>
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-semibold tracking-tight text-ink">Idéal pour</h2>
+        <h2 className="font-display text-xl font-medium tracking-tight text-ink">Idéal pour</h2>
         <ul className="flex flex-wrap gap-2.5">
           {items.map((item) => (
             <li
@@ -122,7 +122,7 @@ export function ScreenshotShowcase({ product }: { product: Product }) {
     <section className="space-y-6">
       <Reveal>
         <div className="space-y-2">
-          <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+          <h2 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
             Regardez de plus près
           </h2>
           <p className="text-ink-muted">
@@ -159,7 +159,7 @@ export function Changelog({ versions }: { versions: Product['versions'] }) {
   return (
     <Reveal>
       <section className="surface-card space-y-5 p-6">
-        <h2 className="font-display text-xl font-semibold tracking-tight text-ink">
+        <h2 className="font-display text-xl font-medium tracking-tight text-ink">
           Historique des versions
         </h2>
         <ol className="space-y-5">
@@ -178,7 +178,7 @@ export function Changelog({ versions }: { versions: Product['versions'] }) {
                   <span className="font-medium text-ink">Version {version.version}</span>
                   <span className="text-xs text-ink-subtle">{formatDate(version.releasedAt)}</span>
                   {i === 0 && (
-                    <span className="rounded-full bg-brand/12 px-2 py-0.5 text-[10px] font-semibold uppercase text-brand">
+                    <span className="rounded-full bg-brand/12 px-2 py-0.5 text-[10px] font-medium uppercase text-brand">
                       Actuelle
                     </span>
                   )}

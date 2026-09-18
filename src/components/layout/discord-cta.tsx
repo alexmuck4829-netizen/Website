@@ -23,7 +23,7 @@ export async function DiscordCTA() {
             <span className="inline-flex items-center gap-2 rounded-full border border-[#5865F2]/30 bg-[#5865F2]/10 px-3 py-1.5 text-xs font-medium text-[#A5B4FC]">
               <DiscordIcon className="size-3.5" /> Communauté
             </span>
-            <h2 className="text-balance font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            <h2 className="text-balance font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
               {discord.title}
             </h2>
             <p className="max-w-xl text-pretty text-ink-muted sm:text-lg">{discord.description}</p>

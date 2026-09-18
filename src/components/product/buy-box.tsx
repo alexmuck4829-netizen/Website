@@ -57,14 +57,14 @@ export function BuyBox({
       {/* Identity */}
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
+          <span className="text-xs font-medium uppercase tracking-[0.16em] text-brand">
             {CATEGORY_MAP[product.category]?.name}
           </span>
           {product.bestSeller && <Badge variant="best">Meilleure vente</Badge>}
           {product.newRelease && <Badge variant="new">Nouveau</Badge>}
         </div>
 
-        <h1 className="text-balance font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
+        <h1 className="text-balance font-display text-3xl font-medium leading-tight tracking-tight text-ink sm:text-4xl">
           {product.name}
         </h1>
 
@@ -84,7 +84,7 @@ export function BuyBox({
       {/* Price + actions */}
       <div className="surface-card space-y-4 p-5">
         <div className="flex flex-wrap items-end gap-3">
-          <span className="font-display text-4xl font-bold tracking-tight text-ink">
+          <span className="font-display text-4xl font-medium tracking-tight text-ink">
             {formatPrice(price)}
           </span>
           {onSale && (

@@ -16,7 +16,7 @@ export default async function AdminProductsPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Produits</h1>
+          <h1 className="font-display text-3xl font-medium tracking-tight text-ink">Produits</h1>
           <p className="text-ink-muted">
             Créez, modifiez, tarifez et publiez tout ce que contient la boutique.
           </p>

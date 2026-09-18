@@ -35,7 +35,7 @@ export default async function PurchaseSuccessPage({
             <CheckCircle2 className="size-8 text-success" />
           </span>
           <div className="space-y-2">
-            <h1 className="font-display text-4xl font-bold tracking-tight text-ink">
+            <h1 className="font-display text-4xl font-medium tracking-tight text-ink">
               Achat terminé
             </h1>
             <p className="text-lg text-ink-muted">Vos fichiers sont prêts.</p>

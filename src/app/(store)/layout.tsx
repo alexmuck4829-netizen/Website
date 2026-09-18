@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { ThemeStyle } from '@/components/layout/theme-style';
-import { BackToTop, ScrollProgress } from '@/components/ui/motion';
+import { BackToTop, CursorGlow, ScrollProgress } from '@/components/ui/motion';
 import { SettingsService } from '@/lib/services/settings-service';
 
 export const dynamic = 'force-dynamic';
@@ -17,9 +17,10 @@ export default async function StoreLayout({ children }: { children: React.ReactN
     <>
       <ThemeStyle theme={settings.theme} />
       <ScrollProgress />
+      <CursorGlow />
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
       >
         Aller au contenu
       </a>

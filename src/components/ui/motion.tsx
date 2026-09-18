@@ -1,10 +1,11 @@
 'use client';
 
 import React, {
-  Fragment, useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode,
+  Fragment, useCallback, useEffect, useRef, useState, useSyncExternalStore,
+  type CSSProperties, type ReactNode,
 } from 'react';
 import {
-  AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform,
+  AnimatePresence, motion, useInView, useMotionValue, useSpring, useTransform,
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { SITE } from '@/lib/constants';
@@ -19,6 +20,31 @@ import { SITE } from '@/lib/constants';
  */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+function subscribeToReducedMotion(listener: () => void) {
+  const query = window.matchMedia(REDUCED_MOTION_QUERY);
+  query.addEventListener('change', listener);
+  return () => query.removeEventListener('change', listener);
+}
+
+/**
+ * `prefers-reduced-motion`, sans casser l'hydratation.
+ *
+ * Le serveur ne connaît pas la préférence. Si le premier rendu client répond
+ * déjà `true`, il produit un arbre différent de celui du serveur et React
+ * signale un décalage d'hydratation. `useSyncExternalStore` garantit que le
+ * rendu d'hydratation utilise l'instantané serveur (`false`), puis rebascule
+ * immédiatement après — les composants rendent alors leur variante sobre.
+ */
+export function usePrefersReducedMotion(): boolean {
+  return useSyncExternalStore(
+    subscribeToReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
+    () => false,
+  );
+}
 
 /* ---------------------------------------------------------------
    SPOTLIGHT — a soft glow that follows the cursor across a surface.
@@ -69,7 +95,7 @@ export function Tilt({
   strength?: number;
   scale?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -118,7 +144,7 @@ export function Magnetic({
   radius?: number;
   pull?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useSpring(0, { stiffness: 260, damping: 18 });
   const y = useSpring(0, { stiffness: 260, damping: 18 });
@@ -174,7 +200,7 @@ export function BlurReveal({
   stagger?: number;
   as?: 'h1' | 'h2' | 'p' | 'span';
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const words = text.split(' ');
   const Component = motion[Tag];
 
@@ -229,10 +255,11 @@ export function Counter({
   decimals?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
-  const [value, setValue] = useState(reduce ? to : 0);
+  // Toujours 0 au premier rendu : c'est ce que le serveur a produit.
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (!inView || reduce) return;
@@ -250,10 +277,15 @@ export function Counter({
     return () => cancelAnimationFrame(frame);
   }, [inView, reduce, to, duration]);
 
+  // Mouvement réduit : la valeur finale est affichée telle quelle, sans compter.
+  // On la dérive du rendu plutôt que de la poser dans l'effet, pour que le
+  // rendu d'hydratation (où `reduce` vaut encore false) affiche bien 0.
+  const shown = reduce ? to : value;
+
   return (
     <span ref={ref} className={cn('tabular-nums', className)}>
       {prefix}
-      {value.toLocaleString(SITE.locale, {
+      {shown.toLocaleString(SITE.locale, {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       })}
@@ -276,7 +308,7 @@ export function Marquee({
   className?: string;
   reverse?: boolean;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   return (
     <div className={cn('group relative flex overflow-hidden mask-fade-edges', className)}>
@@ -305,43 +337,182 @@ export function Marquee({
 }
 
 /* ---------------------------------------------------------------
-   STUD ROW — the brand motif as a decorative element.
+   SCROLL SCENE — an element that plays a short film as it crosses
+   the viewport: it rises, sharpens, straightens and settles.
+   Scroll-driven, so scrubbing back replays it in reverse.
    --------------------------------------------------------------- */
-export function StudRow({
-  count = 4,
-  size = 10,
+export function ScrollScene({
+  children,
   className,
-  colors,
-  animate = true,
+  rise = 60,
+  scaleFrom = 0.94,
+  rotateFrom = 0,
+  blurFrom = 6,
 }: {
-  count?: number;
-  size?: number;
+  children: ReactNode;
   className?: string;
-  colors?: string[];
-  animate?: boolean;
+  rise?: number;
+  scaleFrom?: number;
+  rotateFrom?: number;
+  blurFrom?: number;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  // 0 = l'élément entre par le bas, 1 = il est centré et posé.
+  const raw = useMotionValue(0);
+  const p = useSpring(raw, { stiffness: 110, damping: 28, mass: 0.5 });
+
+  const y = useTransform(p, [0, 1], [rise, 0]);
+  const scale = useTransform(p, [0, 1], [scaleFrom, 1]);
+  const rotate = useTransform(p, [0, 1], [rotateFrom, 0]);
+  const opacity = useTransform(p, [0, 0.55, 1], [0, 0.85, 1]);
+  const filter = useTransform(p, (v) => `blur(${((1 - v) * blurFrom).toFixed(2)}px)`);
+
+  useEffect(() => {
+    if (reduce) return;
+
+    const onScroll = () => {
+      const rect = ref.current?.getBoundingClientRect();
+      if (!rect) return;
+      // L'animation se joue entre « le haut de l'élément touche le bas de
+      // l'écran » et « l'élément est remonté d'un quart d'écran ».
+      const startAt = window.innerHeight;
+      const endAt = window.innerHeight * 0.45;
+      const progress = (startAt - rect.top) / Math.max(startAt - endAt, 1);
+      raw.set(Math.min(Math.max(progress, 0), 1));
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [reduce, raw]);
+
+  if (reduce) return <div className={className}>{children}</div>;
 
   return (
-    <span className={cn('inline-flex items-center gap-1.5', className)} aria-hidden>
-      {Array.from({ length: count }, (_, i) => (
-        <motion.span
-          key={i}
-          className="stud"
-          style={{
-            width: size,
-            height: size,
-            ...(colors?.[i % colors.length] && {
-              background: `linear-gradient(160deg, ${colors[i % colors.length]}, ${colors[i % colors.length]}99)`,
-            }),
-          }}
-          initial={reduce || !animate ? false : { scale: 0, opacity: 0 }}
-          whileInView={reduce || !animate ? undefined : { scale: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: i * 0.06, ease: [0.34, 1.56, 0.64, 1] }}
-        />
-      ))}
-    </span>
+    <motion.div
+      ref={ref}
+      style={{ y, scale, rotate, opacity, filter, transformPerspective: 1200 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   SCROLL TEXT — un paragraphe dont les mots s'allument au défilement.
+   Le texte reste lisible en permanence : on ne joue que sur l'opacité
+   entre « estompé » et « plein », jamais jusqu'à l'invisible.
+   --------------------------------------------------------------- */
+export function ScrollText({
+  text,
+  className,
+  wordClassName,
+}: {
+  text: string;
+  className?: string;
+  wordClassName?: string;
+}) {
+  const reduce = usePrefersReducedMotion();
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+
+    const onScroll = () => {
+      const rect = ref.current?.getBoundingClientRect();
+      if (!rect) return;
+      const startAt = window.innerHeight * 0.9;
+      const endAt = window.innerHeight * 0.35;
+      const p = (startAt - rect.top) / Math.max(startAt - endAt, 1);
+      setProgress(Math.min(Math.max(p, 0), 1));
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [reduce]);
+
+  const words = text.split(' ');
+
+  return (
+    <p ref={ref} className={className}>
+      {words.map((word, i) => {
+        // Chaque mot s'allume sur sa propre fenêtre de défilement.
+        const threshold = i / words.length;
+        const lit = reduce ? 1 : Math.min(Math.max((progress - threshold) * words.length, 0), 1);
+        return (
+          <Fragment key={`${word}-${i}`}>
+            <span
+              className={cn('transition-colors duration-300', wordClassName)}
+              style={{ opacity: 0.35 + lit * 0.65 }}
+            >
+              {word}
+            </span>
+            {i < words.length - 1 ? ' ' : null}
+          </Fragment>
+        );
+      })}
+    </p>
+  );
+}
+
+/* ---------------------------------------------------------------
+   CURSOR GLOW — un lavis indigo qui suit le pointeur sur toute la
+   page. Décoratif, désactivé au clavier et en mouvement réduit.
+   --------------------------------------------------------------- */
+export function CursorGlow() {
+  const reduce = usePrefersReducedMotion();
+  const x = useSpring(0, { stiffness: 120, damping: 26, mass: 0.6 });
+  const y = useSpring(0, { stiffness: 120, damping: 26, mass: 0.6 });
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (reduce) return;
+    // Pas de lueur au doigt : elle n'aurait aucun sens sur écran tactile.
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const onMove = (event: MouseEvent) => {
+      x.set(event.clientX);
+      y.set(event.clientY);
+      setActive(true);
+    };
+    const onLeave = () => setActive(false);
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('mouseleave', onLeave);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseleave', onLeave);
+    };
+  }, [reduce, x, y]);
+
+  if (reduce) return null;
+
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none fixed -z-10 size-[30rem] rounded-full opacity-0 blur-[120px] transition-opacity duration-700"
+      style={{
+        x,
+        y,
+        translateX: '-50%',
+        translateY: '-50%',
+        opacity: active ? 0.5 : 0,
+        background:
+          'radial-gradient(circle, rgb(var(--c-brand) / 0.10), rgb(var(--c-electric) / 0.05) 55%, transparent 70%)',
+      }}
+    />
   );
 }
 
@@ -357,7 +528,7 @@ export function Parallax({
   offset?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const y = useMotionValue(0);
   const smooth = useSpring(y, { stiffness: 90, damping: 24, mass: 0.4 });
@@ -391,7 +562,7 @@ export function Parallax({
    SCROLL PROGRESS — a thin brand-gradient bar pinned to the top.
    --------------------------------------------------------------- */
 export function ScrollProgress() {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const progress = useMotionValue(0);
   const width = useSpring(progress, { stiffness: 140, damping: 26, mass: 0.3 });
   // Computed before the early return: hooks must run in the same order every render.
@@ -449,7 +620,7 @@ export function BackToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 12 }}
           transition={{ duration: 0.25, ease: [0.34, 1.56, 0.64, 1] }}
-          className="brick brick-press fixed bottom-6 right-6 z-40 grid size-11 place-items-center rounded-xl text-ink-muted transition-colors hover:text-ink"
+          className="card card-hover fixed bottom-6 right-6 z-40 grid size-11 place-items-center rounded-xl text-ink-muted transition-colors hover:text-ink"
         >
           <svg viewBox="0 0 24 24" fill="none" className="size-5" aria-hidden>
             <path

@@ -70,7 +70,7 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
                 {['N° commande', 'Client', 'Produits', 'Montant', 'Paiement', 'Date'].map((header) => (
                   <th
                     key={header}
-                    className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-ink-subtle"
+                    className="whitespace-nowrap px-4 py-3 text-xs font-medium uppercase tracking-wider text-ink-subtle"
                   >
                     {header}
                   </th>
@@ -82,7 +82,7 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
                 <tr
                   key={order.id}
                   onClick={() => setSelected(order)}
-                  className="cursor-pointer transition-colors hover:bg-white/[0.02]"
+                  className="cursor-pointer transition-colors hover:bg-surface"
                 >
                   <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-ink">
                     {order.reference}
@@ -133,7 +133,7 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
       {/* Order detail */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
         <DialogContent className="max-h-[85vh] overflow-y-auto p-0">
-          <DialogTitle className="border-b border-line p-5 font-display text-lg font-semibold">
+          <DialogTitle className="border-b border-line p-5 font-display text-lg font-medium">
             Détail de la commande
           </DialogTitle>
 

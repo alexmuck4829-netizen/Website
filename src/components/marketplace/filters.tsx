@@ -109,8 +109,8 @@ export function Filters({
               <li key={category.slug}>
                 <label
                   className={cn(
-                    'flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-white/[0.04]',
-                    checked && 'bg-white/[0.04]',
+                    'flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-surface',
+                    checked && 'bg-brand-soft',
                   )}
                 >
                   <Checkbox checked={checked} onCheckedChange={() => toggleCategory(category.slug)} />
@@ -158,8 +158,8 @@ export function Filters({
               type="button"
               onClick={() => setRating(value)}
               className={cn(
-                'flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-white/[0.04]',
-                minRating === value ? 'bg-white/[0.06] text-ink' : 'text-ink-muted',
+                'flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-surface',
+                minRating === value ? 'bg-brand-soft text-brand' : 'text-ink-muted',
               )}
             >
               <span className="flex gap-0.5">
@@ -185,7 +185,7 @@ export function Filters({
 function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <Label className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-subtle">
+      <Label className="text-xs font-medium uppercase tracking-[0.14em] text-ink-subtle">
         {title}
       </Label>
       {children}

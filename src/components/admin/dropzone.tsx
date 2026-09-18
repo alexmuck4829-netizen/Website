@@ -144,7 +144,7 @@ export function Dropzone({
           compact ? 'p-6' : 'p-10',
           dragging
             ? 'border-brand bg-brand/8 scale-[1.01]'
-            : 'border-line-strong bg-surface/50 hover:border-brand/50 hover:bg-surface-raised',
+            : 'border-line-strong bg-surface/50 hover:border-brand/50 hover:bg-brand-soft',
         )}
       >
         <span

@@ -74,7 +74,7 @@ export function CheckoutForm({
     <form onSubmit={submit} className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-start">
       <div className="space-y-6">
         <section className="surface-card space-y-5 p-6">
-          <h2 className="font-display text-lg font-semibold text-ink">Où devons-nous l’envoyer ?</h2>
+          <h2 className="font-display text-lg font-medium text-ink">Où devons-nous l’envoyer ?</h2>
           <p className="-mt-3 text-sm text-ink-muted">
             Votre licence et vos liens de téléchargement sont rattachés à cette adresse.
           </p>
@@ -102,7 +102,7 @@ export function CheckoutForm({
         </section>
 
         <section className="surface-card space-y-4 p-6">
-          <h2 className="font-display text-lg font-semibold text-ink">Paiement</h2>
+          <h2 className="font-display text-lg font-medium text-ink">Paiement</h2>
 
           {stripeConfigured ? (
             <div className="flex items-start gap-3 rounded-xl border border-line bg-surface/60 p-4">
@@ -137,8 +137,8 @@ export function CheckoutForm({
           </p>
         </section>
 
-        <section className="brick space-y-4 p-6">
-          <h2 className="font-display text-lg font-semibold text-ink">Avant de valider</h2>
+        <section className="card space-y-4 p-6">
+          <h2 className="font-display text-lg font-medium text-ink">Avant de valider</h2>
 
           <label className="flex cursor-pointer items-start gap-3">
             <Checkbox
@@ -199,7 +199,7 @@ export function CheckoutForm({
       </div>
 
       <aside className="surface-card space-y-5 p-6 lg:sticky lg:top-24">
-        <h2 className="font-display text-lg font-semibold text-ink">Récapitulatif</h2>
+        <h2 className="font-display text-lg font-medium text-ink">Récapitulatif</h2>
 
         <ul className="space-y-3">
           {cart.items.map((item) => (
@@ -215,7 +215,7 @@ export function CheckoutForm({
 
         <div className="flex items-baseline justify-between border-t border-line pt-4">
           <span className="font-medium text-ink">Total</span>
-          <span className="font-display text-2xl font-bold text-ink">
+          <span className="font-display text-2xl font-medium text-ink">
             {formatPrice(cart.subtotal)}
           </span>
         </div>

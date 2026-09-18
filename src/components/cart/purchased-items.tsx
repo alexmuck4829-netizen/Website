@@ -49,7 +49,7 @@ export function PurchasedItems({ order }: { order: Order }) {
           </div>
 
           <div className="min-w-0 flex-1">
-            <p className="font-display font-semibold text-ink">{item.name}</p>
+            <p className="font-display font-medium text-ink">{item.name}</p>
             <p className="text-sm text-ink-subtle">{formatPrice(item.price)}</p>
           </div>
 

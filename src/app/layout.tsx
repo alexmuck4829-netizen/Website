@@ -1,12 +1,25 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Inter, Inter_Tight } from 'next/font/google';
 import { Providers } from '@/components/layout/providers';
 import { SITE } from '@/lib/constants';
 import { metadataBase } from '@/lib/seo';
 import './globals.css';
 
-const sans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
-const display = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
+// Substitut libre de « sohne-var » : une grotesque neutre, chargée en 300/400/500
+// pour que le corps de texte reste léger et que les libellés gardent du poids.
+// next/font auto-héberge les fichiers — aucune requête vers Google au runtime.
+const sans = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+const display = Inter_Tight({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: metadataBase(),
@@ -39,8 +52,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#08080c',
-  colorScheme: 'dark',
+  themeColor: '#ffffff',
+  colorScheme: 'light',
   width: 'device-width',
   initialScale: 1,
 };
