@@ -82,9 +82,9 @@ export function BuyBox({
       <p className="text-pretty leading-relaxed text-ink-muted">{product.shortDescription}</p>
 
       {/* Price + actions */}
-      <div className="surface-card space-y-4 p-5">
+      <div className="card space-y-4 p-5 transition-shadow duration-500 hover:shadow-lift">
         <div className="flex flex-wrap items-end gap-3">
-          <span className="font-display text-4xl font-medium tracking-tight text-ink">
+          <span className="font-display text-4xl font-medium tracking-[-0.03em] text-ink">
             {formatPrice(price)}
           </span>
           {onSale && (
@@ -136,8 +136,11 @@ export function BuyBox({
 
         <ul className="space-y-2 border-t border-line pt-4">
           {REASSURANCE.map((item) => (
-            <li key={item.label} className="flex items-center gap-2.5 text-sm text-ink-muted">
-              <item.icon className="size-4 shrink-0 text-success" />
+            <li
+              key={item.label}
+              className="group flex items-center gap-2.5 text-sm text-ink-muted transition-all duration-300 ease-spring hover:translate-x-1 hover:text-ink motion-reduce:hover:translate-x-0"
+            >
+              <item.icon className="size-4 shrink-0 text-success transition-transform duration-300 ease-spring group-hover:scale-125 motion-reduce:group-hover:scale-100" />
               {item.label}
             </li>
           ))}
@@ -145,7 +148,7 @@ export function BuyBox({
       </div>
 
       {/* Licence summary — visible before purchase, as it should be */}
-      <div className="rounded-xl border border-line bg-surface/60 p-4">
+      <div className="rounded border border-line bg-surface p-4 transition-colors duration-500 hover:border-brand/35">
         <div className="mb-2.5 flex items-center justify-between">
           <span className="text-sm font-medium text-ink">
             {product.license.type === 'commercial'

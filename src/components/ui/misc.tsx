@@ -5,6 +5,7 @@ import * as TabsPrimitive from '@radix-ui/react-tabs';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import { ChevronDown } from 'lucide-react';
+import { ScrollWipe } from '@/components/ui/motion';
 import { cn } from '@/lib/utils';
 
 export const Tabs = TabsPrimitive.Root;
@@ -129,15 +130,25 @@ export function SectionHeading({
     >
       <div className={cn('max-w-2xl space-y-3', align === 'center' && 'mx-auto')}>
         {eyebrow && (
-          <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-brand">
-            <span className="h-px w-6 origin-left animate-draw-line bg-brand/50" />
-            {eyebrow}
-          </p>
+          <ScrollWipe>
+            <p className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-brand">
+              <span className="h-px w-6 origin-left animate-draw-line bg-brand/50" />
+              {eyebrow}
+            </p>
+          </ScrollWipe>
         )}
-        <h2 className="text-balance font-display text-3xl font-light tracking-[-0.028em] text-ink sm:text-4xl">
-          {title}
-        </h2>
-        {description && <p className="text-pretty text-ink-muted sm:text-lede">{description}</p>}
+        {/* Le titre se lève derrière un volet : l'entrée la plus lisible
+            du site, elle rythme chaque section. */}
+        <ScrollWipe delay={0.08} y={56}>
+          <h2 className="text-balance font-display text-3xl font-light tracking-[-0.028em] text-ink sm:text-4xl">
+            {title}
+          </h2>
+        </ScrollWipe>
+        {description && (
+          <ScrollWipe delay={0.16} y={28}>
+            <p className="text-pretty text-ink-muted sm:text-lede">{description}</p>
+          </ScrollWipe>
+        )}
       </div>
       {action && <div className="shrink-0">{action}</div>}
     </div>

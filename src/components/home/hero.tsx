@@ -9,7 +9,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
-  BlurReveal, Counter, Magnetic, Parallax, Spotlight, Tilt, usePrefersReducedMotion,
+  BlurReveal, Counter, Magnetic, ScrollDrift, Spotlight, Tilt, usePrefersReducedMotion,
 } from '@/components/ui/motion';
 import { CATEGORY_MAP } from '@/lib/constants';
 import type { Product, SiteSettings } from '@/lib/types';
@@ -102,7 +102,7 @@ export function Hero({
             {hero.stats.map((stat) => (
               <div
                 key={stat.label}
-                className="group bg-base px-4 py-3.5 transition-colors duration-300 hover:bg-brand-soft"
+                className="group relative bg-base px-4 py-3.5 transition-all duration-300 ease-premium hover:z-10 hover:bg-brand-soft"
               >
                 <dt className="sr-only">{stat.label}</dt>
                 <dd className="font-display text-xl font-normal tracking-[-0.025em] text-ink transition-colors duration-300 group-hover:text-brand sm:text-2xl">
@@ -116,15 +116,16 @@ export function Hero({
 
         {/* ---------------- Vitrine ---------------- */}
         <div className="relative">
-          <Parallax offset={24}>
+          <ScrollDrift distance={70}>
             {showcase.length > 0 ? (
               <div className="relative mx-auto grid max-w-lg grid-cols-2 gap-4 lg:max-w-none">
                 {showcase.map((product, i) => (
                   <motion.div
                     key={product.id}
-                    initial={reduce ? false : { opacity: 0, y: 34, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: EASE }}
+                    initial={reduce ? false : { opacity: 0, y: 60, rotateX: 24, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.2 + i * 0.12, ease: EASE }}
+                    style={{ transformPerspective: 1200, transformOrigin: 'center bottom' }}
                     className={i % 2 === 1 ? 'lg:translate-y-10' : i === 0 ? 'lg:-translate-y-2' : ''}
                   >
                     <ShowcaseCard product={product} priority={i < 2} float={!reduce} index={i} />
@@ -134,7 +135,7 @@ export function Hero({
             ) : (
               <EmptyShowcase />
             )}
-          </Parallax>
+          </ScrollDrift>
         </div>
       </div>
 
@@ -151,9 +152,9 @@ export function Hero({
             return (
               <li
                 key={label}
-                className="group flex items-center gap-2 text-sm text-ink-muted transition-colors duration-300 hover:text-ink"
+                className="group flex items-center gap-2 text-sm text-ink-muted transition-all duration-300 ease-spring hover:-translate-y-0.5 hover:text-brand"
               >
-                <Icon className="size-4 text-brand transition-transform duration-300 ease-spring group-hover:scale-125" />
+                <Icon className="size-4 text-brand transition-transform duration-300 ease-spring group-hover:-rotate-12 group-hover:scale-150 motion-reduce:group-hover:transform-none" />
                 {label}
               </li>
             );
@@ -210,8 +211,8 @@ function ShowcaseCard({
       animate={float ? { y: [0, index % 2 === 0 ? -8 : 8, 0] } : undefined}
       transition={{ duration: 7 + index, repeat: Infinity, ease: 'easeInOut' }}
     >
-      <Tilt strength={8}>
-        <Spotlight className="card card-hover shimmer-border block overflow-hidden hover:shadow-lift">
+      <Tilt strength={12} scale={1.04}>
+        <Spotlight className="card card-hover shimmer-border shine block overflow-hidden">
           <Link href={`/product/${product.slug}`} className="group block">
             <div className="relative aspect-[16/11] overflow-hidden bg-surface-overlay">
               <Image
@@ -220,7 +221,7 @@ function ShowcaseCard({
                 fill
                 sizes="(max-width: 1024px) 45vw, 22vw"
                 priority={priority}
-                className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105 motion-reduce:group-hover:scale-100"
+                className="object-cover transition-transform duration-[1100ms] ease-premium group-hover:scale-[1.16] motion-reduce:group-hover:scale-100"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-violet/45 to-transparent" />
               <Badge variant={badge.variant} className="absolute left-2.5 top-2.5">

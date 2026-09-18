@@ -4,7 +4,7 @@ import {
   ArrowRight, Clock, Gem, Layers, Rocket, ShieldCheck, Sparkles, Wrench, Zap, type LucideIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Reveal } from '@/components/ui/reveal';
+import { ScrollCurtain, ScrollDrift, ScrollWipe } from '@/components/ui/motion';
 import type { Product, SiteSettings } from '@/lib/types';
 
 const ICONS: Record<string, LucideIcon> = {
@@ -22,7 +22,7 @@ export function PromoBanner({
 
   return (
     <section className="container">
-      <Reveal>
+      <ScrollCurtain rotate={10}>
         <div className="surface-card relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-faint [background-size:36px_36px] opacity-70" />
           <div className="glow-blob left-[-6rem] top-[-6rem] size-[26rem] bg-brand/[0.08]" />
@@ -35,13 +35,17 @@ export function PromoBanner({
                 {promo.eyebrow}
               </span>
 
-              <h2 className="text-balance font-display text-3xl font-light leading-[1.1] tracking-[-0.028em] text-ink sm:text-4xl lg:text-[2.9rem]">
-                {promo.title}
-              </h2>
+              <ScrollWipe y={56}>
+                <h2 className="text-balance font-display text-3xl font-light leading-[1.1] tracking-[-0.028em] text-ink sm:text-4xl lg:text-[2.9rem]">
+                  {promo.title}
+                </h2>
+              </ScrollWipe>
 
-              <p className="max-w-xl text-pretty text-lede text-ink-muted">
-                {promo.description}
-              </p>
+              <ScrollWipe delay={0.1} y={28}>
+                <p className="max-w-xl text-pretty text-lede text-ink-muted">
+                  {promo.description}
+                </p>
+              </ScrollWipe>
 
               <ul className="grid gap-3 sm:grid-cols-3">
                 {promo.points.map((point) => {
@@ -70,10 +74,14 @@ export function PromoBanner({
             <div className="relative hidden lg:block">
               <div className="relative h-[24rem]">
                 {art.map((product, i) => (
-                  <Link
+                  <ScrollDrift
                     key={product.id}
+                    distance={26 - i * 16}
+                    className="absolute inset-0"
+                  >
+                  <Link
                     href={`/product/${product.slug}`}
-                    className="group absolute overflow-hidden rounded border border-line-strong bg-base shadow-lift transition-all duration-500 ease-premium hover:z-10 hover:-translate-y-1.5 hover:scale-[1.04] hover:border-brand/40 hover:shadow-glow motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100"
+                    className="group absolute overflow-hidden rounded border border-line-strong bg-base shadow-lift transition-all duration-500 ease-premium hover:z-20 hover:-translate-y-4 hover:scale-[1.09] hover:border-brand/50 hover:shadow-glow-lg hover:!rotate-0 motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100"
                     style={{
                       width: '78%',
                       left: `${i * 9}%`,
@@ -88,7 +96,7 @@ export function PromoBanner({
                         alt={product.name}
                         fill
                         sizes="30vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="object-cover transition-transform duration-[1100ms] ease-premium group-hover:scale-[1.14]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-violet/90 via-violet/20 to-transparent" />
                       <p className="absolute bottom-3 left-4 font-display text-sm font-medium text-white">
@@ -96,12 +104,13 @@ export function PromoBanner({
                       </p>
                     </div>
                   </Link>
+                  </ScrollDrift>
                 ))}
               </div>
             </div>
           </div>
         </div>
-      </Reveal>
+      </ScrollCurtain>
     </section>
   );
 }

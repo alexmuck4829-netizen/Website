@@ -74,14 +74,14 @@ export function Footer({ settings }: { settings: SiteSettings }) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-ink-muted transition-colors duration-300 hover:text-brand"
+                        className="inline-block text-sm text-ink-muted transition-all duration-300 ease-premium hover:translate-x-1 hover:text-brand motion-reduce:hover:translate-x-0"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm text-ink-muted transition-colors duration-300 hover:text-brand"
+                        className="inline-block text-sm text-ink-muted transition-all duration-300 ease-premium hover:translate-x-1 hover:text-brand motion-reduce:hover:translate-x-0"
                       >
                         {link.label}
                       </Link>

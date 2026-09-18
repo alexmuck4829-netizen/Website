@@ -77,7 +77,7 @@ export function Toolbar({
                 aria-pressed={density === value}
                 className={cn(
                   'grid size-8 cursor-pointer place-items-center rounded-lg transition-colors',
-                  density === value ? 'bg-surface-overlay text-ink' : 'text-ink-subtle hover:text-ink',
+                  density === value ? 'bg-brand-soft text-brand' : 'text-ink-subtle hover:bg-surface hover:text-brand',
                 )}
               >
                 {value === 4 ? <LayoutGrid className="size-4" /> : <Rows3 className="size-4" />}

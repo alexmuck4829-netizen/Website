@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Eye, Heart, ShoppingCart, Check } from 'lucide-react';
+import { ArrowUpRight, Eye, Heart, ShoppingCart, Check } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Rating } from '@/components/ui/rating';
@@ -21,6 +21,18 @@ interface ProductCardProps {
   compact?: boolean;
 }
 
+/** Bouton flottant posé sur l'aperçu : il glisse depuis la droite au survol. */
+const FLOATING_ACTION = [
+  'grid size-9 cursor-pointer place-items-center rounded border border-white/20',
+  'bg-violet/60 text-white backdrop-blur-md',
+  'translate-x-3 opacity-0 transition-all duration-300 ease-spring',
+  'group-hover:translate-x-0 group-hover:opacity-100',
+  'hover:scale-125 hover:border-white/50 hover:bg-brand',
+  // Sur tactile il n'y a pas de survol : les actions restent visibles.
+  'max-md:translate-x-0 max-md:opacity-100',
+  'motion-reduce:translate-x-0 motion-reduce:opacity-100 motion-reduce:hover:scale-100',
+].join(' ');
+
 export function ProductCard({
   product,
   onQuickView,
@@ -38,117 +50,137 @@ export function ProductCard({
   const category = CATEGORY_MAP[product.category];
 
   return (
-    <Tilt strength={7} scale={1.015} className={cn('h-full', className)}>
+    <Tilt strength={9} scale={1.02} className={cn('h-full', className)}>
       <Spotlight
         as="article"
-        className={cn(
-          'card card-hover shine group relative flex h-full flex-col overflow-hidden',
-          'hover:border-brand/40 hover:shadow-lift',
-        )}
+        className="card card-hover shine group relative flex h-full flex-col overflow-hidden"
       >
-      {/* ---- Preview ------------------------------------------------ */}
-      <Link
-        href={`/product/${product.slug}`}
-        className="relative block aspect-[16/10] overflow-hidden bg-surface-overlay"
-        aria-label={`Voir ${product.name}`}
-      >
-        <Image
-          src={product.thumbnail}
-          alt={product.name}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          priority={priority}
-          className="object-cover transition-transform duration-[900ms] ease-premium group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
+        {/* Filet indigo qui s'allume sur tout le pourtour au survol */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 rounded-[inherit] opacity-0 ring-1 ring-inset ring-brand/50 transition-opacity duration-300 group-hover:opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-violet/55 via-violet/[0.04] to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
 
-        {/* Badges */}
-        <div className="absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
-          {product.bestSeller && <Badge variant="best">Meilleure vente</Badge>}
-          {product.newRelease && !product.bestSeller && <Badge variant="new">Nouveau</Badge>}
-          {product.featured && !product.bestSeller && !product.newRelease && (
-            <Badge variant="popular">Populaire</Badge>
-          )}
-          {discount > 0 && <Badge variant="sale">-{discount}%</Badge>}
-        </div>
+        {/* ---- Aperçu ------------------------------------------------- */}
+        <Link
+          href={`/product/${product.slug}`}
+          className="relative block aspect-[16/10] overflow-hidden bg-surface-overlay"
+          aria-label={`Voir ${product.name}`}
+        >
+          <Image
+            src={product.thumbnail}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            priority={priority}
+            className="object-cover transition-transform duration-[1100ms] ease-premium group-hover:scale-[1.14] motion-reduce:group-hover:scale-100"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-violet/55 via-violet/[0.04] to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
 
-        {/* Hover actions */}
-        <div className="absolute right-3 top-3 flex flex-col gap-2 opacity-0 transition-all duration-300 ease-premium group-hover:opacity-100 max-md:opacity-100">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              wishlist.toggle(product.id);
-            }}
-            aria-label={wishlist.has(product.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}
-            aria-pressed={wishlist.has(product.id)}
-            className="grid size-9 cursor-pointer place-items-center rounded border border-white/15 bg-violet/55 text-white backdrop-blur-md transition-all duration-300 ease-premium hover:scale-110 hover:border-white/40 hover:bg-brand motion-reduce:hover:scale-100"
-          >
-            <Heart
-              className={cn('size-4 transition-all', wishlist.has(product.id) && 'fill-danger text-danger')}
-            />
-          </button>
-          {onQuickView && (
+          {/* Voile indigo qui monte depuis le bas de l'image */}
+          <div className="absolute inset-0 translate-y-full bg-gradient-to-t from-brand/70 via-brand/25 to-transparent transition-transform duration-500 ease-premium group-hover:translate-y-0 motion-reduce:hidden" />
+
+          {/* Badges */}
+          <div className="absolute left-3 top-3 z-10 flex flex-wrap items-center gap-1.5">
+            {product.bestSeller && <Badge variant="best">Meilleure vente</Badge>}
+            {product.newRelease && !product.bestSeller && <Badge variant="new">Nouveau</Badge>}
+            {product.featured && !product.bestSeller && !product.newRelease && (
+              <Badge variant="popular">Populaire</Badge>
+            )}
+            {discount > 0 && <Badge variant="sale">-{discount}%</Badge>}
+          </div>
+
+          {/* Actions flottantes */}
+          <div className="absolute right-3 top-3 z-10 flex flex-col gap-2">
             <button
               type="button"
               onClick={(e) => {
                 e.preventDefault();
-                onQuickView(product);
+                wishlist.toggle(product.id);
               }}
-              aria-label={`Aperçu rapide de ${product.name}`}
-              className="grid size-9 cursor-pointer place-items-center rounded border border-white/15 bg-violet/55 text-white backdrop-blur-md transition-all duration-300 ease-premium hover:scale-110 hover:border-white/40 hover:bg-brand motion-reduce:hover:scale-100"
+              aria-label={wishlist.has(product.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+              aria-pressed={wishlist.has(product.id)}
+              className={FLOATING_ACTION}
             >
-              <Eye className="size-4" />
+              <Heart
+                className={cn(
+                  'size-4 transition-all duration-300',
+                  wishlist.has(product.id) && 'scale-110 fill-danger text-danger',
+                )}
+              />
             </button>
-          )}
-        </div>
-
-        {/* Category chip sits on the image so the card body stays for selling copy */}
-        <span className="absolute bottom-3 left-3 rounded-full border border-white/15 bg-violet/55 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur-md transition-transform duration-500 ease-premium group-hover:-translate-y-0.5">
-          {category?.name ?? product.category}
-        </span>
-      </Link>
-
-      {/* ---- Body --------------------------------------------------- */}
-      <div className={cn('flex flex-1 flex-col gap-3 p-4', compact && 'gap-2 p-3.5')}>
-        <div className="space-y-1.5">
-          <h3 className="font-display text-base font-medium leading-snug tracking-[-0.02em] text-ink">
-            <Link href={`/product/${product.slug}`} className="transition-colors hover:text-brand">
-              {product.name}
-            </Link>
-          </h3>
-          {!compact && (
-            <p className="line-clamp-2 text-sm leading-relaxed text-ink-muted">
-              {product.shortDescription}
-            </p>
-          )}
-        </div>
-
-        <Rating value={product.rating} count={product.reviewCount} />
-
-        <div className="mt-auto flex items-end justify-between gap-3 pt-1">
-          <div className="flex items-baseline gap-2">
-            <span className="font-display text-xl font-medium tracking-[-0.025em] text-ink">
-              {formatPrice(price)}
-            </span>
-            {onSale && (
-              <span className="text-sm text-ink-subtle line-through">
-                {formatPrice(product.price)}
-              </span>
+            {onQuickView && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onQuickView(product);
+                }}
+                aria-label={`Aperçu rapide de ${product.name}`}
+                className={cn(FLOATING_ACTION, 'delay-75')}
+              >
+                <Eye className="size-4" />
+              </button>
             )}
           </div>
 
-          <Button
-            size="icon"
-            variant={inCart ? 'secondary' : 'primary'}
-            onClick={() => (inCart ? cart.openCart() : (cart.add(product), cart.openCart()))}
-            aria-label={inCart ? `${product.name} est dans votre panier` : `Ajouter ${product.name} au panier`}
-            className="shrink-0"
-          >
-            {inCart ? <Check className="text-success" /> : <ShoppingCart />}
-          </Button>
+          {/* Pastille de catégorie : elle laisse la place à l'invitation */}
+          <span className="absolute bottom-3 left-3 z-10 rounded-full border border-white/20 bg-violet/60 px-2.5 py-1 text-[11px] font-medium text-white/90 backdrop-blur-md transition-all duration-500 ease-premium group-hover:-translate-y-1 group-hover:border-white/40">
+            {category?.name ?? product.category}
+          </span>
+
+          {/* Invitation qui remonte depuis le bord bas */}
+          <span className="absolute bottom-3 right-3 z-10 flex translate-y-6 items-center gap-1.5 rounded-full bg-base px-3 py-1.5 text-[11px] font-medium text-brand opacity-0 transition-all duration-500 ease-spring group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:hidden">
+            Voir le produit
+            <ArrowUpRight className="size-3.5" />
+          </span>
+        </Link>
+
+        {/* ---- Corps -------------------------------------------------- */}
+        <div className={cn('flex flex-1 flex-col gap-3 p-4', compact && 'gap-2 p-3.5')}>
+          <div className="space-y-1.5">
+            <h3 className="font-display text-base font-medium leading-snug tracking-[-0.02em] text-ink">
+              <Link
+                href={`/product/${product.slug}`}
+                className="bg-gradient-to-r from-brand to-brand bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all duration-500 ease-premium group-hover:bg-[length:100%_1px] group-hover:text-brand"
+              >
+                {product.name}
+              </Link>
+            </h3>
+            {!compact && (
+              <p className="line-clamp-2 text-sm leading-relaxed text-ink-muted">
+                {product.shortDescription}
+              </p>
+            )}
+          </div>
+
+          <Rating value={product.rating} count={product.reviewCount} />
+
+          <div className="mt-auto flex items-end justify-between gap-3 pt-1">
+            <div className="flex items-baseline gap-2">
+              <span className="font-display text-xl font-medium tracking-[-0.025em] text-ink transition-colors duration-300 group-hover:text-brand">
+                {formatPrice(price)}
+              </span>
+              {onSale && (
+                <span className="text-sm text-ink-subtle line-through">
+                  {formatPrice(product.price)}
+                </span>
+              )}
+            </div>
+
+            <Button
+              size="icon"
+              variant={inCart ? 'secondary' : 'primary'}
+              onClick={() => (inCart ? cart.openCart() : (cart.add(product), cart.openCart()))}
+              aria-label={
+                inCart ? `${product.name} est dans votre panier` : `Ajouter ${product.name} au panier`
+              }
+              className="shrink-0 transition-transform duration-300 ease-spring group-hover:scale-110 motion-reduce:group-hover:scale-100"
+            >
+              {inCart ? <Check className="text-success" /> : <ShoppingCart />}
+            </Button>
+          </div>
         </div>
-      </div>
       </Spotlight>
     </Tilt>
   );

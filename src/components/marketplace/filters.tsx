@@ -109,7 +109,7 @@ export function Filters({
               <li key={category.slug}>
                 <label
                   className={cn(
-                    'flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-surface',
+                    'group flex cursor-pointer items-center gap-3 rounded px-2 py-2 transition-all duration-300 ease-premium hover:translate-x-1 hover:bg-surface motion-reduce:hover:translate-x-0',
                     checked && 'bg-brand-soft',
                   )}
                 >
@@ -158,7 +158,7 @@ export function Filters({
               type="button"
               onClick={() => setRating(value)}
               className={cn(
-                'flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-surface',
+                'flex w-full cursor-pointer items-center gap-2.5 rounded px-2 py-2 text-sm transition-all duration-300 ease-premium hover:translate-x-1 hover:bg-surface motion-reduce:hover:translate-x-0',
                 minRating === value ? 'bg-brand-soft text-brand' : 'text-ink-muted',
               )}
             >

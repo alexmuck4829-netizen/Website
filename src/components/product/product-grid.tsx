@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import dynamicImport from 'next/dynamic';
 import { ProductCard } from './product-card';
 
@@ -9,7 +8,7 @@ import { ProductCard } from './product-card';
 const QuickView = dynamicImport(() => import('./quick-view').then((m) => m.QuickView), {
   ssr: false,
 });
-import { staggerContainer, staggerItem } from '@/components/ui/reveal';
+import { ScrollStagger, ScrollStaggerItem } from '@/components/ui/motion';
 import type { Product } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
@@ -34,24 +33,18 @@ export function ProductGrid({
 
   return (
     <>
-      <motion.div
-        className={cn('grid grid-cols-1 gap-5', cols, className)}
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: '-80px' }}
-      >
+      <ScrollStagger className={cn('grid grid-cols-1 gap-5', cols, className)}>
         {products.map((product, i) => (
-          <motion.div key={product.id} variants={staggerItem}>
+          <ScrollStaggerItem key={product.id} className="h-full">
             <ProductCard
               product={product}
               onQuickView={setQuickView}
               priority={i < priorityCount}
               className="h-full"
             />
-          </motion.div>
+          </ScrollStaggerItem>
         ))}
-      </motion.div>
+      </ScrollStagger>
 
       {quickView && (
         <QuickView

@@ -359,37 +359,16 @@ export function ScrollScene({
   const reduce = usePrefersReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   // 0 = l'élément entre par le bas, 1 = il est centré et posé.
-  const raw = useMotionValue(0);
+  const raw = useScrollProgress(ref);
   const p = useSpring(raw, { stiffness: 110, damping: 28, mass: 0.5 });
 
   const y = useTransform(p, [0, 1], [rise, 0]);
   const scale = useTransform(p, [0, 1], [scaleFrom, 1]);
   const rotate = useTransform(p, [0, 1], [rotateFrom, 0]);
   const opacity = useTransform(p, [0, 0.55, 1], [0, 0.85, 1]);
-  const filter = useTransform(p, (v) => `blur(${((1 - v) * blurFrom).toFixed(2)}px)`);
-
-  useEffect(() => {
-    if (reduce) return;
-
-    const onScroll = () => {
-      const rect = ref.current?.getBoundingClientRect();
-      if (!rect) return;
-      // L'animation se joue entre « le haut de l'élément touche le bas de
-      // l'écran » et « l'élément est remonté d'un quart d'écran ».
-      const startAt = window.innerHeight;
-      const endAt = window.innerHeight * 0.45;
-      const progress = (startAt - rect.top) / Math.max(startAt - endAt, 1);
-      raw.set(Math.min(Math.max(progress, 0), 1));
-    };
-
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, [reduce, raw]);
+  const filter = useTransform(p, (v) =>
+    v > 0.995 ? 'none' : `blur(${((1 - v) * blurFrom).toFixed(2)}px)`,
+  );
 
   if (reduce) return <div className={className}>{children}</div>;
 
@@ -401,6 +380,234 @@ export function ScrollScene({
     >
       {children}
     </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   USE SCROLL PROGRESS — 0 quand l'élément entre par le bas de l'écran,
+   1 quand il est posé. Base commune de tous les effets de défilement.
+   --------------------------------------------------------------- */
+function useScrollProgress(
+  ref: React.RefObject<HTMLElement | null>,
+  { start = 1, end = 0.45 }: { start?: number; end?: number } = {},
+) {
+  const raw = useMotionValue(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const rect = ref.current?.getBoundingClientRect();
+      if (!rect) return;
+      const startAt = window.innerHeight * start;
+      const endAt = window.innerHeight * end;
+      const progress = (startAt - rect.top) / Math.max(startAt - endAt, 1);
+      raw.set(Math.min(Math.max(progress, 0), 1));
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [ref, raw, start, end]);
+
+  return raw;
+}
+
+/* ---------------------------------------------------------------
+   SCROLL CURTAIN — le bloc se redresse depuis le bas : il arrive
+   basculé en 3D, flou et masqué, puis se pose à plat. C'est l'effet
+   d'entrée le plus visible du site, réservé aux grands ensembles.
+   --------------------------------------------------------------- */
+export function ScrollCurtain({
+  children,
+  className,
+  rotate = 14,
+  rise = 90,
+}: {
+  children: ReactNode;
+  className?: string;
+  rotate?: number;
+  rise?: number;
+}) {
+  const reduce = usePrefersReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const raw = useScrollProgress(ref, { start: 1.05, end: 0.5 });
+  const p = useSpring(raw, { stiffness: 120, damping: 30, mass: 0.6 });
+
+  const rotateX = useTransform(p, [0, 1], [rotate, 0]);
+  const y = useTransform(p, [0, 1], [rise, 0]);
+  const scale = useTransform(p, [0, 1], [0.9, 1]);
+  const opacity = useTransform(p, [0, 0.4, 1], [0, 0.6, 1]);
+  const filter = useTransform(p, (v) =>
+    v > 0.995 ? 'none' : `blur(${((1 - v) * 8).toFixed(2)}px)`,
+  );
+
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <div ref={ref} style={{ perspective: 1400 }} className={className}>
+      <motion.div style={{ rotateX, y, scale, opacity, filter, transformOrigin: 'center bottom' }}>
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   SCROLL WIPE — un volet qui se lève sur le contenu. Le contenu monte
+   pendant que le masque s'ouvre : beaucoup plus net qu'un simple fondu.
+   --------------------------------------------------------------- */
+export function ScrollWipe({
+  children,
+  className,
+  delay = 0,
+  y = 40,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  y?: number;
+}) {
+  const reduce = usePrefersReducedMotion();
+
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <div className={cn('overflow-hidden', className)}>
+      <motion.div
+        initial={{ clipPath: 'inset(100% 0 0 0)', y, opacity: 0 }}
+        whileInView={{ clipPath: 'inset(0% 0 0 0)', y: 0, opacity: 1 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.9, delay, ease: EASE }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   SCROLL STAGGER — une grille dont les enfants se posent un à un,
+   basculés en 3D. À poser autour d'un `grid` ; chaque enfant direct
+   doit être enveloppé dans <ScrollStaggerItem>.
+   --------------------------------------------------------------- */
+export function ScrollStagger({
+  children,
+  className,
+  stagger = 0.08,
+}: {
+  children: ReactNode;
+  className?: string;
+  stagger?: number;
+}) {
+  const reduce = usePrefersReducedMotion();
+
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <motion.div
+      className={className}
+      style={{ perspective: 1200 }}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: '-60px' }}
+      variants={{ show: { transition: { staggerChildren: stagger } } }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function ScrollStaggerItem({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const reduce = usePrefersReducedMotion();
+
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <motion.div
+      className={className}
+      variants={{
+        // Pas de `filter` ici : ces éléments contiennent du texte, et un
+        // `blur(0px)` résiduel peut le rendre légèrement flou au repos.
+        hidden: { opacity: 0, y: 48, rotateX: 18, scale: 0.94 },
+        show: {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          transition: { duration: 0.75, ease: EASE },
+        },
+      }}
+      style={{ transformOrigin: 'center bottom' }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   SCROLL DRIFT — une couche qui dérive à contre-courant du défilement.
+   Sert à décaler les visuels par rapport au texte.
+   --------------------------------------------------------------- */
+export function ScrollDrift({
+  children,
+  className,
+  distance = 90,
+}: {
+  children: ReactNode;
+  className?: string;
+  distance?: number;
+}) {
+  const reduce = usePrefersReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const raw = useScrollProgress(ref, { start: 1.2, end: -0.2 });
+  const p = useSpring(raw, { stiffness: 80, damping: 26, mass: 0.5 });
+  const y = useTransform(p, [0, 1], [distance, -distance]);
+
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <div ref={ref} className={className}>
+      <motion.div style={{ y }}>{children}</motion.div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   SCROLL ZOOM — une image qui se dézoome lentement pendant que la
+   section traverse l'écran. Sur les visuels pleine largeur.
+   --------------------------------------------------------------- */
+export function ScrollZoom({
+  children,
+  className,
+  from = 1.18,
+}: {
+  children: ReactNode;
+  className?: string;
+  from?: number;
+}) {
+  const reduce = usePrefersReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const raw = useScrollProgress(ref, { start: 1.2, end: 0.1 });
+  const p = useSpring(raw, { stiffness: 90, damping: 28, mass: 0.5 });
+  const scale = useTransform(p, [0, 1], [from, 1]);
+
+  if (reduce) return <div className={cn('overflow-hidden', className)}>{children}</div>;
+
+  return (
+    <div ref={ref} className={cn('overflow-hidden', className)}>
+      <motion.div style={{ scale }} className="size-full">
+        {children}
+      </motion.div>
+    </div>
   );
 }
 

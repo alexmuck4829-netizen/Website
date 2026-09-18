@@ -2,6 +2,7 @@ import Image from 'next/image';
 import {
   Check, Gauge, Gem, Package, Rocket, Shapes, SlidersHorizontal, Sparkles, type LucideIcon,
 } from 'lucide-react';
+import { ScrollZoom } from '@/components/ui/motion';
 import { Reveal } from '@/components/ui/reveal';
 import type { Product } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
@@ -76,8 +77,8 @@ export function WhyYoullLoveIt({ benefits }: { benefits: Product['benefits'] }) 
           const Icon = BENEFIT_ICONS[benefit.icon] ?? Sparkles;
           return (
             <Reveal key={benefit.title} delay={i * 0.06}>
-              <div className="surface-card group h-full space-y-3 p-5 transition-colors duration-300 hover:border-brand/25">
-                <span className="grid size-11 place-items-center rounded-xl border border-line bg-surface-overlay text-brand transition-transform duration-300 group-hover:scale-105">
+              <div className="card card-hover group h-full space-y-3 p-5">
+                <span className="relative grid size-11 place-items-center overflow-hidden rounded border border-line bg-surface text-brand transition-all duration-500 ease-spring group-hover:-translate-y-1 group-hover:scale-110 group-hover:rotate-6 group-hover:border-brand group-hover:bg-brand group-hover:text-white motion-reduce:group-hover:transform-none">
                   <Icon className="size-5" />
                 </span>
                 <h3 className="font-display text-base font-medium text-ink">{benefit.title}</h3>
@@ -102,7 +103,7 @@ export function PerfectFor({ items }: { items: string[] }) {
           {items.map((item) => (
             <li
               key={item}
-              className="rounded-xl border border-line bg-surface/70 px-4 py-2.5 text-sm text-ink-muted transition-colors duration-200 hover:border-brand/30 hover:text-ink"
+              className="cursor-default rounded-full border border-line bg-surface px-4 py-2.5 text-sm text-ink-muted transition-all duration-300 ease-spring hover:-translate-y-1 hover:scale-105 hover:border-brand/50 hover:bg-brand-soft hover:text-brand motion-reduce:hover:transform-none"
             >
               {item}
             </li>
@@ -134,17 +135,17 @@ export function ScreenshotShowcase({ product }: { product: Product }) {
       <div className="space-y-5">
         {images.map((image, i) => (
           <Reveal key={image.id} delay={i * 0.04}>
-            <figure className="overflow-hidden rounded-2xl border border-line bg-surface-overlay">
-              <div className="relative aspect-[16/9]">
+            <figure className="group overflow-hidden rounded border border-line bg-surface-overlay transition-colors duration-500 hover:border-brand/40">
+              <ScrollZoom className="relative aspect-[16/9]" from={1.16}>
                 <Image
                   src={image.url}
                   alt={`${product.name} — capture complète ${i + 1}`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 1100px"
                   loading="lazy"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-[1200ms] ease-premium group-hover:scale-105 motion-reduce:group-hover:scale-100"
                 />
-              </div>
+              </ScrollZoom>
             </figure>
           </Reveal>
         ))}

@@ -114,10 +114,22 @@
     @apply relative rounded border border-line bg-base transition-all duration-300 ease-premium;
   }
 
+  .card-hover {
+    will-change: transform;
+  }
   .card-hover:hover {
-    @apply border-lavender;
-    background: rgb(var(--c-surface));
-    transform: translateY(-2px);
+    border-color: rgb(var(--c-brand) / 0.45);
+    background: rgb(var(--c-base));
+    transform: translateY(-8px) scale(1.012);
+    box-shadow:
+      0 2px 4px rgb(var(--c-violet) / 0.06),
+      0 18px 32px -12px rgb(var(--c-brand) / 0.22),
+      0 40px 80px -32px rgb(var(--c-violet) / 0.34);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover:hover {
+      transform: none;
+    }
   }
 
   /* Alias pour que les composants existants suivent la nouvelle DA */
@@ -187,9 +199,10 @@
     content: '';
     @apply pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300;
     background: radial-gradient(
-      420px circle at var(--mx, 50%) var(--my, 50%),
-      rgb(var(--c-brand) / 0.06),
-      transparent 60%
+      380px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--c-brand) / 0.16),
+      rgb(var(--c-electric) / 0.08) 35%,
+      transparent 65%
     );
   }
   .spotlight:hover::after {
@@ -228,11 +241,11 @@
   }
   .shine::after {
     content: '';
-    @apply pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-brand/[0.06] to-transparent;
-    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    @apply pointer-events-none absolute inset-0 -translate-x-[150%] skew-x-12 bg-gradient-to-r from-transparent via-brand/[0.18] to-transparent;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .shine:hover::after {
-    @apply translate-x-full;
+    @apply translate-x-[150%];
   }
 
   /* Filet de section — l'élément structurant principal */
